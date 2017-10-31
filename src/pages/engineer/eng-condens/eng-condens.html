@@ -1,0 +1,194 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      Condens
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime  (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    เพิ่มการบันทึก
+                  </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>สรุปการใช้งานใน 1 วัน</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- Con2 W Meter -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con2 W Meter</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con2_w_meter_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Con3 W Meter -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con3 W Meter</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con3_w_meter_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Con5 Meter M-5 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con5 Meter M-5</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con5_meter_m5_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Con6 Meter M-6 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con6 Meter M-6</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con6_meter_m6_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Con7 Meter M-7 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con7 Meter M-7</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con7_meter_m7_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Con8 W Meter -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Con8 W Meter</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.con8_w_meter_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header">
+        <ion-label>รอบ</ion-label>
+        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label>Condens 2
+          <p> W.Meter</p>
+        </ion-label>
+        <ion-label>Condens 3
+          <p>W.Meter</p>
+        </ion-label>
+        <ion-label>Condens 5
+          <p>Meter M-5</p>
+        </ion-label>
+        <ion-label>Condens 6
+          <p>Meter M-6</p>
+        </ion-label>
+        <ion-label>Condens 7
+          <p>Meter M-7</p>
+        </ion-label>
+        <ion-label>Condens 8
+          <p>W.Meter</p>
+        </ion-label>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content" scrollY="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button clear disabled item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+            <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con2_w_meter || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con3_w_meter || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con5_meter_m5 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con6_meter_m6 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con7_meter_m7 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.con8_w_meter || '-'}}</ion-label>
+            <button clear disabled item-end ion-button default color="light" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <!-- End Yesterday -->
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{recorder.time_record}}</ion-label>
+            <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label>{{recorder.con2_w_meter || '-'}}</ion-label>
+            <ion-label>{{recorder.con3_w_meter || '-'}}</ion-label>
+            <ion-label>{{recorder.con5_meter_m5 || '-'}}</ion-label>
+            <ion-label>{{recorder.con6_meter_m6 || '-'}}</ion-label>
+            <ion-label>{{recorder.con7_meter_m7 || '-'}}</ion-label>
+            <ion-label>{{recorder.con8_w_meter || '-'}}</ion-label>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+
+  </ion-card>
+</ion-content>

@@ -1,0 +1,40 @@
+<!--
+  Generated template for the RepairInvoicePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+        ระบบแจ้งซ่อม
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content padding>
+  <ion-grid *ngIf="user">
+    <ion-row>
+      <ion-col col-6>
+        <ion-item (click)="openPage('RepairInvoiceRequestPage')">
+          <ion-label class="text-large">แจ้งซ่อม</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+    <!-- Request List Only User who has repair approve-->
+    <ion-col col-6 *ngIf="user?.repair_approve==1 || user?.type_id==user_types?.admin">
+        <ion-item (click)="openPage('RepairInvoiceResponsePage')">
+          <ion-label class="text-large">รายการแจ้งซ่อม</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>แก้ไข</ion-title>
+      <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="updateExp(formInputs.value)">บันทึก</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Product -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">สินค้า</ion-label>
+            <ion-input required (focus)="getProduct()" name="product" [(ngModel)]="product.name"></ion-input>
+            <ion-input required hidden name="product_id" [(ngModel)]="product.id"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- MFD -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่ผลิต</ion-label>
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="mfd" [(ngModel)]="recorder.mfd"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!--  Code -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Code</ion-label>
+            <ion-input required type="text" name="code" [(ngModel)]="recorder.code"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

@@ -1,0 +1,64 @@
+<!--
+  Generated template for the CarAccessControlPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <ion-icon item-start><i class="fa fa-exchange" aria-hidden="true"></i></ion-icon>
+        ระบบบันทึกการเติมน้ำมัน
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-card>
+      <ion-card-header>
+        <ion-segment (ionChange)="getCarArrivalByDate()" [(ngModel)]="selectedStatus">
+          <ion-segment-button value='0'>รอการบันทึก</ion-segment-button>
+          <ion-segment-button value='1'>บันทึกแล้ว</ion-segment-button>
+        </ion-segment>
+        <ion-item margin-top>
+          <div ion-text item-content>เลือกวันที่</div>
+          <ion-datetime (ionChange)="getCarArrivalByDate()" class="date-input-large" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <!-- Table Header -->
+          <ion-item class="table-header">
+            <ion-label>วันที่มาถึง</ion-label>
+            <ion-label>เวลา</ion-label>
+            <ion-label>ป้ายทะเบียน</ion-label>
+            <ion-label>คนขับรถ</ion-label>
+            <ion-label>สถานที่ติดต่อ</ion-label>
+            <button ion-button item-end default color="primary"  disabled clear>บันทึกการเติม</button>
+          </ion-item>
+          <!-- Table Content -->
+          <ion-item *ngFor="let record of records" class="table-content">
+            <!-- Date -->
+            <ion-label>{{record?.date_arrival | date:'dd-MM-yyyy'}}</ion-label>
+            <!-- Time Arrival -->
+            <ion-label>{{record?.time_arrival}}</ion-label>
+            <!-- Plate Number -->
+            <ion-label>{{record?.car?.plate_number}}</ion-label>
+            <!-- Driver -->
+            <ion-label>{{record?.car_response?.driver?.name}} {{record?.car_response?.driver?.lastname}}</ion-label>
+            <!-- Destination -->
+            <ion-label>{{record?.car_response?.destination}}</ion-label>
+            <button *ngIf="selectedStatus==0" ion-button item-end default color="primary" (click)="addGasFill(record)">บันทึกการเติม</button>
+            <button *ngIf="selectedStatus==1" ion-button item-end default color="warning" (click)="editGasFill(record)">แก้ไข</button>
+            <button *ngIf="selectedStatus==1" ion-button item-end default color="danger" (click)="deleteGasFill(record)">ลบ</button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>

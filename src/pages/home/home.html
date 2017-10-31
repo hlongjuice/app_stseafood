@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-item no-lines color="primary">
+      <ion-title text-center>
+        <ion-icon item-left name="home"></ion-icon>
+        Home
+      </ion-title>
+      <!-- <button ion-button item-end default color="danger" (click)="logout()">ออกจากระบบ</button> -->
+    </ion-item>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid *ngIf="user">
+    <!-- If User Not Security Type  -->
+    <ion-row *ngIf="user.type_id!=user_types?.security" class="row-menu">
+      <ion-col col-12>
+        <ion-item color='primary'>
+          <ion-label class="text-large">ฝ่ายงานต่างๆ</ion-label>
+        </ion-item>
+      </ion-col>
+      <!--Production-->
+      <ion-col *ngIf="user?.type_id==user_types?.admin || user?.division_id==divisions?.production" col-4>
+        <ion-item (click)="openPage('MainProductionPage')">
+          <ion-label class="text-large">ฝ่ายผลิต</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+      <!--Human Resource-->
+      <ion-col *ngIf="user?.type_id==user_types?.admin || user?.division_id==divisions?.hr" col-4>
+        <ion-item (click)="openPage('MainHrPage')">
+          <ion-label class="text-large">ฝ่ายบุคคล</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+
+      <!--Qc-->
+      <ion-col *ngIf="user?.type_id==user_types?.admin || user?.division_id==divisions?.qc" col-4>
+        <ion-item (click)="openPage('MainQcPage')">
+          <ion-label class="text-large">ฝ่ายประกันคุณภาพ</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+      <!--Engineer-->
+      <ion-col *ngIf="user?.type_id==user_types?.admin || user?.division_id==divisions?.engineer" col-4>
+        <ion-item (click)="openPage('MainEngineerPage')">
+          <ion-label class="text-large">ฝ่ายวิศวกรรม</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <!-- Row 2 General Function -->
+    <ion-row class="row-menu" *ngIf="user?.type_id!=user_types?.security">
+      <ion-col col-12>
+        <ion-item color="primary">
+          <ion-label class="text-large">ระบบทั่วไป</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- Car Request -->
+      <ion-col col-4>
+        <ion-item (click)="openPage('CarRequestPage')">
+          <ion-label class="text-large">ระบบขอใช้รถ</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+      <!-- Car Response -->
+      <ion-col col-4 *ngIf="user?.type_id==user_types?.admin || user?.car_assign==1 || user?.car_approve==1">
+        <ion-item (click)="openPage('CarResponsePage')">
+          <ion-label class="text-large">รายการขอใช้รถ</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+      <!-- Repair Invoice -->
+      <ion-col col-4>
+        <ion-item (click)="openPage('RepairInvoicePage')">
+          <ion-label class="text-large">ระบแจ้งซ่อม</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="row-menu">
+      <!-- Car Access -->
+      <ion-col *ngIf="user?.type_id==user_types?.admin || user?.type_id==user_types.security || user?.division_id==division?.hr"
+        col-4>
+        <ion-item (click)="openPage('CarAccessControlPage')">
+          <ion-label class="text-large">ระบบบันทึกรถเข้าออก</ion-label>
+          <ion-icon></ion-icon>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

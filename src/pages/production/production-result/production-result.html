@@ -1,0 +1,110 @@
+<!--
+  Generated template for the ProductionResultPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+      สรุปการบันทึก
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form #historyForm="ngForm">
+    <ion-card>
+      <ion-card-header>
+
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <!--Date-->
+            <ion-col col-4>
+              <ion-item class="item-input">
+                <ion-label>วันที่</ion-label>
+                <ion-datetime class="date-input-large" (ionChange)="getTimePeriod(dateHistory)" displayFormat="DD/MM/YYYY" [(ngModel)]="dateHistory" name="date"></ion-datetime>
+                <ion-icon item-start color="primary" item-right><i class="fa fa-calendar" aria-hidden="true"></i></ion-icon>
+              </ion-item>
+            </ion-col>
+            <!--Time Periods-->
+            <ion-col col-5>
+              <ion-item class="item-input">
+                <ion-label>ช่วงเวลา</ion-label>
+                <ion-select class="date-input-large" item-end name="timePeriodID" (ionChange)="getWorkList()" [(ngModel)]="timePeriodID">
+                  <ion-option *ngFor="let timePeriod of timePeriods" [value]="timePeriod.id">{{timePeriod.time_start}}</ion-option>
+                </ion-select>
+                <ion-icon item-start color="primary" item-right><i class="fa fa-clock-o" aria-hidden="true"></i></ion-icon>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+  <!--Detiail-->
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <h1 ion-text color="primary">รายละเอียด</h1>
+        <div item-content class="line-header"></div>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <!--Table Header-->
+        <ion-item class="table-header" padding>
+          <ion-label>เวลา</ion-label>
+          <ion-label item-content>งาน</ion-label>
+          <ion-label item-content>ชนิด</ion-label>
+          <ion-label item-content>ขนาด</ion-label>
+          <ion-label item-content>กลุ่ม</ion-label>
+          <ion-label item-content>น้ำหนักรวม(กก.)</ion-label>
+          <ion-label item-end>น้ำหนักเฉลี่ย(กก.)</ion-label>
+          <div item-start class="pull-item-header"></div>
+          <div item-content class="table-header-line"></div>
+          <button ion-button item-end default color="light" clear >
+              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </ion-item>
+
+
+        <!--Content-->
+
+        <ion-list (click)="setHighlight(i)" class="table-content" *ngFor="let work of works; let i=index">
+          <ion-item-sliding #item>
+            <ion-item [ngClass]="{'highlight':isHighlightVisible[i]}" padding>
+              <div item-start class="pull-item"></div>
+              <ion-label>{{time_start}} - {{work.p_time_end}}</ion-label>
+              <ion-label item-content> {{work.production_activity.name}}</ion-label>
+              <ion-label item-content> {{work.production_shrimp_type.name}}</ion-label>
+              <ion-label item-content> {{work.production_shrimp_size.name}}</ion-label>
+              <ion-label item-content> {{work.p_group_id}}</ion-label>
+              <ion-label item-content> {{work.amountWeight}}</ion-label>
+              <ion-label ion-button clear (click)="getWorkDetails(work)"  item-end color="danger" class="text-large">{{work.averageWeight}}</ion-label>
+              <button ion-button item-end default color="info" (click)="getWorkDetails(work)" clear>
+                  <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              </button>
+            </ion-item>
+            <ion-item-options side="left">
+              <button (click)="deleteWork(work.id,i)" ion-button color="danger">ลบ</button>
+              <button ion-button color="warning" (click)="editWork(work,i)">แก้ไข</button>
+            </ion-item-options>
+          </ion-item-sliding>
+          <div class="table-content-line"></div>
+        </ion-list>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

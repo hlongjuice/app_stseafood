@@ -1,0 +1,214 @@
+<!--
+  Generated template for the QcAddReceivingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button color="danger" item-start default ion-button (click)="dismiss()">ปิด</button>
+      <ion-title>เพิ่มการบันทึกกุ้งเป็น</ion-title>
+      <button [disabled]="!receivingForm.form.valid" item-end default type="submit" color="success" ion-button (click)="addReceiving(receivingForm.value)">บันทึก</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #receivingForm="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Round -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เที่ยว</ion-label>
+            <ion-input type="number" required name="round" [(ngModel)]="round"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่</ion-label>
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Supplier -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">แหล่งที่มา</ion-label>
+            <ion-input required text-right (focus)="getSuppliers()" name="supplier_name" [(ngModel)]="supplier_name"></ion-input>
+            <ion-input required hidden name="supplier_id" [(ngModel)]="supplier_id"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Supplier Pond -->
+        <ion-col col-3>
+          <ion-item>
+            <ion-label color="primary">บ่อ</ion-label>
+            <ion-input required type="text" text-right name="sp_pond" [(ngModel)]="sp_pond"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Supplier Source ID -->
+        <ion-col col-3>
+          <ion-item>
+            <ion-label color="primary">code</ion-label>
+            <ion-input required text-right type="number" name="sp_code" [(ngModel)]="sp_code"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Water Temperature -->
+        <ion-col col-6>
+          <button (click)="addWaterTemp()" type="button" ion-button color="primary">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            อุณหภูมิน้ำ
+          </button>
+        </ion-col>
+        <!-- Water Temperature -->
+        <ion-col col-12>
+          <ion-row>
+            <ion-col no-padding col-6 *ngFor="let waterTemp of waterTemps; let i =index">
+              <ion-row *ngIf="waterTemps!=null">
+                <ion-col no-padding col-9>
+                  <ion-item>
+                    <ion-label color="primary">อุณหภูมิน้ำ</ion-label>
+                    <ion-input required type="number" maxlength="4" text-right [ngModelOptions]="{standalone:true}" [(ngModel)]="waterTemp.water_temp"></ion-input>
+                    <div ion-text item-end>°C</div>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-3>
+                  <button ion-button color="danger" (click)="removeWaterTemp(i)">ลบ</button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <!-- Shrimp Size -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ขนาดกุ้ง</ion-label>
+            <ion-input  text-right type="number" name="shrimp_size" [(ngModel)]="shrimp_size"></ion-input>
+            <div ion-text item-end>ตัว/กก.</div>
+          </ion-item>
+        </ion-col>
+        <!-- Shrimp Big -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ใหญ่</ion-label>
+            <ion-input (change)="setUF(shrimp_big,shrimp_small)"  text-right type="number" name="shrimp_big" [(ngModel)]="shrimp_big"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Shrimp Small -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เล็ก</ion-label>
+            <ion-input (change)="setUF(shrimp_big,shrimp_small)"  text-right type="number" name="shrimp_small" [(ngModel)]="shrimp_small"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Shrimp UF -->
+        <ion-col col-6>
+          <ion-item *ngIf="shrimp_small && shrimp_big">
+            <ion-label color="primary">U.F </ion-label>
+            <ion-input required disabled text-right name="shrimp_uf" type="number" [(ngModel)]="shrimp_uf"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Defected -->
+        <ion-col margin-top col-12>
+          <ion-item color="primary" text-center>
+            <ion-label>ข้อบกพร่อง</ion-label>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp Dead -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">กุ้งตาย</ion-label>
+            <ion-input text-right name="df_shrimp_dead" type="number" [(ngModel)]="df_shrimp_dead"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp Semi Soft -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">นิ่ม</ion-label>
+            <ion-input type="number" text-right name="df_shrimp_semi_soft" [(ngModel)]="df_shrimp_semi_soft"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp Soft Shell -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">นิ่มวุ้น</ion-label>
+            <ion-input type="number" text-right name="df_shrimp_soft_shell" [(ngModel)]="df_shrimp_soft_shell"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp Scar -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">แผล</ion-label>
+            <ion-input type="number" text-right name="df_shrimp_scar" [(ngModel)]="df_shrimp_scar"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp BK Line -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">แก้มขีดดำ</ion-label>
+            <ion-input type="number" text-right name="df_shrimp_bk_line" [(ngModel)]="df_shrimp_bk_line"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+        <!-- DF Shrimp Disabled -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">พิการ</ion-label>
+            <ion-input type="number" text-right name="df_shrimp_disabled" [(ngModel)]="df_shrimp_disabled"> </ion-input>
+            <div ion-text item-end>กรัม</div>
+          </ion-item>
+        </ion-col>
+
+        <!-- Car Release -->
+        <ion-col col-12>
+          <ion-item margin-top color="primary" text-center>
+            <ion-label>เวลารถ</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลาปล่อยรถ</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="car_release" [(ngModel)]="car_release"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Car Waiting Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลารอลง</ion-label>
+            <ion-input text-right type="number" name="car_waiting_time" [(ngModel)]="car_waiting_time"></ion-input>
+            <div ion-text item-end>นาที</div>
+          </ion-item>
+        </ion-col>
+        <!-- Real Shrimp Dead -->
+        <ion-col margin-top col-12>
+          <ion-item color="primary" text-center>
+            <ion-label>น้ำหนักจากการชั่งจริง</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">น้ำหนักกุ้งตาย</ion-label>
+            <ion-input item-content type="number" required text-right name="real_shrimp_dead" [(ngModel)]="real_shrimp_dead"> </ion-input>
+            <div ion-text item-end>กก.</div>
+          </ion-item>
+        </ion-col>
+        <!-- Weight -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">น้ำหนักหักตะกร้า</ion-label>
+            <ion-input item-content type="number" required text-right name="weight" [(ngModel)]="weight"> </ion-input>
+            <div ion-text item-end>กก.</div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

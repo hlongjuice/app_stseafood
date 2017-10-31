@@ -1,0 +1,83 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <button *ngIf="recorder?.status_id==statuses?.waiting" ion-button item-start default color="warning" (click)="rejectRequest()">ปฏิเสธ</button>
+
+      <ion-title>รายละเอียด</ion-title>
+      <button *ngIf="recorder?.status_id!=statuses?.approved" ion-button item-end default color="success" (click)="approveRequest()">อนุมัติ</button>
+      <button *ngIf="recorder?.status_id==statuses?.approved" ion-button item-end default color="warning" (click)="canCelApproved()">ยกเลิกการอนุมัติ</button>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label [color]="recorder?.status?.color">สถานะการอนุมัติ {{recorder?.status?.name}}</ion-label>
+      <ion-label>ผุ้อนุมัติ : <span ion-item *ngIf="recorder?.status_id==statuses?.approved">{{recorder?.approver?.name}} {{recorder?.approver?.lastname}}</span></ion-label>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label>ผู้ใช้งาน {{user.name}} {{user.lastname}}</ion-label>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่</ion-label>
+            <ion-datetime disabled required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="recorder.date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลา</ion-label>
+            <ion-datetime disabled required displayFormat="HH:mm" name="time" [(ngModel)]="recorder.time"></ion-datetime>
+          </ion-item>
+        </ion-col>          
+        <!-- Sender -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ผู้ส่งซ่อม</ion-label>
+            <ion-input disabled required type="text" text-right name="name" [(ngModel)]="sender_name"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Division -->
+        <ion-col col-6>
+            <ion-item>
+              <ion-label color="primary">แผนก</ion-label>
+              <ion-input disabled required type="text" text-right name="division" *ngIf="recorder.division" [(ngModel)]="recorder.division.name"> </ion-input>
+            </ion-item>
+          </ion-col>
+        <!-- Item -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เครื่องจักร</ion-label>
+            <ion-input disabled required type="text" text-right name="item" [(ngModel)]="recorder.item"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Item Details -->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">รายละเอียด</ion-label>
+            <ion-textarea disabled name="item_details" [(ngModel)]="recorder.item_details"></ion-textarea>
+          </ion-item>
+        </ion-col>
+        <!-- Image -->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">รูปภาพ</ion-label>
+            <!-- <button ion-button item-end default color="info" (click)="takeImage()">อัพโหลดรูปภาพ</button> -->
+          </ion-item>
+          <ion-item *ngIf="recorder.image">
+            <img class="repair-image" item-content [src]="old_image">
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

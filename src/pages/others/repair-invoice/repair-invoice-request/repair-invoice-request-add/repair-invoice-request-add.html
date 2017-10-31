@@ -1,0 +1,76 @@
+<ion-header>
+    
+      <ion-navbar>
+        <ion-item no-lines>
+          <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+          <ion-title>เพิ่มบันทึก</ion-title>
+          <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="addRequest(formInputs.value)">บันทึก</button>
+        </ion-item>
+        <ion-item no-lines text-center>
+          <ion-label>ผู้ส่ง {{user?.name}} {{user?.lastname}}</ion-label>
+          <ion-label>ฝ่าย {{user?.division.name}}</ion-label>
+        </ion-item>
+      </ion-navbar>
+    
+    </ion-header>
+    
+    
+    <ion-content padding>
+      <form #formInputs="ngForm">
+        
+        <ion-grid>
+          <ion-row>
+            <!-- Date -->
+            <ion-col col-6>
+              <ion-item>
+                <ion-label color="primary">วันที่</ion-label>
+                <ion-datetime required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <!-- Time -->
+            <ion-col col-6>
+              <ion-item>
+                <ion-label color="primary">เวลา</ion-label>
+                <ion-datetime required displayFormat="HH:mm" name="time" [(ngModel)]="time"></ion-datetime>                
+              </ion-item>
+            </ion-col>
+            <!-- To Receiver -->
+            <ion-col col-6>
+                <ion-item>
+                  <ion-label color="primary">ถึง</ion-label>
+                  <ion-select name="selected_receiver" [(ngModel)]="selected_receiver">
+                    <ion-option *ngFor="let repair_receiver of repair_receivers; " [value]="repair_receiver">{{repair_receiver?.name}}</ion-option>
+                    </ion-select>             
+                </ion-item>
+              </ion-col>
+            <!-- Item -->
+            <ion-col col-6>
+              <ion-item>
+                <ion-label color="primary">เครื่องจักร</ion-label>
+                <ion-input required type="text" text-right name="item" [(ngModel)]="item"> </ion-input>                
+              </ion-item>
+            </ion-col>
+            <!-- Item Details -->
+            <ion-col col-12>
+              <ion-item>
+                <ion-label color="primary">รายละเอียด</ion-label>
+                <ion-textarea required name="item_details" [(ngModel)]="item_details"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            <!-- Image -->
+            <ion-col col-12>
+              <ion-item>
+                <ion-label color="primary">รูปภาพ</ion-label>
+                <button ion-button item-end default color="info" (click)="takePhoto()">อัพโหลดรูป</button>
+              </ion-item>
+              <ion-item *ngIf="item_image" no-lines text-center>
+                <img class="repair-image" [src]="item_image">
+              </ion-item>
+              <ion-item no-lines>
+                <button ion-button item-end default color="danger" (click)="deletePhoto()">ลบรูปภาพ</button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-content>

@@ -1,0 +1,86 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>แก้ไข</ion-title>
+      <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="updateRecord(formInputs.value)">บันทึก</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่</ion-label>
+            <ion-datetime (ionChange)="getRecords()" required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time Record -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">รอบ</ion-label>
+            <ion-select required name="time_record" [(ngModel)]="recorder.time_record">
+              <ion-option *ngFor="let time_record of time_records" [value]="time_record">{{time_record}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!-- Real Time Record -->
+<!--         <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลาบันทึกจริง</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="real_time_record" [(ngModel)]="recorder.real_time_record"></ion-datetime>
+          </ion-item>
+        </ion-col> -->
+        <!-- Con2 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 2 <p>W.Meter</p></ion-label>
+            <ion-input type="number" text-right name="con2_w_meter" [(ngModel)]="recorder.con2_w_meter"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Con3 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 3 <p>W.Meter</p></ion-label>
+            <ion-input type="number" text-right name="con3_w_meter" [(ngModel)]="recorder.con3_w_meter"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Con5 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 5 <p>Meter M-5</p></ion-label>
+            <ion-input type="number" text-right name="con5_meter_m5" [(ngModel)]="recorder.con5_meter_m5"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Con6 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 6 <p>Meter M-6</p> </ion-label>
+            <ion-input type="number" text-right name="con6_meter_m6" [(ngModel)]="recorder.con6_meter_m6"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Con7 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 7 <p>Meter M-7</p></ion-label>
+            <ion-input type="number" text-right name="con7_meter_m7" [(ngModel)]="recorder.con7_meter_m7"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Con8 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Condens 8  <p>W.Meter</p></ion-label>
+            <ion-input type="number" text-right name="con8_w_meter" [(ngModel)]="recorder.con8_w_meter"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-content>
+  <ion-row justify-content-center align-items-center class="login">
+    <form #loginInput="ngForm" (ngSubmit)="login(loginInput)">
+    <ion-list text-center>
+      <ion-img width="150" height="150" src="assets/images/logo.jpg"></ion-img>
+      <ion-list-header margin-buttom>
+        <h1>Surat Seafood</h1>
+      </ion-list-header>
+      <!--UserName-->
+      <ion-item>
+        <ion-label color="primary">Username</ion-label>
+        <ion-input name="username" placeholder="Username" ngModel></ion-input>
+      </ion-item>
+      <!--Password-->
+      <ion-item>
+        <ion-label color="primary">Password</ion-label>
+        <ion-input name="password" type="password" placeholder="Passwrod" ngModel></ion-input>
+      </ion-item>
+        <!--Password-->
+        <button type="submit" margin-top ion-button block>เข้าสู่ระบบ</button>
+    </ion-list>
+    </form>
+  </ion-row>
+</ion-content>

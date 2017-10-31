@@ -1,0 +1,223 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      ระบบกำหนดวันหมดอายุและการตรวจสอบ
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <div ion-text color="dark" item-content>เลือกสินค้า</div>
+              <ion-select (ionChange)="showDetails(recorder)" [(ngModel)]=recorder>
+                <ion-option *ngFor="let recorder of recorders" [value]="recorder">{{recorder?.product}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                เพิ่มการบันทึก
+              </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!-- Bottom Card -->
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <!-- Col Left -->
+        <ion-col col-2>
+          <ion-card>
+            <ion-card-content no-padding>
+              <ion-list inset>
+                <ion-item text-center class="table-header eng-scroll-header">
+                  <ion-label>Code</ion-label>
+                </ion-item>
+                <ion-scroll class="left-scroll-content" scrollY="true">
+                  <ion-card-content no-padding>
+                    <ion-item [ngClass]="{'highlight':isHighlightVisible[i]}" (click)="showRounds(code,i)" *ngFor="let code of codes; let i=index"
+                      text-center class="table-content">
+                      <ion-label>{{code?.code}}</ion-label>
+                    </ion-item>
+                  </ion-card-content>
+                </ion-scroll>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Col Center -->
+        <ion-col col-7>
+          <ion-card>
+            <ion-card-header>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12 text-left>
+                    <ion-item>
+                      <ion-label color="primary">สินค้า:
+                        <span ion-text color="dark" class="text-large">{{product}}</span>
+                      </ion-label>
+                      <ion-label color="primary">Code:
+                        <span ion-text color="dark">{{product_code}}</span>
+                      </ion-label>
+                      <!-- Fab Code -->
+                      <ion-fab *ngIf="rounds.length>0" item-content right>
+                        <button ion-fab mini>
+                          <ion-icon class="edit-button">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                          </ion-icon>
+                        </button>
+                        <ion-fab-list side="left">
+                          <button ion-button color="warning" (click)="editExp(selectedCode)">แก้ไขCode</button>
+                          <button ion-button color="danger" (click)="deleteExp(selectedCode)">ลบทั้งCode</button>
+                        </ion-fab-list>
+                      </ion-fab>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-item>
+                      <div ion-text item-content>วันที่ผลิต:</div>
+                      <ion-datetime disabled displayFormat="DD/MM/YYYY" [(ngModel)]="mfd"></ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col col-6>
+                    <ion-item>
+                      <div ion-text item-content>วันหมดอายุ:</div>
+                      <ion-datetime class="date-input-large" disabled [displayFormat]="product_date_format" [(ngModel)]="exp_date"></ion-datetime>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <div class="line-blue"></div>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list inset>
+                <ion-item text-center class="table-header eng-scroll-header">
+                  <ion-label fixed>ลำดับที่</ion-label>
+                  <ion-label>สติ๊กเกอร์</ion-label>
+                  <ion-label>กล่องใน</ion-label>
+                  <ion-label>กล่องนอก</ion-label>
+                  <ion-fab item-content right></ion-fab>
+                </ion-item>
+                <ion-scroll class="production-scroll-content" scrollY="true">
+                  <ion-item *ngFor="let round of rounds" text-center class="table-content">
+                    <ion-label fixed>{{round?.round}}</ion-label>
+                    <ion-label>{{round?.sumSticker}}</ion-label>
+                    <ion-label>{{round?.sumInSide}}</ion-label>
+                    <ion-label>{{round?.sumOutSide}}</ion-label>
+                    <!-- Fab -->
+                    <ion-fab item-content right>
+                      <button ion-fab mini>
+                        <ion-icon class="edit-button">
+                          <i class="fa fa-cog" aria-hidden="true"></i>
+                        </ion-icon>
+                      </button>
+                      <ion-fab-list item-content side="left">
+                        <button ion-button color="warning" (click)="editExpBuild(round,product)">แก้ไข</button>
+                        <!-- <button ion-button color="danger" (click)="deleteExpBuild(round)">ลบ</button> -->
+                      </ion-fab-list>
+                    </ion-fab>
+                  </ion-item>
+                </ion-scroll>
+                <!-- Add New Build -->
+                <ion-fab *ngIf="product_code" left bottom>
+                  <button (click)="addExpSpecific()" ion-fab>
+                    <ion-icon name="add"></ion-icon>
+                  </button>
+                </ion-fab>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Col Right Image -->
+        <ion-col *ngIf="p_exp_id" col-3>
+          <!-- Image -->
+          <ion-card>
+            <ion-scroll class="right-scroll-content" scrollY="true">
+              <ion-card-content>
+                <!-- Add Image -->
+                <ion-item no-padding>
+                  <button *ngIf="imgOutSide!=null || imgInSide!=null || imgSticker!=null;else addImg" ion-button item-end default color="primary"
+                    (click)="editImage()">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    แก้ไขรูป
+                  </button>
+                  <!-- Update Image -->
+                  <ng-template #addImg>
+                    <button ion-button item-end default color="primary" (click)="addImage()">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      เพิ่มรูปภาพ
+                    </button>
+                  </ng-template>
+                </ion-item>
+                <!-- Img Sticker -->
+                <ion-list *ngIf="imgSticker" no-padding>
+                  <ion-list-header no-padding>
+                    <ion-item>สติ๊กเกอร์</ion-item>
+                    <div class="line-2"></div>
+                  </ion-list-header>
+                  <img (click)="showImage(imgSticker,'สติ๊กเกอร์')" class="exp-image" [src]="imgSticker">
+                </ion-list>
+                <!-- Img Inside -->
+                <ion-list *ngIf="imgInSide" no-padding>
+                  <ion-list-header no-padding>
+                    <ion-item>กล่องใน</ion-item>
+                    <div class="line-2"></div>
+                  </ion-list-header>
+                  <img (click)="showImage(imgInSide,'กล่องใน')" class="exp-image" [src]="imgInSide">
+                </ion-list>
+                <!-- Img OutSide -->
+                <ion-list *ngIf="imgOutSide" no-padding>
+                  <ion-list-header no-padding>
+                    <ion-item>กล่องนอก</ion-item>
+                    <div class="line-2"></div>
+                  </ion-list-header>
+                  <img (click)="showImage(imgOutSide,'กล่องนอก')" class="exp-image" [src]="imgOutSide">
+                </ion-list>
+              </ion-card-content>
+            </ion-scroll>
+          </ion-card>
+          <!-- Comfirm Check -->
+          <ion-card>
+            <ion-card-content>
+              <ion-list inset no-paddding>
+                <ion-item>
+                  <label item-start>ผู้ตรวจสอบ</label>
+                  <button (click)="updateChecker(pd_checker,qc_checker)" ion-button item-end color="success">บันทึก</button>
+                </ion-item>
+                <ion-item>
+                  <ion-label>PD :</ion-label>
+                  <ion-input type="text" name="pd_checker" [(ngModel)]="pd_checker">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>QC : </ion-label>
+                  <ion-input type="text" name="qc_checker" [(ngModel)]="qc_checker"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

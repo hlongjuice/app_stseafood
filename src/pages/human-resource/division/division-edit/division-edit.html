@@ -1,0 +1,32 @@
+<!--
+  Generated template for the DivisionAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>แก้ไขแผนก</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #divisionEditForm="ngForm" (ngSubmit)="onSubmit(divisionEditForm)">
+    <ion-list>
+      <!--divisionName-->
+      <ion-item>
+        <ion-label>แผนก</ion-label>
+        <ion-input required text-right type="text" name="divisionName" [(ngModel)]="divisionNameInput"></ion-input>
+    </ion-item>
+      <!--Submit Buttom-->
+      <ion-item>
+        <button type="button" (click)="onClosed()" color="danger" item-left ion-button>ย้อนกลับ</button>
+        <button [disabled]="!divisionEditForm.valid" type="submit" ion-button item-right>บึนทึก</button>
+      </ion-item>
+
+    </ion-list>
+  </form>
+</ion-content>

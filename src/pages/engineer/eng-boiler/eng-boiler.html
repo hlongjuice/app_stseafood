@@ -1,0 +1,233 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+              <ion-icon name="menu"></ion-icon>
+            </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      Boiler
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                      <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                      เพิ่มการบันทึก
+                    </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>สรุปการใช้งานใน 1 วัน</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- Boiler1 Meter -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Boiler1 Meter</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.boiler1_meter_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Boiler2 Meter -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Boiler2 Meter</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.boiler2_meter_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header">
+        <!-- Time -->
+        <div item-content class="group-header-40">
+          <h2></h2>
+          <div class="group-header-content">
+            <ion-label>รอบ</ion-label>
+            <ion-label>เวลาบันทึกจริง</ion-label>
+          </div>
+        </div>
+        <!-- Boiler 1 -->
+        <div text-center item-content class="group-header-30">
+          <h2>Feed Water</h2>
+          <div class="group-header-content">
+            <ion-label>Boiler 1</ion-label>
+            <ion-label>Meter</ion-label>
+            <ion-label>Tank L
+              <p>(>500)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Boiler 2 -->
+        <div text-center item-content class="group-header-30">
+          <h2>Feed Water</h2>
+          <div class="group-header-content">
+            <ion-label>Boiler 2</ion-label>
+            <ion-label>Meter</ion-label>
+            <ion-label>Tank L
+              <p>(>500)</p>
+            </ion-label>
+          </div>
+        </div>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content" scrollY="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button disabled clear item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-40">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+                <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Boiler 1 -->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <!-- Boiler 1 -->
+                <ion-label *ngIf="yesterday_meter?.boiler1==1;else boiler1Disabled" color="success">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ng-template #boiler1Disabled>
+                  <ion-label color="danger"><i class="fa fa-times-circle" aria-hidden="true"></i></ion-label>
+                </ng-template>
+                <!-- Meter -->
+                <ion-label>{{yesterday_meter?.boiler1_meter}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.boiler1_tank_l>500;else warningTankL1">
+                  {{yesterday_meter.boiler1_tank_l}}
+                </ion-label>
+                <ng-template #warningTankL1>
+                  <ion-label color="danger">{{yesterday_meter?.boiler1_tank_l}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Boiler 2 -->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <ion-label *ngIf="yesterday_meter?.boiler2==1;else boiler2Disabled" color="success">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ng-template #boiler2Disabled>
+                  <ion-label color="danger">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                  </ion-label>
+                </ng-template>
+                <!-- Meter -->
+                <ion-label>{{yesterday_meter?.boiler2_meter}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.boiler2_tank_l>500;else warningTankL2">
+                  {{yesterday_meter?.boiler2_tank_l}}
+                </ion-label>
+                <ng-template #warningTankL2>
+                  <ion-label color="danger">{{yesterday_meter?.boiler2_tank_l}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <button disabled clear item-end ion-button default color="light" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <!-- End Yesterday -->
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-40">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{recorder.time_record}}</ion-label>
+                <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Boiler 1 -->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <!-- Boiler 1 -->
+                <ion-label *ngIf="recorder.boiler1==1;else boiler1Disabled" color="success">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ng-template #boiler1Disabled>
+                  <ion-label color="danger"><i class="fa fa-times-circle" aria-hidden="true"></i></ion-label>
+                </ng-template>
+                <!-- Meter -->
+                <ion-label>{{recorder.boiler1_meter}}</ion-label>
+                <ion-label *ngIf="recorder.boiler1_tank_l>500;else warningTankL1">
+                  {{recorder.boiler1_tank_l}}
+                </ion-label>
+                <ng-template #warningTankL1>
+                  <ion-label color="danger">{{recorder.boiler1_tank_l}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Boiler 2 -->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <ion-label *ngIf="recorder.boiler2==1;else boiler2Disabled" color="success">
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ng-template #boiler2Disabled>
+                  <ion-label color="danger">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                  </ion-label>
+                </ng-template>
+                <!-- Meter -->
+                <ion-label>{{recorder.boiler2_meter}}</ion-label>
+                <ion-label *ngIf="recorder.boiler2_tank_l>500;else warningTankL2">
+                  {{recorder.boiler2_tank_l}}
+                </ion-label>
+                <ng-template #warningTankL2>
+                  <ion-label color="danger">{{recorder.boiler2_tank_l}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+  </ion-card>
+</ion-content>

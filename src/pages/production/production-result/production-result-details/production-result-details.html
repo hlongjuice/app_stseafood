@@ -1,0 +1,214 @@
+<!--
+  Generated template for the ProductionResultDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-left name="home"></ion-icon>
+      รายละเอียดการบันทึก
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <!--Header-->
+    <ion-card-header>
+      <ion-grid>
+        <ion-row class="row-header">
+          <!--Date and Time-->
+          <ion-col col-7>
+            <ion-row>
+              <ion-col class="date-time" text-center col-5>
+                <h3 class="date">{{date}}</h3>
+                <ion-item>
+                  <ion-icon item-start><i class="fa fa-clock-o" aria-hidden="true"></i></ion-icon>
+                  <h1 item-start>{{time_start}} - {{time_end}}</h1>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-5>
+            <!--Detail Right Column-->
+            <!--header-->
+            <ion-row class="row-header details-header">
+              <ion-col col-3>
+                งาน
+              </ion-col>
+              <ion-col col-3>
+                ชนิด
+              </ion-col>
+              <ion-col col-3>
+                ขนาด
+              </ion-col>
+              <ion-col col-3>
+                น้ำหนักเฉลี่ย
+              </ion-col>
+              <div class="row-header-line"></div>
+            </ion-row>
+            <!--content-->
+            <ion-row>
+              <ion-col col-3>
+                {{work.production_activity.name}}
+              </ion-col>
+              <ion-col col-3>
+                {{work.production_shrimp_type.name}}
+              </ion-col>
+              <ion-col col-3>
+                {{work.production_shrimp_size.name}}
+              </ion-col>
+              <ion-col col-3>
+                {{work.averageWeight}} กก./คน
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <div class="row-header-line"></div>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <!--Content-->
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <!--Employee ID List-->
+          <ion-col col-6>
+            <ion-list>
+              <!--Table Header-->
+              <ion-row class="table-header">
+                <!--Left Column-->
+                <ion-col col-6>
+                  <ion-row>
+                    <ion-col col-6>
+                      <ion-item>รหัส</ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item>น้ำหนักรวม</ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <!--Right Column-->
+                <ion-col col-6>
+                  <ion-row>
+                    <ion-col col-6>
+                      <ion-item>รหัส</ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item>น้ำหนักรวม</ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+                <div class="table-header-line"></div>
+              </ion-row>
+              <!--Employee ID List-->
+              <ion-row>
+                <ion-col [ngClass]="{'highlight warning':isHighlightVisible[i]}" col-6 (click)="getDetails(employee.em_id,i)" *ngFor="let employee of employees;let i=index">
+                  <ion-row class="row-content">
+                    <ion-col col-6>
+                      <ion-item>
+                        <ion-label color="danger">{{employee.em_id}}</ion-label>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item text-center>
+                        <ion-label>{{employee.amout_weight}}</ion-label>
+                      </ion-item>
+                    </ion-col>
+                    <div class="row-content-line"></div>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-list>
+          </ion-col>
+          <!--Employee Details-->
+          <ion-col col-6>
+            <ion-card>
+              <ion-card-header no-padding padding-left padding-right padding-top>
+                <ion-item>
+                  <ion-label color="gray"> รหัสนักงาน </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    <h1 ion-text color="danger">{{selected_em_id}}</h1>
+                  </ion-label>
+                </ion-item>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-grid>
+                  <!--Header Column-->
+                  <ion-row class="row-header">
+                    <ion-col col-4>
+                      <ion-item>
+                        <ion-label color="gray">ชั่งครั้งที่</ion-label>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                      <ion-item>
+                        <ion-label color="gray">น้ำหนัก</ion-label>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                      <ion-item>
+                        <ion-label color="gray">ลบ</ion-label>
+                      </ion-item>
+                    </ion-col>
+                    <div class="row-header-line"></div>
+                  </ion-row>
+                  <!--Content-->
+                  <ion-row class="row-content" *ngFor="let em_weight of em_weight_list; let i=index">
+                    <ion-col col-4>
+                      <ion-item>{{i+1}}</ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                      <ion-item >{{em_weight.weight}}</ion-item>
+                    </ion-col>
+                    <ion-col col-4>
+                      <ion-item><button type="button" (click)="deleteWeight(em_weight.id,i)" ion-button block color="danger">ลบ</button></ion-item>
+                    </ion-col>
+                    <div class="row-content-line"></div>
+                  </ion-row>
+                  <ion-row *ngIf="em_amount_weight">
+                    <ion-col col-6>
+                      <ion-item text-right>
+                        รวมน้ำหนัก
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item text-right>
+                        <ion-label>
+                          <h1 ion-text color="danger">{{em_amount_weight}} กก.</h1>
+                        </ion-label>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngIf="em_avg_weight">
+                    <ion-col col-6>
+                      <ion-item text-right>
+                        ค่าเฉลี่ย
+                      </ion-item>
+                    </ion-col>
+                    <ion-col col-6>
+                      <ion-item text-right>
+                        <ion-label>
+                          <h1 ion-text color="primary">{{em_avg_weight}} กก./ชม.</h1>
+                        </ion-label>
+                      </ion-item>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,145 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      Chlorine Lab
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                  เพิ่มการบันทึก
+                </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header">
+        <ion-label>รอบ</ion-label>
+        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label>Chlorine Lab (0.5-2.0)</ion-label>
+        <ion-label>PH P1(6.5-8.0)</ion-label>
+        <ion-label>PH P2(6.5-8.0)</ion-label>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content" scrollY="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button disabled clear item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+            <ion-label>{{yesterday_meter?.lab?.updated_at}}</ion-label>
+            <!-- Lab -->
+            <ion-label>
+              <div *ngIf="yesterday_meter?.lab">
+                <div *ngIf="yesterday_meter?.lab?.chlorine>=0.5 && yesterday_meter?.lab?.chlorine<=2.0;else warningChlorine">
+                  {{yesterday_meter?.lab?.chlorine || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningChlorine>
+              <ion-label color="danger">{{yesterday_meter?.lab?.chlorine || '-'}}</ion-label>
+            </ng-template>
+            <!-- P1 -->
+            <ion-label>
+              <div *ngIf="yesterday_meter?.lab">
+                <div *ngIf="yesterday_meter?.lab?.p1>=6.5 && yesterday_meter?.lab?.p1<=8.0;else warningLabP1">
+                  {{yesterday_meter?.lab?.p1 || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningLabP1>
+              <ion-label color="danger">{{yesterday_meter?.lab?.p1 || '-'}}</ion-label>
+            </ng-template>
+            <!-- P2 -->
+            <ion-label>
+              <div *ngIf="yesterday_meter?.lab">
+                <div *ngIf="yesterday_meter?.lab?.p2>=6.5 && yesterday_meter?.lab?.p2<=8.0;else warningLabP2">
+                  {{yesterday_meter?.lab?.p2 || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningLabP2>
+              <ion-label color="danger">{{yesterday_meter?.lab?.p2 || '-'}}</ion-label>
+            </ng-template>
+            <button disabled clear item-end ion-button default color="light" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <!-- End Yesterday -->
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{recorder.time_record}}</ion-label>
+            <ion-label>{{recorder?.lab?.updated_at}}</ion-label>
+            <!-- Lab -->
+            <ion-label>
+              <div *ngIf="recorder.lab">
+                <div *ngIf="recorder?.lab?.chlorine>=0.5 && recorder?.lab?.chlorine<=2.0;else warningChlorine">
+                  {{recorder?.lab?.chlorine || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningChlorine>
+              <ion-label color="danger">{{recorder?.lab?.chlorine || '-'}}</ion-label>
+            </ng-template>
+            <!-- P1 -->
+            <ion-label>
+              <div *ngIf="recorder.lab">
+                <div *ngIf="recorder?.lab?.p1>=6.5 && recorder?.lab?.p1<=8.0;else warningLabP1">
+                  {{recorder?.lab?.p1 || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningLabP1>
+              <ion-label color="danger">{{recorder?.lab?.p1 || '-'}}</ion-label>
+            </ng-template>
+            <!-- P2 -->
+            <ion-label>
+              <div *ngIf="recorder.lab">
+                <div *ngIf="recorder?.lab?.p2>=6.5 && recorder?.lab?.p2<=8.0;else warningLabP2">
+                  {{recorder?.lab?.p2 || '-'}}
+                </div>
+              </div>
+            </ion-label>
+            <ng-template #warningLabP2>
+              <ion-label color="danger">{{recorder?.lab?.p2 || '-'}}</ion-label>
+            </ng-template>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+
+  </ion-card>
+</ion-content>

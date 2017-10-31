@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+        ระบบกำหนดวันหมดอายุและการตรวจสอบ
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding class="eng-scroll-main-content">
+    <!-- Top Card -->
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <button ion-button item-end default color="primary" (click)="addRecord()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    เพิ่มสินค้า
+                  </button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <!-- Bottom Card -->
+    <ion-card>
+      <!-- Table Result -->
+      <ion-list inset>
+        <ion-item text-center class="table-header eng-scroll-header">
+          <ion-label>ลำดับ</ion-label>
+          <ion-label>สินค้า</ion-label>
+          <ion-label>รูปแบบ</ion-label>
+          <ion-label>วันหมดอายุ</ion-label>
+          <button item-start ion-button default clear disabled>แก้ไข</button>
+          <button item-end ion-button default clear disabled>ลบ</button>
+        </ion-item>
+        <ion-scroll class="eng-scroll-content" scrollY="true">
+          <ion-card-content no-padding>
+            <ion-item>
+                <ion-searchbar (ionInput)="searchProduct($event)"></ion-searchbar>
+            </ion-item>
+            <ion-item *ngFor="let recorder of recorders; let i =index" text-center class="table-content">
+              <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+              <ion-label>{{i+1}}</ion-label>
+              <ion-label>{{recorder.name}}</ion-label>
+              <ion-label>{{recorder.date_format || '-'}}</ion-label>
+              <ion-label>{{recorder.exp_day || '-'}}</ion-label>
+              <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+            </ion-item>
+          </ion-card-content>
+        </ion-scroll>
+      </ion-list>
+  
+    </ion-card>
+  </ion-content>

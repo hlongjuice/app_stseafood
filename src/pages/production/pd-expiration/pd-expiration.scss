@@ -1,0 +1,31 @@
+page-pd-expiration {
+    .production-scroll-content {
+        height: 250px;
+    }
+    .left-scroll-content {
+        height: 400px;
+    }
+    .right-scroll-content {
+        height: 350px;
+    }
+    .right-bottom-scroll-content{
+        height: 150px;
+    }
+    .edit-button {
+        // padding-left: 8px;
+        i{
+            position: relative;
+            // text-align:start
+        }
+    }
+    .exp-image{
+        width:100%;
+        height: 120px;
+    }
+    ion-fab[left]{
+        left:0;
+    }
+    .fa{
+        margin-right:0 !important;
+    }
+}

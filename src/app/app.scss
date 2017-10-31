@@ -1,0 +1,499 @@
+// http://ionicframework.com/docs/v2/theming/
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+/*@font-face {
+    font-family: 'RSU';
+    src: url('../assets/fonts/RSU.woff') format('woff'), url('../assets/fonts/RSU.ttf') format('truetype'), url('../assets/fonts/RSU.svg#RSU') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'RSU_Regular';
+    src: url('../assets/fonts/RSU_Regular.eot');
+    src: url('../assets/fonts/RSU_Regular.woff2') format('woff2'), url('../assets/fonts/RSU_Regular.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+ion-select {
+    max-width: 100%;
+}
+
+
+/* Scroll */
+.exp-image{
+    width:100%;
+}
+
+.eng-scroll-header {}
+
+.eng-scroll-main-content {
+    .scroll-content {
+        //  overflow-y: hidden;
+    }
+}
+
+.eng-scroll-content {
+    min-height: 500px;
+}
+
+ion-scroll .scroll-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+/* Back Button */
+
+.back-button {
+    font-size: 2.5rem;
+    height: 50px;
+}
+
+.c-result {
+    h3 {
+        font-size: 2rem !important;
+    }
+    p{
+        font-size:1.7rem !important;
+    }
+}
+
+
+/* Group Header */
+
+.group-header {
+    width: 100%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-80 {
+    width: 80%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-70 {
+    width: 70%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-60 {
+    width: 60%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-50 {
+    width: 50%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-40 {
+    width: 40%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-30 {
+    width: 30%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+.group-header-35 {
+    width: 35%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-20 {
+    width: 20%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+.group-header-10 {
+    width: 10%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+.group-header-15 {
+    width: 15%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+.group-header-5 {
+    width: 5%;
+    .group-header-content {
+        display: inline-flex;
+        width: 100%;
+    }
+}
+
+
+.group-header-2 {
+    display: inherit;
+    width: 100%;
+}
+/* End Group Header */
+
+
+/* Card Result */
+
+.c-result-red {
+    border-bottom: 1px solid map-get($colors, danger);
+}
+
+.c-result-dark-blue {
+    border-bottom: 1px solid map-get($colors, dark-blue);
+}
+
+.c-result-green {
+    border-bottom: 1px solid map-get($colors, success);
+}
+
+.c-result-blue {
+    border-bottom: 1px solid map-get($colors, primary);
+}
+
+.c-result-light-blue {
+    border-bottom: 1px solid map-get($colors, info);
+}
+
+.c-result-orange {
+    border-bottom: 1px solid map-get($colors, warning);
+}
+
+.c-result-dark {
+    border-bottom: 1px solid map-get($colors, dark);
+}
+.c-result-gray{
+    border-bottom: 1px solid map-get($colors, gray);
+}
+.c-result-soft-gray{
+    border-bottom: 1px solid map-get($colors, soft-gray);
+}
+
+
+/* End Card Result */
+
+
+/*Tool Bar Title*/
+
+.toolbar-title {
+    letter-spacing: 1px;
+}
+
+
+/* Date Time */
+
+.item-datetime-disabled ion-label {
+    opacity: 1 !important;
+}
+
+.datetime-disabled {
+    opacity: 1 !important;
+    font-size: 1.7rem !important;
+}
+
+
+/* Date  */
+
+.date-input-large {
+    font-size: 2.5rem !important;
+}
+
+
+/* Text , Label */
+
+.text-large {
+    font-size: 2.5rem !important;
+}
+
+
+/*Item*/
+
+.item {
+    letter-spacing: 1px;
+    h1 {
+        font-size: 2.6rem !important;
+    }
+    h2 {
+        font-size: 2.0rem !important;
+    }
+}
+
+.item-label-stacked {
+    .label {
+        font-size: 1.5rem !important;
+        color: map-get($colors, dark);
+    }
+    .datetime {
+        font-size: 1.6rem !important;
+        color: map-get($colors, dark);
+    }
+}
+
+
+/* Div Ion Text */
+
+div.text {
+    color: map-get($colors, gray) !important;
+}
+
+
+/* Disabled Input Item */
+
+.text-input[disabled] {
+    opacity: 1 !important;
+}
+
+.select-disabled,
+.item-select-disabled ion-label {
+    opacity: 1 !important;
+}
+
+.item-input-line {
+    border-bottom: 1px solid map-get($colors, soft-gray);
+}
+
+
+/*Table*/
+
+.table-header {
+    position: relative;
+    .label {
+        color: map-get($colors, primary) !important;
+    }
+    .table-header-line {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        border-bottom: 1px solid rgba(map-get($colors, primary), 0.5);
+        width: 100%;
+    }
+    .table-header-line-bottom-1 {
+        position: absolute;
+        bottom: 1px;
+        left: 0;
+        border-bottom: 1px solid rgba(map-get($colors, primary), 0.5);
+        width: 100%;
+    }
+    .table-header-line-95 {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        border-bottom: 1px solid map-get($colors, primary);
+        width: 95%;
+    }
+}
+
+.table-content {
+    position: relative;
+    .table-content-line {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        border-bottom: 1px solid rgba(map-get($colors, soft-gray), 0.5);
+        width: 100%;
+    }
+    .item {
+        border: none !important;
+    }
+}
+
+
+/*Card*/
+
+.card-header {
+    font-size: 1.95rem !important;
+}
+
+.highlight {
+    background-color: rgba(map-get($colors, success), 0.1);
+    .item {
+        background-color: transparent;
+    }
+    .warning {
+        background-color: rgba(map-get($colors, warning), 0.1) !important;
+    }
+}
+
+.row-header {
+    position: relative;
+    .row-header-line {
+        width: 100%;
+        position: absolute;
+        bottom: 1px;
+        left: 0;
+        border-bottom: 1px solid rgba(map-get($colors, primary), 0.5);
+    }
+    .item-block {
+        border: none !important;
+    }
+    .row-header-line-95 {
+        width: 95%;
+        position: absolute;
+        bottom: 1px;
+        left: 5px;
+        border-bottom: 1px solid rgba(map-get($colors, primary), 0.5);
+    }
+}
+
+.header-primary {
+    .item {
+        color: map-get($colors, primary) !important;
+    }
+}
+
+.row-content {
+    position: relative;
+    .row-content-line {
+        width: 100%;
+        position: absolute;
+        bottom: 1px;
+        left: 0px;
+        border-bottom: 1px solid map-get($colors, soft-gray);
+    }
+    .item-block {
+        border: none !important;
+    }
+    .row-content-line-95 {
+        width: 95%;
+        position: absolute;
+        bottom: 1px;
+        left: 5px;
+        border-bottom: 1px solid map-get($colors, soft-gray);
+    }
+}
+
+.split-pane-side {
+    min-width: 220px !important;
+    max-width: 20% !important;
+}
+
+.form-group {
+    position: relative;
+    .label {
+        font-size: 1.6rem;
+        color: map-get($colors, dark);
+    }
+}
+
+.input-group {
+    position: relative;
+    border-collapse: separate;
+    border: 1px solid map-get($colors, light);
+    border-radius: 10px;
+}
+
+.input-icon {
+    border-left: 1px solid map-get($colors, light-gray);
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: map-get($colors, light-gray);
+}
+
+.input-border {
+    border: 1px solid map-get($colors, light-gray);
+    border-radius: 10px;
+}
+
+
+/*Segemnt*/
+
+.segment-button {
+    font-size: 1.7rem !important;
+}
+
+
+/*Alert Css*/
+
+.alertDanger {
+    background-color: map-get($colors, danger) !important;
+    color: #fff !important;
+}
+
+.alertCancel {
+    background-color: map-get($colors, danger) !important;
+    color: #fff !important;
+}
+
+.alertConfirm {
+    background-color: map-get($colors, success) !important;
+    color: #fff !important;
+}
+
+.alertSuccess {
+    color: map-get($colors, success) !important;
+}
+
+.line {
+    border-bottom: 1px solid map-get($colors, soft-gray);
+}
+
+.line-2 {
+    border-bottom: 2px solid map-get($colors, soft-gray);
+}
+
+.fa {
+    margin-right: 10px !important;
+}
+
+.line-header {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    border-bottom: 2px solid rgba(map-get($colors, primary), 0.6);
+    width: 20%;
+}
+.line-blue{
+    border-bottom: 1px solid map-get($colors,gray);
+}
+
+
+/*Pop Over*/
+
+.popover-content {
+    min-width: 350px !important;
+}

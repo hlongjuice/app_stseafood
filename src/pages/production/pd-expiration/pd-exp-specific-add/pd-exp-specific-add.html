@@ -1,0 +1,64 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>เพิ่มการบันทึก</ion-title>
+      <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="addExp(formInputs.value)">บันทึก</button>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label>สินต้า {{product}}</ion-label>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label>Code:{{product_code}}</ion-label>
+      <ion-label item-content>วันที่ผลิต: {{mfd}}</ion-label>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Round -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ลำดับการผลิตที่</ion-label>
+            <ion-input required type="number" name="round" [(ngModel)]="round"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Quantity Box -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">จำนวนกล่อง</ion-label>
+            <ion-input required type="number" name="q_box" [(ngModel)]="q_box"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Multi Sticker Num -->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">ตัวคูณ สติ๊กเกอร์</ion-label>
+            <ion-input type="number" text-right name="multi_sticker_num" [(ngModel)]="multi_sticker_num"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Multi InSide Num -->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">ตัวคูณ กล่องใน</ion-label>
+            <ion-input type="number" text-right name="multi_inside_num" [(ngModel)]="multi_inside_num"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Multi OutSide Num -->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">ตัวคูณ กล่องนอก</ion-label>
+            <ion-input required type="number" text-right name="multi_outside_num" [(ngModel)]="multi_outside_num"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

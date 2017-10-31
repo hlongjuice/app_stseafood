@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+        ระบบแจ้งซ่อม
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding class="eng-scroll-main-content">
+    <!-- Top Card -->
+    <ion-card>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-5>
+              <ion-item>
+                <ion-label fixed>เลือกวันที่</ion-label>
+                <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+                <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item>
+                <button ion-button item-end default color="primary" (click)="addRecord()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    เพิ่มการบันทึก
+                  </button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <!-- Bottom Card -->
+    <ion-card>
+      <!-- Table Result -->
+      <ion-list inset>
+        <ion-item text-center class="table-header eng-scroll-header">
+          <button disabled ion-button item-start default color="primary" clear>ลายละเอียด</button>
+          <ion-label>วันที่</ion-label>
+          <ion-label>เวลา</ion-label>
+          <ion-label>เครื่องจักร</ion-label>
+          <ion-label>สถาณะ</ion-label>
+          <!-- <button item-content ion-button default clear disabled>แก้ไข</button> -->
+          <button item-end ion-button default clear disabled>ลบ</button>
+        </ion-item>
+        <ion-scroll class="eng-scroll-content" scrollY="true">
+          <ion-card-content no-padding>
+            <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+              <button ion-button item-start default color="primary" (click)="editRecord(recorder)">ลายละเอียด</button>
+              <ion-label>
+                  <ion-datetime disabled displayFormat="DD/MM/YYYY" [(ngModel)]="recorder.date"></ion-datetime>
+              </ion-label>
+              <ion-label>{{recorder?.time}}</ion-label>
+              <ion-label>{{recorder?.item}}</ion-label>
+              <ion-label [color]="recorder?.status?.color">{{recorder?.status?.name}}</ion-label>
+              <!-- <button item-content ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button> -->
+              <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+            </ion-item>
+          </ion-card-content>
+        </ion-scroll>
+      </ion-list>
+  
+    </ion-card>
+  </ion-content>

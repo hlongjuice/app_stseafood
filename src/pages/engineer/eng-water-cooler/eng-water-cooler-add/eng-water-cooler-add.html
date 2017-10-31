@@ -1,0 +1,120 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>เพิ่มข้อมูล</ion-title>
+      <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="addRecord(formInputs.value,formInputs)">บันทึก</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row align-items-end>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่</ion-label>
+            <ion-datetime (ionChange)="getRecords()" required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time Record -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">รอบ</ion-label>
+            <ion-select required name="time_record" [(ngModel)]="time_record">
+              <ion-option *ngFor="let time_record of time_records" [value]="time_record">{{time_record}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!-- Real Time Record -->
+        <!--         <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลาบันทึกจริง</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="real_time_record" [(ngModel)]="real_time_record"></ion-datetime>
+          </ion-item>
+        </ion-col> -->
+      </ion-row>
+      <!-- Ripple Plate -->
+      <ion-row align-items-end>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>Ripple Plate</ion-label>
+          </ion-item>
+        </ion-col>
+        <!-- Temp -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Temp
+              <p>(3-5)</p>
+            </ion-label>
+            <ion-input type="number" text-right name="ripple_temp" [(ngModel)]="ripple_temp"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- M-13 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">M-13</ion-label>
+            <ion-input type="number" text-right name="ripple_m_13" [(ngModel)]="ripple_m_13"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Chilled -->
+      <ion-row align-items-end>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label>Chilled</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Tank
+              <p>(>5)</p>
+            </ion-label>
+            <ion-input type="number" text-right name="chilled_tank" [(ngModel)]="chilled_tank"> </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Pressure Tank -->
+      <ion-row align-items-end>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>Pressure Tank</ion-label>
+          </ion-item>
+        </ion-col>
+        <!-- Temp -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Temp
+              <p>(
+                <=9)</p>
+            </ion-label>
+            <ion-input type="number" text-right name="pre_tank_temp" [(ngModel)]="pre_tank_temp"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- MM-8 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">MM-8</ion-label>
+            <ion-input type="number" text-right name="pre_tank_mm_8" [(ngModel)]="pre_tank_mm_8"> </ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Pump -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Pump</ion-label>
+            <ion-select name="pre_tank_pump" [(ngModel)]="pre_tank_pump">
+              <ion-option>1</ion-option>
+              <ion-option>2</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>

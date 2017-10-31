@@ -1,0 +1,161 @@
+<!--
+  Generated template for the EmployeePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon>
+      การจัดการพนักงาน
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!--Top Card-->
+  <ion-card>
+    <ion-card-header>
+      <ion-item class="item-input">
+        <ion-label stacked>เลือกฝ่าย</ion-label>
+        <ion-select (ionChange)="getEmployees()" [(ngModel)]="selectedDivision">
+          <ion-option value="allEmployee">ทุกฝ่าย</ion-option>
+          <ion-option *ngFor="let division of divisions; let i = index;" [value]="division.id">{{division.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment (ionChange)="setEmployeeTab()" [(ngModel)]="groupTab" name="groupTab">
+        <ion-segment-button value="all">พนักงานทั้งหมด</ion-segment-button>
+        <ion-segment-button value="monthly">พนักงานรายเดือน</ion-segment-button>
+        <ion-segment-button value="daily">พนักงานรายวัน</ion-segment-button>
+      </ion-segment>
+      <!--Insert/Edit/Delete List-->
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+            <button (click)="addNewEmployee()" ion-button color="primary">
+              <i class="fa fa-plus-circle" aria-hidden="true"></i>
+              เพิ่มพนักงาน
+            </button>
+          </ion-col>
+          <ion-col col-3>
+            <div (click)="changeDivisionDepartment()">
+              <button ion-button block color="primary">
+                <i class="fa fa fa-exchange" aria-hidden="true"></i>
+                 ย้ายฝ่าย/แผนก
+                </button>
+            </div>
+          </ion-col>
+          <ion-col col-2>
+            <div (click)="changeSalaryType()">
+              <button ion-button block color="warning">
+                <i class="fa fa fa-exchange" aria-hidden="true"></i>
+                 ปรับการจ่ายเงิน
+                </button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!--Bottom Card-->
+  <ion-card>
+    <ion-card-header>
+      <ion-searchbar (ionInput)="searchEmployees($event)"></ion-searchbar>
+    </ion-card-header>
+    <ion-card-content>
+      <!--Employee List-->
+      <ion-grid>
+        <!--Header Column-->
+        <ion-list class="row-header">
+          <ion-item no-padding>
+            <ion-grid no-padding>
+              <ion-row class="table-header">
+                <ion-col col-1>
+                </ion-col>
+                <ion-col col-2>
+                  <ion-item>รหัส</ion-item>
+                </ion-col>
+                <ion-col col-3>
+                  <ion-item>ชื่อ-สกุล</ion-item>
+                </ion-col>
+                <ion-col col-2>
+                  <ion-item>ฝ่าย</ion-item>
+                </ion-col>
+                <ion-col col-2>
+                  <ion-item>แผนก</ion-item>
+                </ion-col>
+                <ion-col col-2>
+                  <ion-item>การรับเงิน</ion-item>
+                </ion-col>
+                <div class="table-header-line-bottom-1"></div>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+        <!--Eng Header-->
+        <!--Spiner-->
+        <ion-row>
+          <ion-col text-center col-12>
+            <ion-spinner *ngIf="!employees"></ion-spinner>
+          </ion-col>
+        </ion-row>
+        <!--End Spiner-->
+        <!--Employee List-->
+        <ion-list class="row-content" *ngFor="let employee of employees; let i=index;">
+          <ion-item-sliding #item class="line-2">
+            <ion-item [ngClass]="{'highlight':isHighlightVisible[i]}" no-padding>
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col col-1>
+                    <ion-item>
+                      <ion-checkbox (ionChange)="setCheckedEmployee($event,employee.em_id,i)"></ion-checkbox>
+                    </ion-item>
+                  </ion-col>
+                  <!--EmID-->
+                  <ion-col col-2>
+                    <ion-item>{{employee.em_id}}</ion-item>
+                  </ion-col>
+                  <!--Name-Lastname-->
+                  <ion-col col-3>
+                    <ion-item>{{employee.name}} {{employee.lastname}}</ion-item>
+                  </ion-col>
+                  <!--Division-->
+                  <ion-col col-2>
+                    <ion-item>{{employee.division?.name}}</ion-item>
+                  </ion-col>
+                  <!--Department-->
+                  <ion-col col-2>
+                    <ion-item>{{employee.department?.name}}</ion-item>
+                  </ion-col>
+                  <!--SalaryType-->
+                  <ion-col col-2>
+                    <ion-item>{{employee.salary_type?.name}}</ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            <div class="row-content-line"></div>
+            <ion-item-options side="right">
+              <button (click)="editEmployee($event,i)" ion-button>แก้ไข</button>
+              <button (click)="deleteEmployee(i)" ion-button color="danger">ลบ</button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+        <ion-item text-center>
+          <button *ngIf="page?.next_page_url!=null" ion-button default (click)="moreEmployees()">ดูเพิ่มเติม</button>
+        </ion-item>
+        <!--End Employee List-->
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,266 @@
+<!--Master Menu-->
+<ion-menu side="left" id="masterMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="">
+            <ion-title text-center>เมนู</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                <ion-icon color="primary" item-left><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                หน้าหลัก
+            </button>
+            <!--Production-->
+            <button ion-item (click)="openPage('ProductionWorkFormPage')">
+                <ion-icon color="primary" item-left ><i class="fa fa-product-hunt" aria-hidden="true"></i></ion-icon>
+                ฝ่ายการผลิต
+            </button>
+            <!--Engineer-->
+            <button ion-item (click)="openPage('ProductionPage')">
+                <ion-icon color="primary" item-left><i class="fa fa-thermometer-half" aria-hidden="true"></i></ion-icon>
+                ฝ่ายวิศวกรรม
+            </button>
+            <!--Lab-->
+            <button ion-item (click)="openPage('ProductionPage')">
+                <ion-icon color="primary" item-left ><i class="fa fa-flask" aria-hidden="true"></i></ion-icon>
+                ฝ่ายห้องแลป
+            </button>
+            <!--Personality-->
+            <button ion-item (click)="openPage('HumanResourcePage')">
+                <ion-icon color="primary" item-left ><i class="fa fa-user" aria-hidden="true"></i></ion-icon>
+                ฝ่ายบุคคล
+            </button>
+            <!--QC-->
+            <button ion-item (click)="openPage('ProductionPage')">
+                <ion-icon color="primary" item-left name="paper"></ion-icon>
+                ฝ่ายคัดกรอกคุณภาพ
+            </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+
+
+
+    </ion-content>
+</ion-menu>
+<!--Production Menu-->
+<ion-menu side="left" id="productionMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-title text-center>ฝ่ายผลิต</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top inset>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                <ion-icon color="primary" item-start><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                หน้าหลัก
+            </button>
+            <!--Result-->
+            <button ion-item (click)="openPage('ProductionResultPage')">
+                <ion-icon color="primary" item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+                สรุปผลการทำงาน
+            </button>
+            <!--Work Form-->
+            <button ion-item (click)="openPage('ProductionWorkFormPage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-file-text-o" aria-hidden="true"></i></ion-icon>
+                บันทึกการทำงาน
+            </button>
+            <!--Expiration-->
+            <button ion-item (click)="openPage('PdExpirationPage')">
+                            <ion-icon color="primary" item-start ><i class="fa fa-file-text-o" aria-hidden="true"></i></ion-icon>
+                            ระบบกำหนดวันหมดอายุ
+                        </button>
+            <!--Product-->
+            <button ion-item (click)="openPage('PdProductPage')">
+                    <ion-icon color="primary" item-start ><i class="fa fa-file-text-o" aria-hidden="true"></i></ion-icon>
+                    สินค้า
+                </button>
+            <!--Employee Group-->
+            <button ion-item (click)="openPage('ProductionEmployeePage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-users" aria-hidden="true"></i></ion-icon>
+                จัดกลุ่มคนงาน
+            </button>
+            <!--Setting-->
+            <button ion-item (click)="openPage('ProductionSettingPage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                การคั้งค่าอื่นๆ
+            </button>
+            <button ion-item (click)="openModal('ChangePasswordPage')">
+                    <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                    เปลี่ยนรหัสผ่าน
+                </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+
+
+
+    </ion-content>
+</ion-menu>
+<!--Human Resource Menu-->
+<ion-menu side="left" id="humanResourceMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-title text-center>ฝ่ายบุคคล</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top inset>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                <ion-icon color="primary" item-start><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                หน้าหลัก
+            </button>
+            <!--Result-->
+            <button ion-item (click)="openPage('CarResponsePage')">
+                <ion-icon color="primary" item-start><i class="fa fa-pencil-square-o" aria-hidden="true"></i></ion-icon>
+                รายการขอใช้รถ
+            </button>
+
+            <!--Work Form-->
+            <button ion-item (click)="openPage('CarRequestPage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-file-text-o" aria-hidden="true"></i></ion-icon>
+                ระบบขอใช้รถ
+            </button>
+            <!-- Car Access Control -->
+            <button ion-item (click)="openPage('CarAccessControlPage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-exchange" aria-hidden="true"></i></ion-icon>
+                ระบบบันทึกรถเข้า-ออก
+            </button>
+            <!-- Car Access Control -->
+            <button ion-item (click)="openPage('CarAccessUsagePage')">
+              <ion-icon color="primary" item-start ><i class="fa fa-tint" aria-hidden="true"></i></ion-icon>
+              ระบบบันทึกการเคิมน้ำมัน
+            </button>
+            <!--Employee Group-->
+            <button ion-item (click)="openPage('EmployeePage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-users" aria-hidden="true"></i></ion-icon>
+                พนักงานทั้งหมด
+            </button>
+            <!--Setting-->
+            <button ion-item (click)="openPage('CarManagePage')">
+                <ion-icon color="primary" item-start ><i class="fa fa-car" aria-hidden="true"></i></ion-icon>
+                ยานพาหนะ
+            </button>
+            <!-- History Response-->
+            <button ion-item (click)="openPage('CarResponseHistoryPage')">
+                <ion-icon color="primary" item-start><i class="fa fa-check-square-o" aria-hidden="true"></i></ion-icon>
+                ประวัติการอนุมัติ
+            </button>
+            <button ion-item (click)="openModal('ChangePasswordPage')">
+                    <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                    เปลี่ยนรหัสผ่าน
+                </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+
+
+
+    </ion-content>
+</ion-menu>
+<!-- QC  Menu-->
+<ion-menu side="left" id="qcMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-title text-center>ฝ่ายประกันคุณภาพ</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top inset>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                <ion-icon color="primary" item-start><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                หน้าหลัก
+            </button>
+            <!--Result-->
+            <button ion-item (click)="openPage('QcRecorderResultPage')">
+                <ion-icon color="primary" item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+                สรุปผลการบันทึก
+            </button>
+            <!--Result-->
+            <button ion-item (click)="openPage('QcShrimpRecorderPage')">
+                <ion-icon color="primary" item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+                ระบบตรวจรับกุ้งเป็น
+            </button>
+            <!--Supplier-->
+            <button ion-item (click)="openPage('QcSupplierPage')">
+                <ion-icon color="primary" item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+                รายชื่อลูกค้า
+            </button>
+            <button ion-item (click)="openModal('ChangePasswordPage')">
+                    <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                    เปลี่ยนรหัสผ่าน
+                </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+    </ion-content>
+</ion-menu>
+<!-- Engineer  Menu-->
+<ion-menu side="left" id="engineerMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-title text-center>ฝ่ายวิศวกรรม</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top inset>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                    <ion-icon color="primary" item-start><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                    หน้าหลัก
+                </button>
+            <!--Engineer Result Menu-->
+            <button ion-item (click)="openPage('EngResultsPage')">
+                    <ion-icon color="primary" item-start><i class="fa fa-pie-chart" aria-hidden="true"></i></ion-icon>
+                    รายงานสรุปผล 
+                </button>
+            <!--Engineer Main Menu-->
+            <button ion-item (click)="openPage('EngineerPage')">
+                                <ion-icon color="primary" item-start><i class="fa fa-pencil-square-o" aria-hidden="true"></i></ion-icon>
+                                ระบบบันทึกต่างๆ
+                            </button>
+            <button ion-item (click)="openModal('ChangePasswordPage')">
+                                    <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                                    เปลี่ยนรหัสผ่าน
+                                </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+    </ion-content>
+</ion-menu>
+<!-- Only Home Menu -->
+<ion-menu side="left" id="onlyHomeMenu" class="menu" [content]="nav">
+    <ion-header>
+        <ion-toolbar color="dark">
+            <ion-title text-center>ฝ่ายวิศวกรรม</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list padding-top inset>
+            <!--Home-->
+            <button ion-item (click)="openPage(homePage)">
+                        <ion-icon color="primary" item-start><i class="fa fa-home" aria-hidden="true"></i></ion-icon>
+                        หน้าหลัก
+                    </button>
+            <button ion-item (click)="openModal('ChangePasswordPage')">
+                            <ion-icon color="primary" item-start ><i class="fa fa-cog" aria-hidden="true"></i></ion-icon>
+                            เปลี่ยนรหัสผ่าน
+                        </button>
+        </ion-list>
+        <div padding-left padding-right>
+            <button [hidden]="authState" ion-button block color="danger" (click)="logout()">ออกจากระบบ</button>
+        </div>
+    </ion-content>
+</ion-menu>
+<ion-nav #nav [root]="rootPage"></ion-nav>

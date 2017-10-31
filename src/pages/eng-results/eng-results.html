@@ -1,0 +1,52 @@
+<!--
+  Generated template for the EngineerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+        สรุปผล ฝ่ายวิศวกรรม
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-grid>
+      <!-- Row 1 -->
+      <ion-row class="c-result">
+        <!-- Cold Storage Result -->
+        <ion-col col-4>
+          <ion-card (click)="openPage('EngColdStorageResultPage')">
+            <ion-card-content>
+              <div>
+                <h3 ion-text color="primary">รายงานอุณหภูมิห้องเย็น</h3>
+                <div class="c-result-blue" ion-text text-right>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Water Usage -->
+        <ion-col col-4>
+            <ion-card (click)="openPage('EngWaterUsageResultPage')">
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="primary">รายงานการใช้น้ำ</h3>
+                  <div class="c-result-blue" ion-text text-right>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

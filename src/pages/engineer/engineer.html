@@ -1,0 +1,220 @@
+<!--
+  Generated template for the EngineerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      ฝ่ายวิศวกรรม
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <!-- Water Supply Outside -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngWsOutsidePage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">น้ำประปาสายนอก</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Tank 210 -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngTank_210Page')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">ถัง 210</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- River Water -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngRiverWaterPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">น้ำคลอง</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- Row 2 -->
+    <ion-row class="c-result">
+      <!-- Water Meter -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngWaterMeterPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Water Meter</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- 5x7 -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('Eng_5x7Page')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">5x7</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- High Tank -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngHighTankPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">ถังสูง</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- Row 3 -->
+    <ion-row class="c-result">
+      <!-- Condens -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngCondensPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Condens</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Chlorine -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngChlorinePage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Chlorine</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Chlorine Lab -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngChlorineLabPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Chlorine Lab</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- Row 4 -->
+    <ion-row class="c-result">
+      <!-- Defrost Time -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngDefrostTimePage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">ตาราง Defrost</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Cold Storage -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngColdStoragePage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">อุณหภูมิห้องเย็น</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Water Cooler -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngWaterCoolerPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">เครื่องทำน้ำเย็น</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- Row 5 -->
+    <ion-row class="c-result">
+      <!-- Ice Maker -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngIceMakerPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">เครื่องทำน้ำแข็ง</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Boiler -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngBoilerPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Boiler</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Water Filtration -->
+      <ion-col col-4>
+        <ion-card (click)="openPage('EngWaterFiltrationPage')">
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">โรงกรองน้ำ</h3>
+              <div class="c-result-blue" ion-text text-right>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

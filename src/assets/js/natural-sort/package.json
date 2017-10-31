@@ -1,0 +1,86 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "natural-sort",
+        "scope": null,
+        "escapedName": "natural-sort",
+        "name": "natural-sort",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/Jubilus/GitHub/ทำApp/demo"
+    ]
+  ],
+  "_from": "natural-sort@latest",
+  "_id": "natural-sort@1.0.0",
+  "_inCache": true,
+  "_location": "/natural-sort",
+  "_nodeVersion": "5.4.1",
+  "_npmOperationalInternal": {
+    "host": "packages-13-west.internal.npmjs.com",
+    "tmp": "tmp/natural-sort-1.0.0.tgz_1457471034006_0.09072722983546555"
+  },
+  "_npmUser": {
+    "name": "tomekwi",
+    "email": "t.wiszniewski@gmail.com"
+  },
+  "_npmVersion": "3.3.12",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "natural-sort",
+    "scope": null,
+    "escapedName": "natural-sort",
+    "name": "natural-sort",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/natural-sort/-/natural-sort-1.0.0.tgz",
+  "_shasum": "eac301fd86c268a771222c62dc7719402aa34380",
+  "_shrinkwrap": null,
+  "_spec": "natural-sort",
+  "_where": "/Users/Jubilus/GitHub/ทำApp/demo",
+  "bugs": {
+    "url": "https://github.com/studio-b12/natural-sort/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tomek Wiszniewski",
+      "email": "<t.wiszniewski@gmail.com"
+    }
+  ],
+  "copyright": "Studio B12 GmbH 2014",
+  "dependencies": {},
+  "description": "Sorting with support for numbers, dates, unicode and more.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "eac301fd86c268a771222c62dc7719402aa34380",
+    "tarball": "https://registry.npmjs.org/natural-sort/-/natural-sort-1.0.0.tgz"
+  },
+  "gitHead": "a9235c7a5680aed3d9426cae1164d3c8b835857a",
+  "homepage": "https://github.com/studio-b12/natural-sort#readme",
+  "license": "MIT",
+  "main": "dist/natural-sort.js",
+  "maintainers": [
+    {
+      "name": "tomekwi",
+      "email": "t.wiszniewski@gmail.com"
+    }
+  ],
+  "name": "natural-sort",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/studio-b12/natural-sort.git"
+  },
+  "scripts": {},
+  "version": "1.0.0"
+}

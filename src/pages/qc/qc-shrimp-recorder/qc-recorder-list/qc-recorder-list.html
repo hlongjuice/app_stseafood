@@ -1,0 +1,162 @@
+<!--
+  Generated template for the QcRecorderListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>รายละเอียด</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-datetime item-start disabled displayFormat="DD/MM/YYYY" [(ngModel)]="recorder.date"></ion-datetime>
+        <ion-label item-content>แหล่งที่มา :<span ion-text color="primary">{{recorder.supplier.name}}</span></ion-label>
+        <ion-label item-content>บ่อ :<span ion-text color="primary">{{recorder.pond}}</span></ion-label>
+        <ion-label item-content>code :<span ion-text color="primary">{{recorder.code}}</span></ion-label>
+        <ion-label margin-right class="label-line" color="danger" *ngIf="recorder.last_five_round_status==1" item-content>
+          <ion-icon color="danger" item-content><i class="fa fa-exclamation-circle" aria-hidden="true"></i></ion-icon>
+          ตาย 5 เที่ยวสุดท้าย</ion-label>
+        <button margin-left ion-button item-end default color="primary" (click)="addNewReceiving()">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>     
+            เพิ่มการบันทึก       
+        </button>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Card Result -->
+      <ion-grid>
+        <ion-row class="c-result">
+          <!-- Total Weight -->
+          <ion-col>
+            <ion-card>
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="primary">น้ำหนักรวม</h3>
+                  <div class="c-result-blue" ion-text text-right>
+                    <h1 ion-text color="primary">{{total_result_shrimp_weight| number}} <span></span>กก.</h1>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- Shrimp Soft -->
+          <ion-col>
+            <ion-card>
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="dark">เปอร์เซ็นกุ้งนิ่ม</h3>
+                  <div class="c-result-dark" ion-text text-right>
+                    <h1 ion-text color="dark">{{total_result_shrimp_soft_p| number:'1.2-2'}} <span></span>%</h1>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- Shrimp Dead -->
+          <ion-col>
+            <ion-card>
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="warning">เปอร์เซ็นตายใน</h3>
+                  <div class="c-result-orange" ion-text text-right>
+                    <h1 ion-text color="warning">{{total_result_shrimp_dead_percent|number:'1.2-2'}} <span></span>%</h1>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- Last Five -->
+          <ion-col>
+            <ion-card>
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="dark-blue">เปอร์เซ็นตาย 5 เที่ยว</h3>
+                  <div class="c-result-dark-blue" ion-text text-right>
+                    <h1 ion-text color="dark-blue">{{total_result_last_five_shrimp_dead_percent|number:'1.2-2'}} <span></span>%</h1>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <!-- Total Shrimp Dead -->
+          <ion-col>
+            <ion-card>
+              <ion-card-content>
+                <div>
+                  <h3 ion-text color="danger">เปอร์เซ็นตายรวม</h3>
+                  <div class="c-result-red" ion-text text-right>
+                    <h1 ion-text color="danger">{{total_result_total_shrimp_dead_percent|number:'1.2-2'}} <span></span>%</h1>
+                  </div>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- End Card Result -->
+      <ion-list inset>
+        <!-- Table Header -->
+        <ion-item text-center class="table-header scroll-header">
+          <ion-label>เที่ยว</ion-label>
+          <ion-label>อุณหภูมิเฉลี่ย</ion-label>
+          <ion-label>ขนาดกุ้ง(ตัว/กก.)</ion-label>
+          <ion-label>UF</ion-label>
+          <ion-label>DF ตาย()|%</ion-label>
+          <ion-label>DF นิ่ม|%</ion-label>
+          <ion-label>DF นิ่มวุ้น|%</ion-label>
+          <ion-label>DF แผล|%</ion-label>
+          <ion-label>DF แก้มขีดดำ|%</ion-label>
+          <ion-label>DF พิการ|%</ion-label>
+          <ion-label>กุ้งตาย(กก.)|%</ion-label>
+          <ion-label>น้ำหนักหักตะกร้า</ion-label>
+          <ion-label>สะสม</ion-label>
+          <button item-start ion-button default clear disabled>แก้ไข</button>
+          <button item-end ion-button default clear disabled>ลบ</button>
+
+        </ion-item>
+        <ion-scroll class="scroll" scrollX="true" scrollY="true">
+          <!-- Table Content -->
+          <ion-item text-center (click)="setHighlight(i)" [ngClass]="{'highlight':isHighlightVisible[i]}" *ngFor="let list of lists; let i =index"
+            class="table-content">
+            <!-- Round -->
+            <ion-label>{{list.round}}</ion-label>
+            <!-- Temp -->
+            <ion-label>{{list.avg_water_temp}} <span ion-text color="gray">°C</span></ion-label>
+            <!-- Shrimp Size -->
+            <ion-label>{{list.shrimp_size}}</ion-label>
+            <!-- U.F. -->
+            <ion-label>{{list.shrimp_uf}}</ion-label>
+            <!-- Df shrimp -->
+            <ion-label>{{list.df_shrimp_dead}} <span ion-text color="gray"> {{list.df_s_dead_p || '-'}} </span></ion-label>
+            <!-- Df Shrimp semi soft -->
+            <ion-label>{{list.df_shrimp_semi_soft}} <span ion-text color="gray"> {{list.df_s_semi_soft_p || '-'}}</span></ion-label>
+            <!-- Df shrimp soft shell -->
+            <ion-label>{{list.df_shrimp_soft_shell}} <span ion-text color="gray">{{list.df_s_soft_shell_p || '-'}}</span></ion-label>
+            <!-- Df shrimp scar -->
+            <ion-label>{{list.df_shrimp_scar}} <span ion-text color="gray">{{list.df_s_scar_p || '-'}}</span></ion-label>
+            <!-- Df shrimp bk line -->
+            <ion-label>{{list.df_shrimp_bk_line}} <span ion-text color="gray">{{list.df_s_bk_line_p || '-'}}</span></ion-label>
+            <!-- Df shrimp disabled -->
+            <ion-label>{{list.df_shrimp_disabled}} <span ion-text color="gray">{{list.df_s_disabled_p || '-'}}</span></ion-label>
+            <!-- Real Shrimp Dead -->
+            <ion-label>{{list.real_shrimp_dead}} <span ion-text color="danger">{{list.real_shrimp_dead_p || '-'}}</span></ion-label>
+            <!-- Weight -->
+            <ion-label>{{list.weight}}</ion-label>
+            <ion-label color="danger">{{list.row_sum_weight|number:'1.2-2'}}</ion-label>
+            <!-- Detail Button -->
+            <button item-start ion-button default color="warning" (click)="showDetails(list)">แก้ไข</button>
+            <button item-end ion-button default color="danger" (click)="deleteShrimpReceiving(list)">ลบ</button>
+          </ion-item>
+        </ion-scroll>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

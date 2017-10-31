@@ -1,0 +1,17 @@
+page-production-result-details {
+    .date{
+        font-size: 1.95rem !important;
+    }
+    .date-time{
+        .item{
+            color:map-get($colors, primary ) !important;
+        }
+    }
+    .details-header{
+        color:map-get($colors,gray) !important;
+    }
+    .row-header-line{
+        border-bottom:1px solid map-get($colors,soft-gray ) !important;
+    }
+
+}

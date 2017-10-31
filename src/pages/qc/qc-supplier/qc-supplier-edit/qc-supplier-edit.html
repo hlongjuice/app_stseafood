@@ -1,0 +1,30 @@
+<!--
+  Generated template for the QcSupplierEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>แก้ไข</ion-title>
+      <button ion-button item-end default color="success" (click)="updateSupplier(supplierForm.value)">บันทึก</button>
+    </ion-item>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #supplierForm="ngForm">
+    <ion-list no-padding inset>
+      <ion-item>
+        <ion-label color="primary">ชื่อ</ion-label>
+        <ion-input required type="text" text-right name="name" [(ngModel)]="supplier.name"> </ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

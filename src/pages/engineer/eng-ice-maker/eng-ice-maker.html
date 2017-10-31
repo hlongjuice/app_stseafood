@@ -1,0 +1,265 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      เครื่องทำน้ำแข็ง
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    เพิ่มการบันทึก
+                  </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>สรุปการใช้งานใน 1 วัน</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- Freezer 1 M-12 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Freezer1 M-12</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.freezer1_m_12_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Freezer 2 M-2 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Freezer2 M-2</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.freezer2_m_2_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Freezer 3 M-14 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Freezer3 M-14</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.freezer3_m_14_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header">
+        <!-- Time -->
+        <div item-content class="group-header-30">
+          <h2></h2>
+          <div class="group-header-content">
+            <ion-label>รอบ</ion-label>
+            <ion-label>เวลาบันทึกจริง</ion-label>
+          </div>
+        </div>
+        <!-- Freezer Ice 1 -->
+        <div text-center item-content class="group-header-20">
+          <h2>Freezer Ice 1</h2>
+          <div class="group-header-content">
+            <ion-label>M-12</ion-label>
+            <ion-label>Used
+              <p>(0.8-1.0)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Freezer Ice 2 -->
+        <div text-center item-content class="group-header-20">
+          <h2>Freezer Ice 2</h2>
+          <div class="group-header-content">
+            <ion-label>M-2</ion-label>
+            <ion-label>Used
+              <p>(0.8-1.0)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Recei -->
+        <div text-center item-content class="group-header-10">
+          <h2>Recei</h2>
+          <div class="group-header-content">
+            <ion-label>No.1
+              <p>(>6.0)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Freezer Ice 3 -->
+        <div text-center item-content class="group-header-20">
+          <h2>Freezer Ice 3</h2>
+          <div class="group-header-content">
+            <ion-label>M-14</ion-label>
+            <ion-label>Used
+              <p>(0.8-1.0)</p>
+            </ion-label>
+          </div>
+        </div>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content" scrollY="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button clear disabled item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-30">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+                <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Freezer Ice 1 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.freezer1_m_12}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.freezer1_used>=0.8 && yesterday_meter?.freezer1_used<=1;else warningUsed1">
+                  {{yesterday_meter?.freezer1_used}}
+                </ion-label>
+                <ng-template #warningUsed1>
+                  <ion-label color="danger">{{yesterday_meter?.freezer1_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Freezer Ice 2 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.freezer2_m_2}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.freezer2_used>=0.8 && yesterday_meter?.freezer2_used<=1;else warningUsed2">
+                  {{yesterday_meter?.freezer2_used}}
+                </ion-label>
+                <ng-template #warningUsed2>
+                  <ion-label color="danger">{{yesterday_meter?.freezer2_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Recei -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.recei_no1}}</ion-label>
+              </div>
+            </div>
+            <!-- Freezer Ice 3 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.freezer3_m_14}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.freezer3_used>=0.8 && yesterday_meter?.freezer3_used<=1;else warningUsed3">
+                  {{yesterday_meter?.freezer3_used}}
+                </ion-label>
+                <ng-template #warningUsed3>
+                  <ion-label color="danger">{{yesterday_meter?.freezer3_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <button clear disabled item-end ion-button default color="light" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <!-- End Yesterday -->
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-30">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{recorder.time_record}}</ion-label>
+                <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Freezer Ice 1 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{recorder.freezer1_m_12}}</ion-label>
+                <ion-label *ngIf="recorder.freezer1_used>=0.8 && recorder.freezer1_used<=1;else warningUsed1">
+                  {{recorder.freezer1_used}}
+                </ion-label>
+                <ng-template #warningUsed1>
+                  <ion-label color="danger">{{recorder.freezer1_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Freezer Ice 2 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{recorder.freezer2_m_2}}</ion-label>
+                <ion-label *ngIf="recorder.freezer2_used>=0.8 && recorder.freezer2_used<=1;else warningUsed2">
+                  {{recorder.freezer2_used}}
+                </ion-label>
+                <ng-template #warningUsed2>
+                  <ion-label color="danger">{{recorder.freezer2_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Recei -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{recorder.recei_no1}}</ion-label>
+              </div>
+            </div>
+            <!-- Freezer Ice 3 -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{recorder.freezer3_m_14}}</ion-label>
+                <ion-label *ngIf="recorder.freezer3_used>=0.8 && recorder.freezer3_used<=1;else warningUsed3">
+                  {{recorder.freezer3_used}}
+                </ion-label>
+                <ng-template #warningUsed3>
+                  <ion-label color="danger">{{recorder.freezer3_used}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+  </ion-card>
+</ion-content>

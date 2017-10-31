@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      รายงานอุณหภูมิห้องเย็น
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <!-- Segment -->
+        <ion-row>
+          <ion-col col-12>
+            <ion-segment (ionChange)="showSegment()" [(ngModel)]="engSegment">
+              <ion-segment-button value="table">ตารางสรุปผล</ion-segment-button>
+              <ion-segment-button value="chart">กราฟสรุปผล</ion-segment-button>
+            </ion-segment>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div [ngSwitch]="engSegment" >
+      <div *ngSwitchCase="'table'" >
+          <!-- Card Result -->
+          <ion-grid *ngIf="daily_used.cs1_max!=0&&daily_used.cs2_max!=0">
+            <!-- Room 1 -->
+            <ion-row class="c-result">
+              <!-- Cs1 Max Temp -->
+              <ion-col col-12>
+                <div>
+                  <h3 ion-text color="primary">Room 1</h3>
+                  <div class="c-result-blue" ion-text text-right>
+                  </div>
+                  <ion-row>
+                    <ion-col col-6>
+                      <ion-card>
+                        <ion-card-content>
+                          <div>
+                            <h3 ion-text color="dark">อุณหภูมิสูงสุด</h3>
+                            <div class="c-result-soft-gray" ion-text text-right>
+                              <h1 *ngIf="daily_used?.cs1_max?.cs1_rm<=-18;else warningCs1Max" ion-text color="success">{{daily_used?.cs1_max?.cs1_rm| number}} °C</h1>
+                              <ng-template #warningCs1Max>
+                                <h1 ion-text color="danger">{{daily_used?.cs1_max?.cs1_rm}}</h1>
+                              </ng-template>
+                              <h3>{{daily_used?.cs1_max?.time_record}}</h3>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </ion-col>
+                    <!-- Min Temp -->
+                    <ion-col col-6>
+                      <ion-card>
+                        <ion-card-content>
+                          <div>
+                            <h3 ion-text color="dark">อุณหภูมิต่ำสุด</h3>
+                            <div class="c-result-soft-gray" ion-text text-right>
+                              <h1 *ngIf="daily_used?.cs1_min?.cs1_rm<=-18;else warningCs1Min" ion-text color="success">{{daily_used?.cs1_min?.cs1_rm| number}} °C</h1>
+                              <ng-template #warningCs1Min>
+                                <h1 ion-text color="danger">{{daily_used?.cs1_min?.cs1_rm}}</h1>
+                              </ng-template>
+                              <h3 ion-text color="gray">{{daily_used?.cs1_min?.time_record}}</h3>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </ion-col>
+            </ion-row>
+            <!-- Room 2 -->
+            <ion-row class="c-result">
+              <ion-col col-12>
+                <div>
+                  <h3 ion-text color="primary">Room 2</h3>
+                  <div class="c-result-blue" ion-text text-right>
+                  </div>
+                </div>
+                <ion-row>
+                  <!-- Max -->
+                  <ion-col col-6>
+                    <ion-card>
+                      <ion-card-content>
+                        <div>
+                          <h3 ion-text color="dark">อุณหภูมิสูงสุด</h3>
+                          <div class="c-result-soft-gray" ion-text text-right>
+                            <h1 *ngIf="daily_used?.cs2_max?.cs2_rm<=-18;else warningCs2Max" ion-text color="success">{{daily_used?.cs2_max?.cs2_rm| number}} °C</h1>
+                            <ng-template #warningCs2Max>
+                              <h1 ion-text color="danger">{{daily_used?.cs2_max?.cs2_rm}}</h1>
+                            </ng-template>
+                            <h3>{{daily_used?.cs2_max?.time_record}}</h3>
+                          </div>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-col>
+                  <!-- Min Temp -->
+                  <ion-col col-6>
+                    <ion-card>
+                      <ion-card-content>
+                        <div>
+                          <h3 ion-text color="dark">อุณหภูมิต่ำสุด</h3>
+                          <div class="c-result-soft-gray" ion-text text-right>
+                            <h1 *ngIf="daily_used?.cs2_min?.cs2_rm<=-18;else warningCs2Min" ion-text color="success">{{daily_used?.cs2_min?.cs2_rm| number}} °C</h1>
+                            <ng-template #warningCs2Min>
+                              <h1 ion-text color="danger">{{daily_used?.cs2_min?.cs2_rm}}</h1>
+                            </ng-template>
+                            <h3>{{daily_used?.cs2_min?.time_record}}</h3>
+                          </div>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!-- Bottom Card -->
+          <ion-card>
+            <!-- Table Result -->
+            <ion-list inset>
+              <ion-item text-center class="table-header eng-scroll-header">
+                <ion-label>รอบ</ion-label>
+                <ion-label>Room1</ion-label>
+                <ion-label>Room2</ion-label>
+              </ion-item>
+              <ion-scroll class="eng-scroll-content" scrollY="true">
+                <ion-card-content no-padding>
+                  <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+                    <ion-label>{{recorder.time_record}}</ion-label>
+                    <!-- Room1 -->
+                    <ion-label *ngIf="recorder.cs1_rm<=-18;else warningRm1">{{recorder.cs1_rm}}</ion-label>
+                    <ng-template #warningRm1>
+                      <ion-label color="danger">{{recorder.cs1_rm || '-'}}</ion-label>
+                    </ng-template>
+                    <!-- Room2 -->
+                    <ion-label *ngIf="recorder.cs2_rm<=-18;else warningRm2">{{recorder.cs2_rm}}</ion-label>
+                    <ng-template #warningRm2>
+                      <ion-label color="danger">{{recorder.cs2_rm || '-'}}</ion-label>
+                    </ng-template>
+                  </ion-item>
+                </ion-card-content>
+              </ion-scroll>
+            </ion-list>
+          </ion-card>
+        </div>
+        <!-- Chart -->
+        <div *ngSwitchCase="'chart'" >
+          <!-- <div *ngIf="engSegment=='chart'"> -->
+          <ion-card>
+            <ion-card-content>
+                <canvas class="line-chart" #qcChart ></canvas>
+            </ion-card-content>
+          </ion-card>
+        </div>
+  </div>
+</ion-content>

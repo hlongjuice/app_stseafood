@@ -1,0 +1,34 @@
+<!--
+  Generated template for the CarListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button color="danger" ion-button default (click)="dismiss()">ยกเลิก</button>
+      <ion-title>สินค้า</ion-title>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+          <ion-searchbar (ionInput)="searchProduct($event)"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col (click)="selectedProduct(product)" *ngFor="let product of products" col-6>
+        <ion-item>
+          <ion-label>{{product.name}}</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

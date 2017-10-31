@@ -1,0 +1,19 @@
+page-eng-water-filtration {
+    .scroll-header {
+        min-width: 1500px; // overflow-y:hidden !important;
+    }
+    .scroll-result {
+        min-width: 1500px; // overflow-y:hidden !important;
+    }
+    .scroll {
+        min-width: 1500px;
+        min-height: 400px;
+    }
+    .scroll-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .list{
+        overflow: scroll;
+    }
+}

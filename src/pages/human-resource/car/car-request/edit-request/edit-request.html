@@ -1,0 +1,165 @@
+<!--
+  Generated template for the EditRequestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>แก้ไขแบบ</ion-title>
+      <button [disabled]="!editRequest.form.valid" (click)="updateRequest(editRequest.value)" item-end default ion-button color="success">ส่งแบบฟอร์ม</button>
+    </ion-item>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #editRequest="ngForm">
+    <ion-grid>
+      <!--Row Start Time-->
+      <ion-row>
+        <!--Start Date-->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่ขอใช้รถ</ion-label>
+            <!-- <ion-icon item-start color="primary"><i class="fa fa-calendar" aria-hidden="true"></i></ion-icon> -->
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="start_date" [(ngModel)]="request.start_date">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!--Start Time-->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลา</ion-label>
+            <!--<ion-icon item-start color="primary"><i class="fa fa-clock-o" aria-hidden="true"></i></ion-icon>-->
+            <ion-datetime required displayFormat="HH:mm" name="start_time" [(ngModel)]="request.start_time">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Row End Time-->
+      <ion-row>
+        <!--End Date-->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ถึงวันที่</ion-label>
+            <!--<ion-icon item-start color="primary"><i class="fa fa-calendar" aria-hidden="true"></i></ion-icon>-->
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="end_date" [(ngModel)]="request.end_date">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!--End Time-->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลา</ion-label>
+            <!--<ion-icon item-start color="primary"><i class="fa fa-clock-o" aria-hidden="true"></i></ion-icon>-->
+            <ion-datetime required displayFormat="HH:mm" name="end_time" [(ngModel)]="request.end_time">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Row 3-->
+      <ion-row>
+        <ion-col col-6>
+          <!--Division-->
+          <ion-item>
+            <ion-label color="primary">หน่วยงานที่ขอใช้</ion-label>
+            <ion-select required (ionChange)="getRequestEmployees()" name="division_id" placeholder="เลือกฝ่าย" [(ngModel)]="selectedDivision">
+              <ion-option *ngFor="let division of divisions" [value]="division.id">{{division.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!--Rank-->
+        <ion-col *ngIf="rank" col-6>
+          <ion-item>
+            <ion-label color="primary">ตำแหน่ง</ion-label>
+            <ion-input disabled text-right name="rank" [(ngModel)]="rank"></ion-input>
+            <ion-input hidden name="rank_id" [(ngModel)]="rankID"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Row 4-->
+      <ion-row>
+        <!--Employee-->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label (focus)="getRequestEmployees()" color="primary">ผู้ขอ</ion-label>
+            <ion-input required text-right (focus)="getRequestEmployees()" [disabled]="!divisions" [(ngModel)]="requestEmployee" name="employee"></ion-input>
+            <ion-input hidden [(ngModel)]="requestEmployeeID" name="em_id"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <!--Car Type-->
+          <ion-item>
+            <ion-label color="primary">ประเภทรถ</ion-label>
+            <ion-select required name="car_type_id" placeholder="เลือกประเภทรถ" [(ngModel)]="selectedCarType">
+              <ion-option *ngFor="let carType of carTypes" [value]="carType.id">{{carType.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Row 5-->
+      <ion-row>
+        <!--Destination-->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">สถานที่ติดต่อ</ion-label>
+            <ion-input required text-right name="destination" [(ngModel)]="request.destination"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!--Details-->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">งานที่ไปติดต่อ</ion-label>
+            <ion-input text-right name="details" [(ngModel)]="request.details"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Row 6-->
+      <ion-row>
+        <!--Passenger-->
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">คนเดินทาง</ion-label>
+            <ion-input type="number" text-right name="passenger_number" [(ngModel)]="passengerNumber"></ion-input>
+            <div ion-text text-end>คน</div>
+          </ion-item>
+        </ion-col>
+        <!-- Passenger Input -->
+        <ion-col col-12>
+          <ion-row *ngFor="let passengerInput of passengerInputs; let i = index">
+            <ion-col col-12 *ngIf="passengerInputs!=null">
+              <ion-row>
+                <ion-col col-4>
+                  <ion-item>
+                    <ion-select (ionChange)="getDivisionPassengers(i)" placeholder="เลือกฝ่าย" name="selectedDivision[{{i}}]" [(ngModel)]="passengerInput.division">
+                      <ion-option *ngFor="let division of divisions" [value]="division.id">{{division.name}}</ion-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-6>
+                  <ion-item>
+                    <ion-input [disabled]="!passengerInput.division" placeholder="เลือกผู้โดยสาร" (focus)="setPassengerInput($event,i)" [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="passengerInput.employee"></ion-input>
+                    <ion-input hidden name="selectedPassengerIDs[]" [(ngModel)]="passengerInput.employeeID"></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col col-2>
+                  <button text-right (click)="deletePassenger(i)" type="button" ion-button color="danger">ลบ</button>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col offset-9 col-3>
+          <button (click)="setPassengers()" type="button" ion-button color="primary">เพิ่มผู้โดยสาย</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

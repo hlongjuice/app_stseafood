@@ -1,0 +1,57 @@
+<!--
+  Generated template for the EmployeeEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <ion-list inset>
+    <!--EmID-->
+    <ion-item>
+      <ion-label>รหัส</ion-label>
+      <ion-input [(ngModel)]="em_id" name="em_id"></ion-input>
+    </ion-item>
+    <!--Name-->
+    <ion-item>
+      <ion-label>ชื่อ</ion-label>
+      <ion-input [(ngModel)]="name" name="name"></ion-input>
+    </ion-item>
+    <!--Last Name-->
+    <ion-item>
+      <ion-label>นามสกุล</ion-label>
+      <ion-input [(ngModel)]="lastname" name="lastname"></ion-input>
+    </ion-item>
+    <!--Divisions-->
+    <ion-item>
+      <ion-label>ฝ่าย</ion-label>
+      <ion-select (ionChange)="getDepartment()" [(ngModel)]="division_id">
+        <ion-option *ngFor="let division of divisions; let i = index" [value]="division.id">{{division?.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <!--Departments-->
+    <ion-item *ngIf="division_id">
+      <ion-label>แผนก</ion-label>
+      <ion-select [(ngModel)]="department_id">
+        <ion-option *ngFor="let department of departments; let i =index" [value]="department.id">{{department?.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <!--Salary Type-->
+    <ion-item>
+      <ion-label>การรับเงิน</ion-label>
+      <ion-select [(ngModel)]="salary_type_id" name="salary_type_id">
+        <ion-option value=1>รายเดือน</ion-option>
+        <ion-option value=2>รายวัน</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <button (click)="dismiss()" ion-button block color="danger">ยกเลิก</button>
+        </ion-col>
+        <ion-col col-6>
+          <button (click)="update()" ion-button block color="success">บันทึก</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</ion-content>

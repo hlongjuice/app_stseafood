@@ -1,0 +1,36 @@
+<!--
+  Generated template for the QcAddExtraReceivingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button color="danger" item-start default ion-button (click)="dismiss()">ปิด</button>
+      <ion-title>กุ้งตาย 5 รอบสุดท้าย และ น้ำหนักกุ้งนิ้ม</ion-title>
+      <button color="success" ion-button default item-end (click)="addExtraReceiving(extraForm.value)">บันทึก</button>
+    </ion-item>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #extraForm="ngForm">
+    <ion-list no-padding>
+      <ion-item margin-bottom no-padding>
+        <ion-label color="primary">กุ้งตาย 5 รอบสุดท้าย</ion-label>
+        <ion-checkbox name="last_five_round_status" [(ngModel)]="last_five_round_status"></ion-checkbox>
+      </ion-item>
+      <ion-item margin-top no-padding>
+        <ion-label color="primary">กุ้งนิ้ม</ion-label>
+        <ion-input text-right type="number" name="real_shrimp_soft" [(ngModel)]="real_shrimp_soft"></ion-input>
+        <div ion-text item-end>กก.</div>
+      </ion-item>
+    </ion-list>
+  </form>
+
+</ion-content>

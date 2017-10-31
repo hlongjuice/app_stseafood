@@ -1,0 +1,59 @@
+page-eng-water-usage-result {
+    .result-scroll-content{
+        min-width:3200px;
+        height: 150px;
+        // height: auto;
+    }
+    .scroll-header {
+        min-width: 3200px; // overflow-y:hidden !important;
+        h2{
+            border-bottom: 1px solid map-get($colors, dark );
+            margin-left:5px;
+            margin-right:5px;
+        }
+    }
+    .scroll-result {
+        min-width: 3200px; // overflow-y:hidden !important;
+    }
+    .scroll {
+        min-width: 3200px;
+        min-height: 400px;
+    }
+    .date-scroll{
+        min-height: 400px;
+    }
+    .scroll-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .list{
+        overflow: scroll;
+    }
+    .table-content:nth-child(odd){
+        background-color:map-get($colors, light-gray );
+    }
+    .table-content{
+        border:none !important;
+    }
+    .table-content-result{
+        background-color:map-get($colors,dark-blue) !important;
+        color:map-get($colors, light );
+        padding-top:5px;
+        padding-bottom: 5px;
+    }
+    .table-content-result-blue{
+        margin-top:5px;
+        padding-top:5px;
+        padding-bottom: 5px;
+        background-color:map-get($colors,dark) !important;
+        color:map-get($colors, light )
+    }
+    .highlight-red{
+        background-color: rgba(map-get($colors, danger), 0.2) !important;
+        .item {
+            background-color: transparent;
+        }
+    }
+
+
+}

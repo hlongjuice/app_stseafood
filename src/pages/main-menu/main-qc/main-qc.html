@@ -1,0 +1,63 @@
+<!--
+  Generated template for the MainEngineerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+      <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title text-center>
+        <!--<ion-item>-->
+        <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+        ฝ่ายประกันคุณภาพ
+        <!--</ion-item> -->
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  
+  <ion-content padding>
+    <ion-grid>
+      <ion-row class="c-result">
+        <!-- Result -->
+        <ion-col col-4>
+          <ion-card (click)="openPage('QcRecorderResultPage')">
+            <ion-card-content>
+              <div>
+                <h3 ion-text color="primary">สรุปผลการบันทึก</h3>
+                <div class="c-result-blue" ion-text text-right>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Shrimp Recorder -->
+        <ion-col col-4>
+          <ion-card (click)="openPage('QcShrimpRecorderPage')">
+            <ion-card-content>
+              <div>
+                <h3 ion-text color="primary">ระบบตรวจรับกุ้งเป็น</h3>
+                <div class="c-result-blue" ion-text text-right>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+        <!-- Customer List -->
+        <ion-col col-4>
+          <ion-card (click)="openPage('QcSupplierPage')">
+            <ion-card-content>
+              <div>
+                <h3 ion-text color="primary">รายชื่อลูกค้า</h3>
+                <div class="c-result-blue" ion-text text-right>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

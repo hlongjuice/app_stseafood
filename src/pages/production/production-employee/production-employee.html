@@ -1,0 +1,250 @@
+<!--
+  Generated template for the ProductionEmployeePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon>
+      จัดกลุ่มพนักงาน
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!--Top Card-->
+  <ion-card>
+    <ion-card-header>
+
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment (ionChange)="getEmployee()" [(ngModel)]="groupTab" name="groupTab">
+        <ion-segment-button value="all">พนักงานในแผนกทั้งหมด</ion-segment-button>
+        <ion-segment-button value="nonGroup">พนักงานที่ไม่มีกลุ่ม</ion-segment-button>
+        <ion-segment-button value="inGroup">พนักงานตามกลุ่ม</ion-segment-button>
+      </ion-segment>
+      <!--Inser/Edit/Delete List-->
+      <ion-grid>
+        <div [ngSwitch]="groupTab">
+          <!--All or NonGroup-->
+          <ion-row *ngIf="groupTab=='all'||groupTab=='nonGroup'">
+            <ion-col col-2>
+              <div (click)="addGroupMember()">
+                <button ion-button block color="primary">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                 เพิ่มกลุ่ม
+                </button>
+              </div>
+            </ion-col>
+            <ion-col *ngIf="groupTab=='all'" col-2>
+              <div (click)="changeGroupMember()">
+                <button ion-button block color="warning">
+                <i class="fa fa fa-exchange" aria-hidden="true"></i>
+                 ย้ายกลุ่ม
+                </button>
+              </div>
+            </ion-col>
+            <ion-col *ngIf="groupTab=='all'" col-2>
+              <div (click)="deleteGroupMember()">
+                <button ion-button block color="danger">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                 ลบออกจากกลุ่ม
+                </button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <!--In Group-->
+          <ion-row *ngSwitchCase="'inGroup'">
+            <ion-col col-3>
+              <ion-item padding-top class="item-input">
+                <!--<ion-label stacked item-start>เลือกกลุ่ม</ion-label>-->
+                <ion-select (ionChange)="getInGroupEmployee()" name="group" placeholder="เลือกกลุ่ม" [(ngModel)]="group">
+                  <ion-option *ngFor="let group of em_groups">{{group.name}}</ion-option>
+                </ion-select>
+                <ion-icon item-start color="primary" item-right><i class="fa fa-users" aria-hidden="true"></i></ion-icon>
+              </ion-item>
+            </ion-col>
+            <ion-col col-7>
+              <ion-row>
+                <ion-col col-6>
+                  <div (click)="changeGroupMember()">
+                    <button ion-button block color="warning">
+                <i class="fa fa fa-exchange" aria-hidden="true"></i>
+                 ย้ายกลุ่ม
+                </button>
+                  </div>
+                </ion-col>
+                <ion-col col-6>
+                  <div (click)="deleteGroupMember()">
+                    <button ion-button block color="danger">
+                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                 ลบออกจากกลุ่ม
+                </button>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <div></div>
+          </ion-row>
+        </div>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!--Bottom Card-->
+  <ion-card>
+    <ion-card-header>
+
+    </ion-card-header>
+    <ion-card-content>
+      <!--Employee List-->
+      <ion-grid>
+        <!--Header Column-->
+        <ion-row class="table-header">
+          <ion-col col-1>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>รหัส</ion-item>
+          </ion-col>
+          <ion-col col-4>
+            <ion-item>ชื่อ-สกุล</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>กลุ่ม</ion-item>
+          </ion-col>
+          <ion-col col-3>
+            <ion-item>แก้ไข</ion-item>
+          </ion-col>
+          <div class="table-header-line-bottom-1"></div>
+        </ion-row>
+        <!--Row List-->
+        <ion-row>
+          <!--Group Tab-->
+          <ion-col col-12>
+            <div [ngSwitch]="groupTab">
+              <!--Tab All-->
+              <div *ngSwitchCase="'all'">
+                <ion-row>
+                  <ion-col text-center col-12>
+                    <ion-spinner *ngIf="!allEmployees"></ion-spinner>
+                  </ion-col>
+                </ion-row>
+                <ion-row [ngClass]="{'highlight':isHighlightVisible[i]}" class="line" *ngFor="let allEmployee of allEmployees; let i=index;">
+                  <ion-col col-1>
+                    <ion-item>
+                      <ion-checkbox (ionChange)="setCheckedEmployee($event,allEmployee.em_id,i)"></ion-checkbox>
+                    </ion-item>
+                  </ion-col>
+                  <!--EmID-->
+                  <ion-col col-2>
+                    <ion-item>{{allEmployee.em_id}}</ion-item>
+                  </ion-col>
+                  <!--Name-Lastname-->
+                  <ion-col col-4>
+                    <ion-item>{{allEmployee.name}} {{allEmployee.lastname}}</ion-item>
+                  </ion-col>
+                  <!--Group-->
+                  <ion-col col-2>
+                    <div *ngIf="allEmployee.production_employee[0];then hasGroup else nonGroup"></div>
+                    <ng-template #hasGroup>
+                      <ion-item>{{allEmployee.production_employee[0].group}}</ion-item>
+                    </ng-template>
+                    <ng-template #nonGroup>
+                      <ion-item>ว่าง</ion-item>
+                    </ng-template>
+                  </ion-col>
+                  <!--Edit-->
+                  <ion-col col-3>
+                    <div *ngIf="allEmployee.production_employee[0];then editButton else addButton"></div>
+                    <ng-template #editButton>
+                      <ion-row>
+                        <ion-item>
+                          <button item-start (click)="chkEmployee=[allEmployee.em_id];changeGroupMember();" ion-button color="warning">ย้ายกลุ่ม</button>
+                          <button item-end (click)="chkEmployee=[allEmployee.em_id];deleteGroupMember();" ion-button color="danger">ลบออกจากกลุ่ม</button>
+                        </ion-item>
+                      </ion-row>
+                    </ng-template>
+                    <ng-template #addButton>
+                      <ion-item><button (click)="chkEmployee=[allEmployee.em_id];addGroupMember();" ion-button block color="primary">เพิ่มกลุ่ม</button></ion-item>
+                    </ng-template>
+                  </ion-col>
+                </ion-row>
+              </div>
+              <!--Tab Non Group Employee-->
+              <div *ngSwitchCase="'nonGroup'">
+                <ion-row>
+                  <ion-col text-center col-12>
+                    <ion-spinner *ngIf="!nonGroupEmployees"></ion-spinner>
+                  </ion-col>
+                </ion-row>
+                <ion-row [ngClass]="{'highlight':isHighlightVisible[i]}" class="line" *ngFor="let nonGroupEmployee of nonGroupEmployees; let i=index">
+                  <ion-col col-1>
+                    <ion-item>
+                      <ion-checkbox (ionChange)="setCheckedEmployee($event,nonGroupEmployee.em_id,i)"></ion-checkbox>
+                    </ion-item>
+                  </ion-col>
+                  <!--EmID-->
+                  <ion-col col-2>
+                    <ion-item>{{nonGroupEmployee.em_id}}</ion-item>
+                  </ion-col>
+                  <!--Name-Lastname-->
+                  <ion-col col-4>
+                    <ion-item>{{nonGroupEmployee.name}} {{nonGroupEmployee.lastname}}</ion-item>
+                  </ion-col>
+                  <!--Group-->
+                  <ion-col col-2>
+                    <ion-item>ว่าง</ion-item>
+                  </ion-col>
+                  <!--Edit-->
+                  <ion-col col-3>
+                    <ion-item><button (click)="chkEmployee=[nonGroupEmployee.em_id];addGroupMember();" ion-button color="primary">เพิ่มกลุ่ม</button></ion-item>
+                  </ion-col>
+                </ion-row>
+              </div>
+
+              <!--Tab In Group-->
+              <div *ngSwitchCase="'inGroup'">
+                <ion-row [ngClass]="{'highlight':isHighlightVisible[i]}" class="line" *ngFor="let inGroupEmployee of inGroupEmployees; let i = index">
+                  <ion-col col-1>
+                    <ion-item>
+                      <ion-checkbox (ionChange)="setCheckedEmployee($event,inGroupEmployee.em_id,i)"></ion-checkbox>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col col-2>
+                    <ion-item>{{inGroupEmployee.em_id}}</ion-item>
+                  </ion-col>
+                  <ion-col col-4>
+                    <ion-item>{{inGroupEmployee.employee.name}} {{inGroupEmployee.employee.lastname}}</ion-item>
+                  </ion-col>
+                  <ion-col col-2>
+                    <ion-item>{{inGroupEmployee.group}}</ion-item>
+                  </ion-col>
+                  <ion-col col-3>
+                    <ion-item>
+                      <button (click)="chkEmployee=[inGroupEmployee.em_id];changeGroupMember()" ion-button color="warning">ย้ายกลุ่ม</button>
+                      <button (click)="chkEmployee=[inGroupEmployee.em_id];deleteGroupMember()" ion-button color="danger">ลบออกจากกลุ่ม</button>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </div>
+            <ion-infinite-scroll threshold="5px" (ionInfinite)="doInfinite($event)">
+              <ion-infinite-scroll-content>
+
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

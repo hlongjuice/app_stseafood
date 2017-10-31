@@ -1,0 +1,13 @@
+page-production-work-form {
+    .input {
+        color: map-get($colors, danger);
+      //  font-size: 2.0rem;
+    }
+    .round {
+        color: map-get($colors, danger);
+        font-size: 1.6rem;
+    }
+    .selected-id{
+        font-size:2.5rem !important;
+    }
+}

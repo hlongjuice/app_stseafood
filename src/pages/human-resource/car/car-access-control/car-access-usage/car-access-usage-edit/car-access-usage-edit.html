@@ -1,0 +1,74 @@
+<!--
+  Generated template for the CarArrivalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button item-start default (click)="dismiss()" ion-button color="danger">ปิด</button>
+      <ion-title>แก้ไข</ion-title>
+      <button item-end [disabled]="!recordForm.form.valid" (click)="updateGasFill(recordForm.value)" ion-button default color="success">บันทึก</button>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label>คนขับ :<span ion-text color="primary">{{record?.car_response?.driver?.name}} {{record?.car_response?.driver?.lastname}}</span></ion-label>
+      <ion-label item-content>ป้ายทะเบียนรถ :<span ion-text color="primary">{{record?.car?.plate_number}}</span></ion-label>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #recordForm="ngForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>การเติมน้ำมัน</ion-label>
+          </ion-item>
+          <!-- <div class="line"></div> -->
+        </ion-col>
+        <!-- Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลา</ion-label>
+            <ion-datetime displayFormat="HH:mm" name="gas_fill_time" [(ngModel)]="record.gas_fill_time"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Gas Fill -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">จำนวนน้ำมันที่เติม</ion-label>
+            <ion-input required placeholder="00.00" item-content text-right name="gas_fill" [(ngModel)]="record.gas_fill"></ion-input>
+            <div ion-text item-end>ลิตร</div>
+          </ion-item>
+        </ion-col>
+        <!-- Price -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เป็นเงิน</ion-label>
+            <ion-input required text-right placeholder="0.00" name="gas_total_price" [(ngModel)]="record.gas_total_price"></ion-input>
+            <div ion-text item-end>บาท</div>
+          </ion-item>
+        </ion-col>
+        <!-- Gas Station -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">สถานที่เติมน้ำมัน</ion-label>
+            <ion-input required placeholder="ชื่อสถานที่" text-right name="gas_station" [(ngModel)]="record.gas_station"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Fill By -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ผู้เติม</ion-label>
+            <ion-input required text-right name="gas_fill_by" [(ngModel)]="record.gas_fill_by"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

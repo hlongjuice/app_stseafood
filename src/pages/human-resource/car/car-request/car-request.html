@@ -1,0 +1,101 @@
+<!--
+  Generated template for the CarRequestPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-start><i class="fa fa-file-text-o" aria-hidden="true"></i></ion-icon>
+      ระบบขอใช้รถ
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button (click)="addRequest()" ion-button color="primary">ขอใช้รถ</button>
+          </ion-col>
+          <ion-col col-6>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <div ion-text>เลือกวันที่</div>
+            <ion-datetime (ionChange)="getCarRequest()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-grid>
+        <!--Table Header-->
+        <ion-row class="table-header">
+          <!--Check Box-->
+          <!-- <ion-col col-1></ion-col> -->
+          <!-- Details -->
+          <ion-col col-2></ion-col>
+          <ion-col col-2>
+            <ion-item>วันที่ขอ</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>เวลาที่ขอ</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>สถานที่ไป</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>สถานะการขอ</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item></ion-item>
+          </ion-col>
+          <div class="table-header-line"></div>
+        </ion-row>
+        <!--Table Content-->
+        <ion-row class="table-content" *ngFor="let request of allRequests; let i=index">
+          <!--Check Box-->
+          <!-- <ion-col col-1> -->
+          <!-- <ion-checkbox [checked]="chkStatus[i]" (ionChange)="setCheckBox($event,request.id,i)"></ion-checkbox> -->
+          <!-- </ion-col> -->
+          <!-- Details -->
+          <ion-col col-2>
+            <button margin-bottom (click)="getDetails(i)" ion-button color="primary">รายละเอียด</button>
+          </ion-col>
+          <ion-col col-2>
+            <!-- <ion-item>{{request.start_date}}</ion-item> -->
+            <ion-datetime disabled displayFormat="DD / MM / YYYY" [(ngModel)]="request.start_date"></ion-datetime>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>{{request.start_time}}</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>{{request.destination}}</ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item>
+              <ion-label [color]="request.status?.color">{{request.status?.name}}</ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <button margin-bottom *ngIf="request?.status_id==1" (click)="editRequest(request)" ion-button color="warning">แก้ไข</button>
+            <button margin-bottom *ngIf="request.status.id==1" (click)="singleDelete(request.id,i)" ion-button color="danger">ลบ</button>
+          </ion-col>
+          <div class="table-content-line"></div>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

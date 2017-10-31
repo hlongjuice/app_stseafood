@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      Water Meter
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    เพิ่มการบันทึก
+                  </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!-- Card Result -->
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>สรุปการใช้งานใน 1 วัน</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- M-pwa -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">MM-4</h3>
+              <p>ผลิต</p>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.mm_4_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- M-15 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">MM-5</h3>
+              <p>สายนอก</p>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.mm_5_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- M-17 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">MM-6</h3>
+              <p>เครื่องจักร</p>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.mm_6_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header">
+        <ion-label>รอบ</ion-label>
+        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label>MM-4
+          <p>ผลิต</p>
+        </ion-label>
+        <ion-label>MM-5
+          <p>สายนอก</p>
+        </ion-label>
+        <ion-label>MM-6
+          <p>เครื่องจักร</p>
+        </ion-label>
+        <ion-label>Flow</ion-label>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content" scrollY="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday 24:00 -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button disabled item-start ion-button default color="light" clear (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+            <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label>{{yesterday_meter?.mm_4 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.mm_5 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.mm_6 || '-'}}</ion-label>
+            <ion-label>{{yesterday_meter?.flow || '-'}}</ion-label>
+            <button disabled item-end ion-button default color="light" clear (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <ion-label>{{recorder.time_record}}</ion-label>
+            <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label>{{recorder.mm_4 || '-'}}</ion-label>
+            <ion-label>{{recorder.mm_5 || '-'}}</ion-label>
+            <ion-label>{{recorder.mm_6 || '-'}}</ion-label>
+            <ion-label>{{recorder.flow || '-'}}</ion-label>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+
+  </ion-card>
+</ion-content>

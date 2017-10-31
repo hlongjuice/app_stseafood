@@ -1,0 +1,137 @@
+<!--
+  Generated template for the AssignCarPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button item-start default (click)="dismiss()" ion-button color="danger">ยกเลิก</button>
+      <ion-title>รายการจัดรถ</ion-title>
+      <button item-end default [disabled]="!assignForm.form.valid" (click)="assignCar(assignForm.value)" ion-button color="success">ยืนยันการจัดรถ</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #assignForm="ngForm">
+    <ion-grid>
+      <!-- Row 1 -->
+      <ion-row>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่อนุมติ</ion-label>
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="approveDate" [(ngModel)]="approveDate"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลา</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="approveTime" [(ngModel)]="approveTime"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Row 2 -->
+      <ion-row>
+        <!-- Car Type -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ประเภทรถ</ion-label>
+            <ion-select required placeholder="เลือกประเภทรถ" (ionChange)="getCars()" name="selectedCarType" [(ngModel)]="selectedCarType">
+              <!-- <ion-option value="all">ทุกประเภท</ion-option> -->
+              <ion-option *ngFor="let carType of carTypes" [value]="carType.id">{{carType.name}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!-- Car  -->
+        <ion-col col-6>
+          <ion-item *ngIf="selectedCarType">
+            <ion-label color="primary">เลือกรถ</ion-label>
+            <ion-input (focus)="getCars()"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Row 3 -->
+      <ion-row>
+        <ion-col col-6 *ngIf="carNumber">
+          <ion-item>
+            <ion-label color="primary">หมายเลขรถ</ion-label>
+            <ion-input required text-right (focus)="getCars()" name="carNumber" [(ngModel)]="carNumber"></ion-input>
+            <ion-input hidden [(ngModel)]="carID" name="carID"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Plate Number -->
+        <ion-col *ngIf="carNumber" col-6>
+          <ion-item>
+            <ion-label color="primary">ป้ายทะเบียน</ion-label>
+            <ion-input required text-right (focus)="getCars()" name="plateNumber" [(ngModel)]="plateNumber"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Row 4 -->
+      <ion-row>
+        <!-- Driver -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">พนักงานขับรถ</ion-label>
+            <ion-select required name="selectedDriver" [(ngModel)]="selectedDriver">
+              <ion-option *ngFor="let driver of drivers" [value]="driver.em_id">{{driver.name}} {{driver.lastname}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!-- Destination -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">สถานที่ไปติดต่อ</ion-label>
+            <ion-input required text-right name="destination" [(ngModel)]="destination"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Details -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">งานที่ไปติดต่อ</ion-label>
+            <ion-input text-right name="details" [(ngModel)]="details"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Passenger -->
+      <ion-row *ngFor="let request of requests">
+        <ion-col col-4>
+          <ion-item>
+            <ion-label color="primary">ฝ่ายที่ขอ : <span ion-text color="dark">{{request.division?.name}}</span></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-8>
+          <ion-item>
+            <ion-label color="primary">ผู้ขอ : <span ion-text color="dark">{{request.employee?.name}} {{request.employee?.lastname}}</span></ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label color="primary">ผู้โดยสาร</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let passenger of passengers">
+        <ion-col col-8>
+          <ion-item>
+            <ion-label color="primary"><span ion-text color="dark">{{passenger.employee?.name}} {{passenger.employee?.lastname}}</span></ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col col-4>
+          <ion-item>
+            <ion-label color="primary">ฝ่าย : <span ion-text color="dark">{{passenger.employee?.division?.name}}</span></ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

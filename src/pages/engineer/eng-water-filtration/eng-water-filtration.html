@@ -1,0 +1,380 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+              </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      โรงกรองน้ำ
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกวันที่</ion-label>
+              <ion-datetime (ionChange)="getRecords()" displayFormat="DD/MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item>
+              <button ion-button item-end default color="primary" (click)="addRecord()">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        เพิ่มการบันทึก
+                      </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-grid>
+    <!-- Row 1 -->
+    <ion-row class="c-result">
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>สรุปการใช้งานใน 1 วัน</ion-label>
+        </ion-item>
+      </ion-col>
+      <!-- Plant 1 MM-1 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Plant 1 MM-1</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.plant1_mm_1_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <!-- Plant 2 MM-2 -->
+      <ion-col col-3>
+        <ion-card>
+          <ion-card-content>
+            <div>
+              <h3 ion-text color="primary">Plant 2 MM-2</h3>
+              <div class="c-result-dark-blue" ion-text text-right>
+                <h1 ion-text color="dark-blue">{{daily_used?.plant2_mm_2_used| number}}</h1>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Bottom Card -->
+  <ion-card>
+    <!-- Date -->
+    <ion-item no-lines text-center>
+      <ion-label class="text-large">สรุปการบันทึกวันที่ {{result_date | date:'d/M/yy'}}</ion-label>
+    </ion-item>
+    <!-- Table Result -->
+    <ion-list inset>
+      <ion-item text-center class="table-header eng-scroll-header scroll-header">
+        <!-- Time -->
+        <div item-content class="group-header-20">
+          <h2></h2>
+          <div class="group-header-content">
+            <ion-label>รอบ</ion-label>
+            <ion-label>เวลาบันทึกจริง</ion-label>
+          </div>
+        </div>
+        <!-- Raw W -->
+        <div text-center item-content class="group-header-10">
+          <h2>Raw W</h2>
+          <div class="group-header-content">
+            <ion-label>Pump
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Plant 1 -->
+        <div text-center item-content class="group-header-10">
+          <h2>Plant 1</h2>
+          <div class="group-header-content">
+            <ion-label>MM-1</ion-label>
+            <ion-label>Flow
+              <p>(>18)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Plant 2 -->
+        <div text-center item-content class="group-header-10">
+          <h2>Plant 2</h2>
+          <div class="group-header-content">
+            <ion-label>MM-2</ion-label>
+            <ion-label>Flow
+              <p>(>18)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Chem Pump -->
+        <div text-center item-content class="group-header-10">
+          <h2>Chem Pump</h2>
+          <div class="group-header-content">
+            <ion-label>P1
+              <p>-</p>
+            </ion-label>
+            <ion-label>P2
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Silt -->
+        <div text-center item-content class="group-header-10">
+          <h2>ตะกอน</h2>
+          <div class="group-header-content">
+            <ion-label>P1
+              <p>(1-2)</p>
+            </ion-label>
+            <ion-label>P2
+              <p>(1-2)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Lab -->
+        <div text-center item-content class="group-header-10">
+          <h2>PH(Lab)</h2>
+          <div class="group-header-content">
+            <ion-label>P1
+              <p>(6.5-8.0)</p>
+            </ion-label>
+            <ion-label>P2
+              <p>(6.5-8.0)</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Flow -->
+        <div text-center item-content class="group-header-20">
+          <h2>Flow</h2>
+          <div class="group-header-content">
+            <ion-label>Flow ผลิต
+              <p>-</p>
+            </ion-label>
+            <ion-label>Flow ใช้
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <button item-start ion-button default clear disabled>แก้ไข</button>
+        <button item-end ion-button default clear disabled>ลบ</button>
+      </ion-item>
+      <ion-scroll class="eng-scroll-content scroll" scrollY="true" scrollX="true">
+        <ion-card-content no-padding>
+          <!-- Yesterday -->
+          <ion-item *ngIf="yesterday_meter" text-center class="table-content">
+            <button clear disabled item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-20">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
+                <ion-label>{{yesterday_meter.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Raw W -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>
+                  <span *ngIf="yesterday_meter?.raw_w_pump1==1">1</span>
+                  <span *ngIf="yesterday_meter?.raw_w_pump2==1">2</span>
+                  <span *ngIf="yesterday_meter?.raw_w_pump3==1">3</span></ion-label>
+              </div>
+            </div>
+            <!-- Plant 1 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.p1_mm1}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.p1_flow>18;else warningP1Flow">{{yesterday_meter?.p1_flow}}
+                </ion-label>
+                <ng-template #warningP1Flow>
+                  <ion-label color="danger">{{yesterday_meter?.p1_flow}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Plant 2 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.p2_mm2}}</ion-label>
+                <ion-label *ngIf="yesterday_meter?.p2_flow>18;else warningP2Flow">{{yesterday_meter?.p2_flow}}
+                </ion-label>
+                <ng-template #warningP2Flow>
+                  <ion-label color="danger">{{yesterday_meter?.p2_flow}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Chem Pump -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label color="success">
+                  <i *ngIf="yesterday_meter?.chem_pump1==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ion-label color="success">
+                  <i *ngIf="yesterday_meter?.chem_pump2==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+              </div>
+            </div>
+            <!-- Silt -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Silt P1 -->
+                <ion-label *ngIf="yesterday_meter?.silt_pump1>=1 && yesterday_meter?.silt_pump1<=2;else warningSiltP1 ">
+                  {{yesterday_meter?.silt_pump1}}
+                </ion-label>
+                <ng-template #warningSiltP1>
+                  <ion-label color="danger">{{yesterday_meter?.silt_pump1}}</ion-label>
+                </ng-template>
+                <!-- Silt P2 -->
+                <ion-label *ngIf="yesterday_meter?.silt_pump2>=1 && yesterday_meter?.silt_pump2<=2;else warningSiltP2 ">
+                  {{yesterday_meter?.silt_pump2}}
+                </ion-label>
+                <ng-template #warningSiltP2>
+                  <ion-label color="danger">{{yesterday_meter?.silt_pump2}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Lab -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Silt P1 -->
+                <ion-label *ngIf="yesterday_meter?.lab_p1>=6.5 && yesterday_meter?.lab_p1<=8.0;else warningLabP1">
+                  {{yesterday_meter?.lab_p1}}
+                </ion-label>
+                <ng-template #warningLabP1>
+                  <ion-label color="danger">{{yesterday_meter?.lab_p1}}</ion-label>
+                </ng-template>
+                <!-- Silt P2 -->
+                <ion-label *ngIf="yesterday_meter?.lab_p2>=6.5 && yesterday_meter?.lab_p2<=8.0;else warningLabP2 ">
+                  {{yesterday_meter?.lab_p2}}
+                </ion-label>
+                <ng-template #warningLabP2>
+                  <ion-label color="danger">{{yesterday_meter?.lab_p2}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Flow -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{yesterday_meter?.mm_1_2_flow}}</ion-label>
+                <ion-label>{{yesterday_meter?.mm_4_5_6_flow}}</ion-label>
+              </div>
+            </div>
+            <button clear disabled item-end ion-button default color="light" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+          <!-- End Yesterday -->
+          <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+            <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+            <!-- Time -->
+            <div item-content class="group-header-20">
+              <h2></h2>
+              <div class="group-header-content">
+                <ion-label>{{recorder.time_record}}</ion-label>
+                <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+              </div>
+            </div>
+            <!-- Raw W -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>
+                  <span *ngIf="recorder.raw_w_pump1==1">1</span>
+                  <span *ngIf="recorder.raw_w_pump2==1">2</span>
+                  <span *ngIf="recorder.raw_w_pump3==1">3</span></ion-label>
+              </div>
+            </div>
+            <!-- Plant 1 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{recorder.p1_mm1}}</ion-label>
+                <ion-label *ngIf="recorder.p1_flow>18;else warningP1Flow">{{recorder.p1_flow}}
+                </ion-label>
+                <ng-template #warningP1Flow>
+                  <ion-label color="danger">{{recorder.p1_flow}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Plant 2 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label>{{recorder.p2_mm2}}</ion-label>
+                <ion-label *ngIf="recorder.p2_flow>18;else warningP2Flow">{{recorder.p2_flow}}
+                </ion-label>
+                <ng-template #warningP2Flow>
+                  <ion-label color="danger">{{recorder.p2_flow}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Chem Pump -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <ion-label color="success">
+                  <i *ngIf="recorder.chem_pump1==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+                <ion-label color="success">
+                  <i *ngIf="recorder.chem_pump2==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                </ion-label>
+              </div>
+            </div>
+            <!-- Silt -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Silt P1 -->
+                <ion-label *ngIf="recorder.silt_pump1>=1 && recorder.silt_pump1<=2;else warningSiltP1 ">
+                  {{recorder.silt_pump1}}
+                </ion-label>
+                <ng-template #warningSiltP1>
+                  <ion-label color="danger">{{recorder.silt_pump1}}</ion-label>
+                </ng-template>
+                <!-- Silt P2 -->
+                <ion-label *ngIf="recorder.silt_pump2>=1 && recorder.silt_pump2<=2;else warningSiltP2 ">
+                  {{recorder.silt_pump2}}
+                </ion-label>
+                <ng-template #warningSiltP2>
+                  <ion-label color="danger">{{recorder.silt_pump2}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Lab -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Silt P1 -->
+                <ion-label *ngIf="recorder.lab_p1>=6.5 && recorder.lab_p1<=8.0;else warningLabP1">
+                  {{recorder.lab_p1}}
+                </ion-label>
+                <ng-template #warningLabP1>
+                  <ion-label color="danger">{{recorder.lab_p1}}</ion-label>
+                </ng-template>
+                <!-- Silt P2 -->
+                <ion-label *ngIf="recorder.lab_p2>=6.5 && recorder.lab_p2<=8.0;else warningLabP2 ">
+                  {{recorder.lab_p2}}
+                </ion-label>
+                <ng-template #warningLabP2>
+                  <ion-label color="danger">{{recorder.lab_p2}}</ion-label>
+                </ng-template>
+              </div>
+            </div>
+            <!-- Flow -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <ion-label>{{recorder.mm_1_2_flow}}</ion-label>
+                <ion-label>{{recorder.mm_4_5_6_flow}}</ion-label>
+              </div>
+            </div>
+            <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,29 @@
+page-qc-recorder-list {
+    .scroll-content{
+        // overflow-y: hidden;
+    }
+    .scroll-header {
+        min-width: 1900px; // overflow-y:hidden !important;
+    }
+    .scroll-result {
+        min-width: 1900px; // overflow-y:hidden !important;
+    }
+    .scroll {
+        min-width: 1900px;
+        min-height: 400px;
+    }
+    .scroll-content{
+        padding-left:0 !important;
+        padding-right:0 !important;
+    }
+    .card {
+        overflow: scroll !important; // overflow-x: scroll !important;
+    }
+    .list {
+        overflow: scroll !important;
+    }
+    .label-line{
+        border-bottom: 1px solid map-get($colors, danger )
+    }
+
+}

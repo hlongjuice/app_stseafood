@@ -1,0 +1,185 @@
+<!--
+  Generated template for the CarResponsePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <ion-icon item-start><i class="fa fa-pencil-square-o" aria-hidden="true"></i></ion-icon>
+      รายการขอรถ
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <!-- Segment -->
+  <ion-card>
+    <ion-card-header>
+      <ion-segment (ionChange)="getCarRequests()" [(ngModel)]="selectedStatus" name="selectedStatus">
+        <!-- <ion-segment-button  *ngFor="let requestStatus of requestStatuses" [value]="requestStatus.id">{{requestStatus.name}}</ion-segment-button> -->
+        <ion-segment-button value="1">รอจัดรถ</ion-segment-button>
+        <ion-segment-button value="2">รอการอนุมัติ</ion-segment-button>
+        <ion-segment-button value="3">อนุมัติแล้ว</ion-segment-button>
+      </ion-segment>
+      <ion-grid>
+        <ion-row>
+          <!-- Date Search -->
+          <ion-col col-5>
+            <ion-item>
+              <ion-label>ค้นหาด้วยวันที่</ion-label>
+              <ion-datetime item-content placeholder="ระบุวันที่" displayFormat="DD / MM / YYYY" [(ngModel)]="selectedDate"></ion-datetime>
+              <button item-end ion-button default (click)="searchRequestByDate()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngIf="selectedStatus=='1'" col-4>
+            <button [disabled]="chkItems.length==0" (click)="assignCar()" ion-button color="warning">จัดรถ</button>
+          </ion-col>
+          <!-- <ion-col col-4> -->
+          <!-- <button [disabled]="chkItems.length==0" (click)="approveRequest()" ion-button color="primary">อนุมัติการขอ</button> -->
+          <!-- </ion-col> -->
+        </ion-row>
+      </ion-grid>
+    </ion-card-header>
+    <!-- Content -->
+    <ion-card-content>
+      <div [ngSwitch]="selectedStatus">
+        <!-- Waiting Car Assign -->
+        <ion-grid *ngSwitchCase="1">
+          <!--Table Header-->
+          <ion-row class="table-header">
+            <!--Check Box-->
+            <ion-col col-1></ion-col>
+            <ion-col col-2>
+              <ion-item>วันที่ขอ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>ไปสถานที่</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>ฝ่ายที่ขอ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>ประเภทรถที่ขอ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>สถานะการขอ</ion-item>
+            </ion-col>
+            <div class="table-header-line"></div>
+          </ion-row>
+          <!--Table Content-->
+          <ion-row class="table-content" *ngFor="let request of requests; let i=index">
+            <!--Check Box-->
+            <ion-col col-1>
+              <ion-item>
+                <ion-checkbox (ionChange)="setCheckedItems($event,request,i)"></ion-checkbox>
+              </ion-item>
+            </ion-col>
+            <!--Date-->
+            <ion-col col-2>
+              <ion-datetime disabled displayFormat="DD / MM / YYYY" [(ngModel)]="request.start_date"></ion-datetime>
+            </ion-col>
+            <!--Destination-->
+            <ion-col col-2>
+              <ion-item>{{request.destination}}</ion-item>
+            </ion-col>
+            <!--Division-->
+            <ion-col col-2>
+              <ion-item>{{request.division?.name}}</ion-item>
+            </ion-col>
+            <!--Employee-->
+            <ion-col col-2>
+              <ion-item>{{request.car_type?.name}}</ion-item>
+            </ion-col>
+            <!--Request Status-->
+            <ion-col col-3>
+              <ion-item>
+                <ion-label [color]="request.status?.color">{{request.status?.name}}</ion-label>
+                <button (click)="showRequestDetails(request)" item-end ion-button color="primary">รายละเอียด</button>
+              </ion-item>
+
+            </ion-col>
+            <div class="table-content-line"></div>
+          </ion-row>
+          <ion-row *ngIf="pages?.next_page_url!=null">
+            <ion-col col-12 text-center>
+              <button small (click)="nextPage()" ion-button color="primary">ดูเพิ่มเติม</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!-- Waiting Approve-->
+        <ion-grid *ngIf="selectedStatus=='2'||selectedStatus=='3'">
+          <!--Table Header-->
+          <ion-row class="table-header">
+            <!--Check Box-->
+            <ion-col col-1></ion-col>
+            <ion-col col-2>
+              <ion-item>วัน-เวลาที่ขอ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>สถานที่ไป</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item *ngIf="selectedStatus=='2'">ผู้จัดรถ</ion-item>
+              <ion-item *ngIf="selectedStatus=='3'">ผู้อนุมติ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <ion-item>สถานะการขอ</ion-item>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <div class="table-header-line"></div>
+          </ion-row>
+          <!--Table Content-->
+          <ion-row class="table-content" *ngFor="let response of responses; let i=index">
+            <!--Check Box-->
+            <ion-col col-1>
+              <ion-item>
+                <!-- <ion-checkbox (ionChange)="setCheckedItems($event,response,i)"></ion-checkbox> -->
+              </ion-item>
+            </ion-col>
+            <!--Date - Time-->
+            <ion-col col-2>
+              <ion-datetime disabled displayFormat="DD / MM / YYYY" [(ngModel)]="response.date"></ion-datetime>
+              <ion-datetime disabled displayFormat="HH:mm" [(ngModel)]="response.time"></ion-datetime>
+            </ion-col>
+            <!--Destination-->
+            <ion-col col-2>
+              <ion-item>{{response.destination}}</ion-item>
+            </ion-col>
+            <!--Assigner-->
+            <ion-col col-2>
+              <ion-item *ngIf="selectedStatus=='2'">{{response.assigner?.name}}</ion-item>
+              <ion-item *ngIf="selectedStatus=='3'">{{response.approver?.name}}</ion-item>
+            </ion-col>
+            <!--Response Status-->
+            <ion-col col-2>
+              <ion-item>
+                <ion-label [color]="response.status?.color">{{response.status?.name}}</ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button (click)="showResponseDetails(response)">แสดงรายละเอียด</button>
+            </ion-col>
+            <div class="table-content-line"></div>
+          </ion-row>
+          <ion-row *ngIf="pages?.next_page_url!=null">
+            <ion-col col-12 text-center>
+              <button small (click)="nextPage()" ion-button color="primary">ดูเพิ่มเติม</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

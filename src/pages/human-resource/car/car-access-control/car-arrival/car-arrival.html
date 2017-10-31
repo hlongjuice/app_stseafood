@@ -1,0 +1,74 @@
+<!--
+  Generated template for the CarArrivalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button item-start default (click)="dismiss()" ion-button color="danger">ปิด</button>
+      <ion-title>ระบบบันทึกรถขาเข้า</ion-title>
+      <button item-end [disabled]="!arrivalForm.form.valid" (click)="submitArrival(arrivalForm.value)" ion-button default color="success">บันทึก</button>
+    </ion-item>
+    <ion-item no-lines text-center>
+      <ion-label>คนขับ :<span ion-text color="primary">{{car_response.driver?.name}} {{car_response.driver?.lastname}}</span></ion-label>
+      <ion-label item-content>ป้ายทะเบียนรถ :<span ion-text color="primary">{{car_response.car?.plate_number}}</span></ion-label>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #arrivalForm="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่รถออก</ion-label>
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="date_departure" [(ngModel)]="record.date_departure"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลารถออก</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="time_departure" [(ngModel)]="record.time_departure"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Mile Start -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เลขไมล์ไป</ion-label>
+            <ion-input type="number" text-right required name="mile_start" [(ngModel)]="record.mile_start" placeholder="0.00"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่รถเข้า</ion-label>
+            <ion-datetime required displayFormat="DD/MM/YYYY" name="date_arrival" [(ngModel)]="date_arrival"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เวลารถเข้า</ion-label>
+            <ion-datetime required displayFormat="HH:mm" name="time_arrival" [(ngModel)]="time_arrival"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Mile End -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">เลขไมล์กลับ</ion-label>
+            <ion-input type="number" item-content text-right required name="mile_end" [(ngModel)]="mile_end" placeholder="0.00"></ion-input>
+            <div ion-text item-end>กม.</div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

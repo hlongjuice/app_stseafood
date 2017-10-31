@@ -1,0 +1,629 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+                <ion-icon name="menu"></ion-icon>
+              </button>
+    <ion-title text-center>
+      <!--<ion-item>-->
+      <!-- <ion-icon item-start><i class="fa fa-users" aria-hidden="true"></i></ion-icon> -->
+      โรงกรองน้ำ
+      <!--</ion-item> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="eng-scroll-main-content">
+  <!-- Top Card -->
+  <ion-card>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-item>
+              <ion-label fixed>เลือกเดือน</ion-label>
+              <ion-datetime displayFormat="MM/YYYY" [(ngModel)]="date"></ion-datetime>
+              <button ion-button item-end default color="primary" (click)="getRecords()">ค้นหา</button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <!-- Bottom Card -->
+  <ion-card>
+      <ion-item no-lines text-center>
+          <ion-label>สรุปการใช้น้ำ {{thai_month}} {{result_year}}</ion-label>
+        </ion-item>
+    <!-- List Table -->
+    <ion-list inset>
+      <!-- Table header -->
+      <ion-item text-center class="table-header eng-scroll-header scroll-header">
+        <!-- Time -->
+        <div item-content class="group-header-5">
+          <h2 style="border:none;" ion-text color="light">-</h2>
+          <div class="group-header-content">
+            <ion-label>วันที่
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 1 -->
+        <div text-center item-content class="group-header-5">
+          <h2>สายนอก</h2>
+          <div class="group-header-content">
+            <ion-label>นอก-กปภ
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 2 -->
+        <div text-center item-content class="group-header-10">
+          <h2>โรงกรองน้ำ</h2>
+          <div class="group-header-content">
+            <ion-label>Plant 1
+              <p>-</p>
+            </ion-label>
+            <ion-label>Plant 2
+              <p>-</p>
+            </ion-label>
+            <ion-label>P1+2
+              <p>-</p>
+            </ion-label>
+            <ion-label>210
+              <p>-</p>
+            </ion-label>
+            <ion-label>ผลต่าง
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 3  Machine-->
+        <div text-center item-content class="group-header-30">
+          <h2>เครื่องจักร</h2>
+          <div class="group-header-content">
+            <ion-label>Main
+              <p>3"</p>
+            </ion-label>
+            <ion-label>Cond.2
+              <p>Ecl750</p>
+            </ion-label>
+            <ion-label>Cond.3
+              <p>Eco 7</p>
+            </ion-label>
+            <ion-label>Cond.5
+              <p>Ecl 300</p>
+            </ion-label>
+            <ion-label>Cond.6
+              <p>Ecs500</p>
+            </ion-label>
+            <ion-label>Cond.7
+              <p>-</p>
+            </ion-label>
+            <ion-label>Cond.8
+              <p>-</p>
+            </ion-label>
+            <ion-label>รวม
+              <p>Cond.</p>
+            </ion-label>
+            <ion-label>Boiler
+              <p>1</p>
+            </ion-label>
+            <ion-label>Boiler
+              <p>2</p>
+            </ion-label>
+            <ion-label>รวม
+              <p>Boiler</p>
+            </ion-label>
+            <ion-label>ผลต่าง
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 4  Production-->
+        <div text-center item-content class="group-header-20">
+          <h2>Line ผลิต</h2>
+          <div class="group-header-content">
+            <ion-label>ผลิต1
+              <p>3"</p>
+            </ion-label>
+            <ion-label>ผลิต2
+              <p>3"</p>
+            </ion-label>
+            <ion-label>20T
+              <p>กุ้งต้ม</p>
+            </ion-label>
+            <ion-label>20T
+              <p>ซูชิ</p>
+            </ion-label>
+            <ion-label>20T
+              <p>Conv.</p>
+            </ion-label>
+            <ion-label>รวม
+              <p>Ice</p>
+            </ion-label>
+            <ion-label>Chiller
+              <p>-</p>
+            </ion-label>
+            <ion-label>ผลิต
+              <p>ใช้</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 5 Home -->
+        <div text-center item-content class="group-header-20">
+          <h2>ห้องน้ำ-บ้านพัก</h2>
+          <div class="group-header-content">
+            <ion-label>M-15
+              <p>-</p>
+            </ion-label>
+            <ion-label>M-17
+              <p>สองชั้น</p>
+            </ion-label>
+            <ion-label>M-18
+              <p>ซักผ้า</p>
+            </ion-label>
+            <ion-label>M-19
+              <p>รายเดือน</p>
+            </ion-label>
+            <ion-label>M-20
+              <p>Lab</p>
+            </ion-label>
+            <ion-label>M-21
+              <p>ผสมเกลือ</p>
+            </ion-label>
+          </div>
+        </div>
+        <!-- Header 6 Result -->
+        <div text-center item-content class="group-header-10">
+          <h2>รวม</h2>
+          <div class="group-header-content">
+            <ion-label>ผลิตใช้
+              <p>-</p>
+            </ion-label>
+            <ion-label>ทั้งหมด
+              <p>-</p>
+            </ion-label>
+          </div>
+        </div>
+      </ion-item>
+      <!-- Table Content -->
+      <ion-scroll class="eng-scroll-content scroll" scrollY="true" scrollX="true">
+        <ion-card-content no-padding>
+          <ion-item [ngClass]="{'highlight-red':isHighlightVisible[i]}" (click)="showDate($event,i)" *ngFor="let recorder of recorders; let i=index"
+            text-center class="table-content">
+            <!-- Time -->
+            <div item-content class="group-header-5">
+              <div class="group-header-content">
+                <ion-label>{{i+1}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 1 -->
+            <div text-center item-content class="group-header-5">
+              <!-- M_PWA -->
+              <div class="group-header-content">
+                <ion-label title="นอก-กปภ">{{recorder?.used?.ws_outside?.m_pwa_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 2 -->
+            <div text-center item-content class="group-header-15">
+              <div class="group-header-content">
+                <!-- Water Filtration P1 -->
+                <ion-label title="โรงกรองน้ำ Plant 1">{{recorder?.used?.water_filtration?.p1_mm1_used}}
+                </ion-label>
+                <!-- Water Filtration P2 -->
+                <ion-label title="โรงกรองน้ำ Plant 2">{{recorder?.used?.water_filtration?.p2_mm2_used}}
+                </ion-label>
+                <!-- SumP1P2 -->
+                <ion-label title="P1+2">{{recorder?.sumUsed?.sumP1P2}}
+                </ion-label>
+                <!-- Tank 210 MM3 -->
+                <ion-label title="210">{{recorder?.used?.tank_210?.mm3_used}}
+                </ion-label>
+                <!-- SumP1P2Minus210 -->
+                <ion-label title="ผลต่าง (P1+P2)-210">{{recorder?.sumUsed?.sumP1P2Minus210}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 3  Machine-->
+            <div text-center item-content class="group-header-35">
+              <div class="group-header-content">
+                <!-- Water Meter MM6 -->
+                <ion-label title="Main 3 MM-6">{{recorder?.used?.water_meter.mm_6_used}}
+                </ion-label>
+                <!-- Cond 2 -->
+                <ion-label title="Cond 2">{{recorder?.used?.condens.con2_w_meter_used}}
+                </ion-label>
+                <!-- Cond 3 -->
+                <ion-label title="Cond 3">{{recorder?.used?.condens.con3_w_meter_used}}
+                </ion-label>
+                <!-- Con5 -->
+                <ion-label title="Cond 5">{{recorder?.used?.condens.con5_meter_m5_used}}
+                </ion-label>
+                <!-- Con6 -->
+                <ion-label title="Cond 6">{{recorder?.used?.condens.con6_meter_m6_used}}
+                </ion-label>
+                <!-- Con7 -->
+                <ion-label title="Cond 7">{{recorder?.used?.condens.con7_meter_m7_used}}
+                </ion-label>
+                <!-- Con8 -->
+                <ion-label title="Cond 8">{{recorder?.used?.condens.con8_w_meter_used}}
+                </ion-label>
+                <!-- Sum Cond -->
+                <ion-label title="รวม Cond">{{recorder?.sumUsed?.sumCondens}}
+                </ion-label>
+                <!-- Boiler 1 -->
+                <ion-label title="Boiler 1">{{recorder?.used.boiler?.boiler1_meter_used}}
+                </ion-label>
+                <!-- Boiler 2 -->
+                <ion-label title="Boiler 2">{{recorder?.used.boiler?.boiler2_meter_used}}
+                </ion-label>
+                <!-- Sum Boiler -->
+                <ion-label title="Boiler1+2">{{recorder?.sumUsed?.sumB1B2}}
+                </ion-label>
+                <!-- Sum Main3MinusCondBoiler -->
+                <ion-label title="ผลต่าง Main3-รวมCond-รวมBoiler">{{recorder?.sumUsed?.main3MinusCondBoiler}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 4  Production-->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <!-- Water Meter MM4 -->
+                <ion-label title="ผลิต1">{{recorder?.used?.water_meter?.mm_4_used}}
+                </ion-label>
+                <!-- Water Meter MM5 -->
+                <ion-label title="ผลิต2">{{recorder?.used?.water_meter?.mm_5_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M12-->
+                <ion-label title="20T กุ้งต้ม">{{recorder?.used?.ice_maker?.freezer1_m12_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M2 -->
+                <ion-label title="20T ซูชิ">{{recorder?.used?.ice_maker?.freezer2_m2_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M14 -->
+                <ion-label title="20T Conv">{{recorder?.used?.ice_maker?.freezer3_m14_used}}
+                </ion-label>
+                <!-- Sum Ice -->
+                <ion-label title="รวม ICE">{{recorder?.sumUsed?.sumIce}}
+                </ion-label>
+                <!-- Chiller M13 -->
+                <ion-label title="Chiller">{{recorder?.used?.water_cooler?.ripple_m13_used}}
+                </ion-label>
+                <!-- Sum All Main3 -->
+                <ion-label title="ผลิตใช้">{{recorder?.sumUsed?.sumWaterMeterMain3}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 5 Home -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <!-- M15 -->
+                <ion-label title="M-15">{{recorder?.used?.ws_outside?.m_15_used}}
+                </ion-label>
+                <!-- M17 -->
+                <ion-label title="M-17">{{recorder?.used?.ws_outside?.m_17_used}}
+                </ion-label>
+                <!-- M18 -->
+                <ion-label title="M-18">{{recorder?.used?.ws_outside?.m_18_used}}
+                </ion-label>
+                <!-- M19 -->
+                <ion-label title="M-19">{{recorder?.used?.ws_outside?.m_19_used}}
+                </ion-label>
+                <!-- M20 -->
+                <ion-label title="M-20">{{recorder?.used?.ws_outside?.m_20_used}}
+                </ion-label>
+                <!-- M21 -->
+                <ion-label title="M-21">{{recorder?.used?.ws_outside?.m_21_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 6 Result -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- All Sum BoilerMain3M21 -->
+                <ion-label title="รวมผลิตใช้">{{recorder?.sumUsed?.sumBoilerMain3M21}}
+                </ion-label>
+                <!-- Sum Total -->
+                <ion-label title="รวมทั้งหมด">{{recorder?.sumUsed?.sumTotal}}
+                </ion-label>
+              </div>
+            </div>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+      <!-- Sum All Row -->
+      <!-- Table Content Sum -->
+      <ion-scroll class="result-scroll-content" scrollY="true" scrollX="true">
+        <ion-card-content no-padding>
+          <!-- Sum Row -->
+          <ion-item (click)="showResultTitle($event,'sum')" text-center class="table-content table-content-result">
+            <!-- Time -->
+            <div item-content class="group-header-5">
+              <div class="group-header-content">
+                <ion-label>รวม
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 1 -->
+            <div text-center item-content class="group-header-5">
+              <!-- M_PWA -->
+              <div class="group-header-content">
+                <ion-label title="นอก-กปภ">{{sumRow?.used?.m_pwa_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 2 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Water Filtration P1 -->
+                <ion-label title="โรงกรองน้ำ Plant 1">{{sumRow?.used?.p1_mm1_used}}
+                </ion-label>
+                <!-- Water Filtration P2 -->
+                <ion-label title="โรงกรองน้ำ Plant 2">{{sumRow?.used?.p2_mm2_used}}
+                </ion-label>
+                <!-- SumP1P2 -->
+                <ion-label title="P1+2">{{sumRow?.sumUsed?.sumP1P2}}
+                </ion-label>
+                <!-- Tank 210 MM3 -->
+                <ion-label title="210">{{sumRow?.used?.mm3_used}}
+                </ion-label>
+                <!-- SumP1P2Minus210 -->
+                <ion-label title="ผลต่าง (P1+P2)-210">{{sumRow?.sumUsed?.sumP1P2Minus210}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 3  Machine-->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <!-- Water Meter MM6 -->
+                <ion-label title="Main 3 MM-6">{{sumRow?.used?.mm_6_used}}
+                </ion-label>
+                <!-- Cond 2 -->
+                <ion-label title="Cond 2">{{sumRow?.used?.con2_w_meter_used}}
+                </ion-label>
+                <!-- Cond 3 -->
+                <ion-label title="Cond 3">{{sumRow?.used?.con3_w_meter_used}}
+                </ion-label>
+                <!-- Con5 -->
+                <ion-label title="Cond 5">{{sumRow?.used?.con5_meter_m5_used}}
+                </ion-label>
+                <!-- Con6 -->
+                <ion-label title="Cond 6">{{sumRow?.used?.con6_meter_m6_used}}
+                </ion-label>
+                <!-- Con7 -->
+                <ion-label title="Cond 7">{{sumRow?.used?.con7_meter_m7_used}}
+                </ion-label>
+                <!-- Con8 -->
+                <ion-label title="Cond 8">{{sumRow?.used?.con8_w_meter_used}}
+                </ion-label>
+                <!-- Sum Cond -->
+                <ion-label title="รวม Cond">{{sumRow?.sumUsed?.sumCondens}}
+                </ion-label>
+                <!-- Boiler 1 -->
+                <ion-label title="Boiler 1">{{sumRow?.used?.boiler1_meter_used}}
+                </ion-label>
+                <!-- Boiler 2 -->
+                <ion-label title="Boiler 2">{{sumRow?.used?.boiler2_meter_used}}
+                </ion-label>
+                <!-- Sum Boiler -->
+                <ion-label title="Boiler1+2">{{sumRow?.sumUsed?.sumB1B2}}
+                </ion-label>
+                <!-- Sum Main3MinusCondBoiler -->
+                <ion-label title="ผลต่าง Main3-รวมCond-รวมBoiler">{{sumRow?.sumUsed?.main3MinusCondBoiler}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 4  Production-->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <!-- Water Meter MM4 -->
+                <ion-label title="ผลิต1">{{sumRow?.used?.mm_4_used}}
+                </ion-label>
+                <!-- Water Meter MM5 -->
+                <ion-label title="ผลิต2">{{sumRow?.used?.mm_5_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M12-->
+                <ion-label title="20T กุ้งต้ม">{{sumRow?.used?.freezer1_m12_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M2 -->
+                <ion-label title="20T ซูชิ">{{sumRow?.used?.freezer2_m2_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M14 -->
+                <ion-label title="20T Conv">{{sumRow?.used?.freezer3_m14_used}}
+                </ion-label>
+                <!-- Sum Ice -->
+                <ion-label title="รวม ICE">{{sumRow?.sumUsed?.sumIce}}
+                </ion-label>
+                <!-- Chiller M13 -->
+                <ion-label title="Chiller">{{sumRow?.used?.ripple_m13_used}}
+                </ion-label>
+                <!-- Sum All Main3 -->
+                <ion-label title="ผลิตใช้">{{sumRow?.sumUsed?.sumWaterMeterMain3}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 5 Home -->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <!-- M15 -->
+                <ion-label title="M-15">{{sumRow?.used?.m_15_used}}
+                </ion-label>
+                <!-- M17 -->
+                <ion-label title="M-17">{{sumRow?.used?.m_17_used}}
+                </ion-label>
+                <!-- M18 -->
+                <ion-label title="M-18">{{sumRow?.used?.m_18_used}}
+                </ion-label>
+                <!-- M19 -->
+                <ion-label title="M-19">{{sumRow?.used?.m_19_used}}
+                </ion-label>
+                <!-- M20 -->
+                <ion-label title="M-20">{{sumRow?.used?.m_20_used}}
+                </ion-label>
+                <!-- M21 -->
+                <ion-label title="M-21">{{sumRow?.used?.m_21_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 6 Result -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- All Sum BoilerMain3M21 -->
+                <ion-label title="รวมผลิตใช้">{{sumRow?.sumUsed?.sumBoilerMain3M21}}
+                </ion-label>
+                <!-- Sum Total -->
+                <ion-label title="รวมทั้งหมด">{{sumRow?.sumUsed?.sumTotal}}
+                </ion-label>
+              </div>
+            </div>
+          </ion-item>
+          <!-- Avg Row -->
+          <ion-item (click)="showResultTitle($event,'avg')" text-center class="table-content table-content-result-blue">
+            <!-- Time -->
+            <div item-content class="group-header-5">
+              <div class="group-header-content">
+                <ion-label>ค่าเฉลี่ย
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 1 -->
+            <div text-center item-content class="group-header-5">
+              <!-- M_PWA -->
+              <div class="group-header-content">
+                <ion-label title="นอก-กปภ">{{avgRow?.used?.m_pwa_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 2 -->
+            <div text-center item-content class="group-header-10">
+              <div class="group-header-content">
+                <!-- Water Filtration P1 -->
+                <ion-label title="โรงกรองน้ำ Plant 1">{{avgRow?.used?.p1_mm1_used}}
+                </ion-label>
+                <!-- Water Filtration P2 -->
+                <ion-label title="โรงกรองน้ำ Plant 2">{{avgRow?.used?.p2_mm2_used}}
+                </ion-label>
+                <!-- SumP1P2 -->
+                <ion-label title="P1+2">{{avgRow?.sumUsed?.sumP1P2}}
+                </ion-label>
+                <!-- Tank 210 MM3 -->
+                <ion-label title="210">{{avgRow?.used?.mm3_used}}
+                </ion-label>
+                <!-- SumP1P2Minus210 -->
+                <ion-label title="ผลต่าง (P1+P2)-210">{{avgRow?.sumUsed?.sumP1P2Minus210}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 3  Machine-->
+            <div text-center item-content class="group-header-30">
+              <div class="group-header-content">
+                <!-- Water Meter MM6 -->
+                <ion-label title="Main 3 MM-6">{{avgRow?.used?.mm_6_used}}
+                </ion-label>
+                <!-- Cond 2 -->
+                <ion-label title="Cond 2">{{avgRow?.used?.con2_w_meter_used}}
+                </ion-label>
+                <!-- Cond 3 -->
+                <ion-label title="Cond 3">{{avgRow?.used?.con3_w_meter_used}}
+                </ion-label>
+                <!-- Con5 -->
+                <ion-label title="Cond 5">{{avgRow?.used?.con5_meter_m5_used}}
+                </ion-label>
+                <!-- Con6 -->
+                <ion-label title="Cond 6">{{avgRow?.used?.con6_meter_m6_used}}
+                </ion-label>
+                <!-- Con7 -->
+                <ion-label title="Cond 7">{{avgRow?.used?.con7_meter_m7_used}}
+                </ion-label>
+                <!-- Con8 -->
+                <ion-label title="Cond 8">{{avgRow?.used?.con8_w_meter_used}}
+                </ion-label>
+                <!-- Sum Cond -->
+                <ion-label title="รวม Cond">{{avgRow?.sumUsed?.sumCondens}}
+                </ion-label>
+                <!-- Boiler 1 -->
+                <ion-label title="Boiler 1">{{avgRow?.used?.boiler1_meter_used}}
+                </ion-label>
+                <!-- Boiler 2 -->
+                <ion-label title="Boiler 2">{{avgRow?.used?.boiler2_meter_used}}
+                </ion-label>
+                <!-- Sum Boiler -->
+                <ion-label title="Boiler1+2">{{avgRow?.sumUsed?.sumB1B2}}
+                </ion-label>
+                <!-- Sum Main3MinusCondBoiler -->
+                <ion-label title="ผลต่าง Main3-รวมCond-รวมBoiler">{{avgRow?.sumUsed?.main3MinusCondBoiler}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 4  Production-->
+            <div text-center item-content class="group-header-20">
+              <div class="group-header-content">
+                <!-- Water Meter MM4 -->
+                <ion-label title="ผลิต1">{{avgRow?.used?.mm_4_used}}
+                </ion-label>
+                <!-- Water Meter MM5 -->
+                <ion-label title="ผลิต2">{{avgRow?.used?.mm_5_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M12-->
+                <ion-label title="20T กุ้งต้ม">{{avgRow?.used?.freezer1_m12_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M2 -->
+                <ion-label title="20T ซูชิ">{{avgRow?.used?.freezer2_m2_used}}
+                </ion-label>
+                <!-- Water Meter Freezer M14 -->
+                <ion-label title="20T Conv">{{avgRow?.used?.freezer3_m14_used}}
+                </ion-label>
+                <!-- Sum Ice -->
+                <ion-label title="รวม ICE">{{avgRow?.sumUsed?.sumIce}}
+                </ion-label>
+                <!-- Chiller M13 -->
+                <ion-label title="Chiller">{{avgRow?.used?.ripple_m13_used}}
+                </ion-label>
+                <!-- Sum All Main3 -->
+                <ion-label title="ผลิตใช้">{{avgRow?.sumUsed?.sumWaterMeterMain3}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 5 Home -->
+            <div text-center item-content class="group-header-15">
+              <div class="group-header-content">
+                <!-- M15 -->
+                <ion-label title="M-15">{{avgRow?.used?.m_15_used}}
+                </ion-label>
+                <!-- M17 -->
+                <ion-label title="M-17">{{avgRow?.used?.m_17_used}}
+                </ion-label>
+                <!-- M18 -->
+                <ion-label title="M-18">{{avgRow?.used?.m_18_used}}
+                </ion-label>
+                <!-- M19 -->
+                <ion-label title="M-19">{{avgRow?.used?.m_19_used}}
+                </ion-label>
+                <!-- M20 -->
+                <ion-label title="M-20">{{avgRow?.used?.m_20_used}}
+                </ion-label>
+                <!-- M21 -->
+                <ion-label title="M-21">{{avgRow?.used?.m_21_used}}
+                </ion-label>
+              </div>
+            </div>
+            <!-- Header 6 Result -->
+            <div text-center item-content class="group-header-5">
+              <div class="group-header-content">
+                <!-- All Sum BoilerMain3M21 -->
+                <ion-label title="รวมผลิตใช้">{{avgRow?.sumUsed?.sumBoilerMain3M21}}
+                </ion-label>
+                <!-- Sum Total -->
+                <ion-label title="รวมทั้งหมด">{{avgRow?.sumUsed?.sumTotal}}
+                </ion-label>
+              </div>
+            </div>
+          </ion-item>
+        </ion-card-content>
+      </ion-scroll>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,55 @@
+page-qc-recorder-result {
+    .text-small {
+        font-size: 2rem !important;
+    }
+    .text-large {
+        font-size: 2.5rem !important;
+        font-weight: bold;
+    }
+    .scroll {
+        min-height: 300px;
+    }
+    .line-chart {
+        position: relative;
+        margin: auto;
+        height: 250px !important;
+        width: 100% !important;
+    }
+    .date-input {
+        font-size: 2.5rem !important;
+    }
+    .inside-segment {
+        padding-left: 30px;
+        padding-right: 30px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+    }
+    .text-input-large {
+        color: map-get($colors, danger);
+        font-size: 2.8rem !important;
+    }
+    .table-result {
+        font-size: 2.2rem !important;
+    }
+    .result-red {
+        border-bottom: 1px solid map-get($colors, danger);
+    }
+    .result-dark-blue {
+        border-bottom: 1px solid map-get($colors, dark-blue);
+    }
+    .result-green {
+        border-bottom: 1px solid map-get($colors, success);
+    }
+    .result-blue {
+        border-bottom: 1px solid map-get($colors, primary);
+    }
+    .result-light-blue {
+        border-bottom: 1px solid map-get($colors, info);
+    }
+    .result-orange {
+        border-bottom: 1px solid map-get($colors, warning);
+    }
+    h3 {
+        font-size: 2rem !important;
+    }
+}

@@ -1,0 +1,104 @@
+      <!-- Table Content -->
+      <ion-scroll class="eng-scroll-content scroll" scrollY="true" scrollX="true">
+            <ion-card-content no-padding>
+              <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
+                <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
+                <!-- Time -->
+                <div item-content class="group-header-20">
+                  <h2></h2>
+                  <div class="group-header-content">
+                    <ion-label>{{recorder.time_record}}</ion-label>
+                    <ion-label>{{recorder.real_time_record}}</ion-label>
+                  </div>
+                </div>
+                <!-- Raw W -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <ion-label>
+                      <span *ngIf="recorder.raw_w_pump1==1">1</span>
+                      <span *ngIf="recorder.raw_w_pump2==1">2</span>
+                      <span *ngIf="recorder.raw_w_pump3==1">3</span></ion-label>
+                  </div>
+                </div>
+                <!-- Plant 1 -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <ion-label>{{recorder.p1_mm1}}</ion-label>
+                    <ion-label *ngIf="recorder.p1_flow>18;else warningP1Flow">{{recorder.p1_flow}}
+                    </ion-label>
+                    <ng-template #warningP1Flow>
+                      <ion-label color="danger">{{recorder.p1_flow}}</ion-label>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- Plant 2 -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <ion-label>{{recorder.p2_mm2}}</ion-label>
+                    <ion-label *ngIf="recorder.p2_flow>18;else warningP2Flow">{{recorder.p2_flow}}
+                    </ion-label>
+                    <ng-template #warningP2Flow>
+                      <ion-label color="danger">{{recorder.p2_flow}}</ion-label>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- Chem Pump -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <ion-label color="success">
+                      <i *ngIf="recorder.chem_pump1==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                    </ion-label>
+                    <ion-label color="success">
+                      <i *ngIf="recorder.chem_pump2==1" class="fa fa-check-circle" aria-hidden="true"></i>
+                    </ion-label>
+                  </div>
+                </div>
+                <!-- Silt -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <!-- Silt P1 -->
+                    <ion-label *ngIf="recorder.silt_pump1>=1 && recorder.silt_pump1<=2;else warningSiltP1 ">
+                      {{recorder.silt_pump1}}
+                    </ion-label>
+                    <ng-template #warningSiltP1>
+                      <ion-label color="danger">{{recorder.silt_pump1}}</ion-label>
+                    </ng-template>
+                    <!-- Silt P2 -->
+                    <ion-label *ngIf="recorder.silt_pump2>=1 && recorder.silt_pump2<=2;else warningSiltP2 ">
+                      {{recorder.silt_pump2}}
+                    </ion-label>
+                    <ng-template #warningSiltP2>
+                      <ion-label color="danger">{{recorder.silt_pump2}}</ion-label>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- Lab -->
+                <div text-center item-content class="group-header-10">
+                  <div class="group-header-content">
+                    <!-- Silt P1 -->
+                    <ion-label *ngIf="recorder.lab_p1>=6.5 && recorder.lab_p1<=8.0;else warningLabP1">
+                      {{recorder.lab_p1}}
+                    </ion-label>
+                    <ng-template #warningLabP1>
+                      <ion-label color="danger">{{recorder.lab_p1}}</ion-label>
+                    </ng-template>
+                    <!-- Silt P2 -->
+                    <ion-label *ngIf="recorder.lab_p2>=6.5 && recorder.lab_p2<=8.0;else warningLabP2 ">
+                      {{recorder.lab_p2}}
+                    </ion-label>
+                    <ng-template #warningLabP2>
+                      <ion-label color="danger">{{recorder.lab_p2}}</ion-label>
+                    </ng-template>
+                  </div>
+                </div>
+                <!-- Flow -->
+                <div text-center item-content class="group-header-20">
+                  <div class="group-header-content">
+                    <ion-label>{{recorder.mm_1_2_flow}}</ion-label>
+                    <ion-label>{{recorder.mm_4_5_6_flow}}</ion-label>
+                  </div>
+                </div>
+                <button item-end ion-button default color="danger" (click)="deleteRecord(recorder)">ลบ</button>
+              </ion-item>
+            </ion-card-content>
+          </ion-scroll>

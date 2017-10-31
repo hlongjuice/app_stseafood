@@ -1,0 +1,126 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-item no-lines>
+      <button ion-button item-start default color="danger" (click)="dismiss()">ปิด</button>
+      <ion-title>เพิ่มการบันทึก</ion-title>
+      <button [disabled]="!formInputs.form.valid" ion-button item-end default color="success" (click)="addRecord(formInputs.value,formInputs)">บันทึก</button>
+    </ion-item>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #formInputs="ngForm">
+    <ion-grid>
+      <ion-row>
+        <!-- Date -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">วันที่</ion-label>
+            <ion-datetime (ionChange)="getRecords()" required displayFormat="DD/MM/YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <!-- Time Record -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">รอบ</ion-label>
+            <ion-select required name="time_record" [(ngModel)]="time_record">
+              <ion-option *ngFor="let time_record of time_records" [value]="time_record">{{time_record}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <!-- Real Time Record -->
+        <!--             <ion-col col-6>
+              <ion-item>
+                <ion-label color="primary">เวลาบันทึกจริง</ion-label>
+                <ion-datetime required displayFormat="HH:mm" name="real_time_record" [(ngModel)]="real_time_record"></ion-datetime>
+              </ion-item>
+            </ion-col> -->
+      </ion-row>
+      <!-- Raw W -->
+      <ion-row align-items-end>
+        <ion-col col-12>
+          <ion-item>
+            <ion-label>Raw W</ion-label>
+          </ion-item>
+        </ion-col>
+        <!-- Pump1 -->
+        <ion-col col-4>
+          <ion-item>
+            <ion-label color="primary">Pump1</ion-label>
+            <ion-checkbox name="raw_w_pump1" checked=false [(ngModel)]="raw_w_pump1"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <!-- Pump2 -->
+        <ion-col col-4>
+          <ion-item>
+            <ion-label color="primary">Pump2</ion-label>
+            <ion-checkbox name="raw_w_pump2" checked=false [(ngModel)]="raw_w_pump2"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <!-- Pump3 -->
+        <ion-col col-4>
+          <ion-item>
+            <ion-label color="primary">Pump3</ion-label>
+            <ion-checkbox name="raw_w_pump3" checked=false [(ngModel)]="raw_w_pump3"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Plant -->
+      <ion-row align-items-end>
+        <!-- P1 MM1 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label>Plant 1 <span ion-text color="primary">MM-1</span> </ion-label>
+            <ion-input type="number" name="p1_mm1" [(ngModel)]="p1_mm1"></ion-input>
+          </ion-item>
+        </ion-col>
+        <!-- P2 MM2 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label>Plant 2 <span ion-text color="primary">MM-2</span></ion-label>
+            <ion-input type="number" name="p2_mm2" [(ngModel)]="p2_mm2"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Chem Pump -->
+      <ion-row align-items-end>
+        <!--C P1 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Chem Pump1</ion-label>
+            <ion-checkbox name="chem_pump1" [(ngModel)]="chem_pump1"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <!-- C P2 -->
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">Chem Pump2</ion-label>
+            <ion-checkbox name="chem_pump2" [(ngModel)]="chem_pump2"></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Silt -->
+      <ion-row align-items-end>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ตะกอน P1
+              <p>(1-2)</p>
+            </ion-label>
+            <ion-input type="number" name="silt_pump1" [(ngModel)]="silt_pump1"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label color="primary">ตะกอน P2
+              <p>(1-2)</p>
+            </ion-label>
+            <ion-input type="number" name="silt_pump2" [(ngModel)]="silt_pump2"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
