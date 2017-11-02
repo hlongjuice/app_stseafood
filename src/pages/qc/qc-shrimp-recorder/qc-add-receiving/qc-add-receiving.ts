@@ -25,7 +25,8 @@ export class QcAddReceivingPage {
   date: string;
   time: string;
   shrimp_uf: string;
-  car_release: string;
+  car_release_start: string;
+  car_release_end:string;
   user: any;
   isSubmit: boolean;
   car_waiting_time:number;
@@ -51,7 +52,8 @@ export class QcAddReceivingPage {
       water_temp: null
     }];
     this.date = this.dateService.getDate();
-    this.car_release = this.dateService.getTime().currentTime;
+    this.car_release_start = this.dateService.getTime().currentTime;
+    this.car_release_end=this.dateService.getTime().currentTime;
     this.user = this.navParams.data.user
     console.log(this.navParams);
     if(this.navParams.data.recorder){
@@ -66,10 +68,11 @@ export class QcAddReceivingPage {
   }
 
   /* Add Receiving */
-  addReceiving(formInputs) {
+  addReceiving(formInputs,data) {
     if(formInputs.car_waiting_time==null){
       formInputs.car_waiting_time=0;
     }
+    // formInputs.car_release=this.car_release_start+'-'+this.car_release_end;
     formInputs.user_id = this.user.id;
     formInputs.shrimp_uf = this.shrimp_uf;
     formInputs.water_temp = this.waterTemps;
@@ -82,6 +85,7 @@ export class QcAddReceivingPage {
         .then(result => {
           this.isSubmit = true;
           this.dismissLoader()
+          data.form.reset();
           // this.viewCtrl.dismiss({'result':result,'submit':this.isSubmit})
           console.log(result)
           this.showToast('เพิ่มข้อมูลสำเร็จ')

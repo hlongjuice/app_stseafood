@@ -67,7 +67,7 @@
         <ion-col col-6>
           <ion-item>
             <ion-label color="primary">ขนาดกุ้ง</ion-label>
-            <ion-input required text-right type="number" name="shrimp_size" [(ngModel)]="details.shrimp_size"></ion-input>
+            <ion-input  text-right type="number" name="shrimp_size" [(ngModel)]="details.shrimp_size"></ion-input>
             <div ion-text item-end>ตัว/กก.</div>
           </ion-item>
         </ion-col>
@@ -75,7 +75,7 @@
         <ion-col col-6>
           <ion-item>
             <ion-label color="primary">ใหญ่</ion-label>
-            <ion-input (change)="setUF(details.shrimp_big,details.shrimp_small)" required text-right type="number" name="shrimp_big"
+            <ion-input (change)="setUF(details.shrimp_big,details.shrimp_small)"  text-right type="number" name="shrimp_big"
               [(ngModel)]="details.shrimp_big"></ion-input>
           </ion-item>
         </ion-col>
@@ -83,7 +83,7 @@
         <ion-col col-6>
           <ion-item>
             <ion-label color="primary">เล็ก</ion-label>
-            <ion-input (change)="setUF(details.shrimp_big,details.shrimp_small)" required text-right type="number" name="shrimp_small"
+            <ion-input (change)="setUF(details.shrimp_big,details.shrimp_small)"  text-right type="number" name="shrimp_small"
               [(ngModel)]="details.shrimp_small"></ion-input>
           </ion-item>
         </ion-col>
@@ -155,10 +155,12 @@
             <ion-label>เวลารถ</ion-label>
           </ion-item>
         </ion-col>
-        <ion-col col-6>
+        <ion-col col-8>
           <ion-item>
             <ion-label color="primary">เวลาปล่อยรถ</ion-label>
-            <ion-datetime required displayFormat="HH:mm" name="car_release" [(ngModel)]="details.car_release"></ion-datetime>
+            <ion-datetime required displayFormat="HH:mm" name="car_release_start" [(ngModel)]="details.car_release_start"></ion-datetime>
+            <div ion-text item-content>ถึง</div>
+            <ion-datetime required displayFormat="HH:mm" name="car_release_end" [(ngModel)]="details.car_release_end"></ion-datetime>
           </ion-item>
         </ion-col>
         <!-- Car Waiting Time -->

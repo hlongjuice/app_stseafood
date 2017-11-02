@@ -69,7 +69,7 @@ export class MyApp {
       })*/
     // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     this.authState = this.authService.getAuthState();
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+    // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
     console.log(this.menuCtrl.getMenus());
     this.menuCtrl.enable(false, 'masterMenu');
     this.menuCtrl.enable(false, 'productionMenu');

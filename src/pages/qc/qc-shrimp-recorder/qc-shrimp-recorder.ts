@@ -2,7 +2,7 @@ import { DateService } from './../../../services/date.service';
 import { QcShrimpReceivingService } from './../../../services/qc/shrimp_receiving.service';
 import { AuthService } from './../../../services/auth.service';
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController, Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, LoadingController, AlertController, Events, ToastController } from 'ionic-angular';
 /**
  * Generated class for the QcShrimpRecorderPage page.
  *
@@ -32,6 +32,7 @@ export class QcShrimpRecorderPage {
     public shrimpReceivingService: QcShrimpReceivingService,
     public dateService: DateService,
     public eventCtrl: Events,
+    public tostCtrl:ToastController
   ) {
     eventCtrl.subscribe('receiving:update', () => {
       this.getReceiving()
@@ -173,6 +174,25 @@ export class QcShrimpRecorderPage {
   showAlert(textInput) {
     this._alert = this.alertCtrl.create({ title: textInput })
     this._alert.present()
+  }
+
+  /* Add Checker */
+  addChecker(recorder){
+    let modal =this.modalCtrl.create('QcAddCheckerPage',{
+      'receiving_id':recorder.id,
+      'recorder':recorder.recorder,
+      'checker':recorder.checker,
+      'approver':recorder.approver,
+      'report_number':recorder.report_number
+    })
+    modal.present();
+    modal.onDidDismiss(result=>{
+      if(result){
+        let toast=this.tostCtrl.create({message:'บันทึกเสร็จสมบูรฯ์',duration:2000})
+        toast.present();
+        this.getReceiving();
+      }
+    })
   }
 
 }

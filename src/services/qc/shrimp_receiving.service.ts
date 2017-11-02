@@ -152,4 +152,15 @@ export class QcShrimpReceivingService {
             )
         })
     }
+    /* Checker */
+    addChecker(formInputs){
+        let url=this.url+'/api/qc/add_checker';
+        return new Promise((resolve,reject)=>{
+            this.http.post(url,formInputs,{headers:this.headers})
+            .subscribe(
+                result=>{resolve(result.json())},
+                err=>{reject(err)}
+            )
+        })
+    }
 }

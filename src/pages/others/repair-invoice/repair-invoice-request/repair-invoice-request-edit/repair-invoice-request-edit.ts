@@ -65,7 +65,8 @@ export class RepairInvoiceRequestEditPage {
       quality: 30,
       destinationType: this.cameraCtrl.DestinationType.DATA_URL,
       encodingType: this.cameraCtrl.EncodingType.JPEG,
-      mediaType: this.cameraCtrl.MediaType.PICTURE
+      mediaType: this.cameraCtrl.MediaType.PICTURE,
+      allowEdit:true
     }
     this.cameraCtrl.getPicture(options)
       .then(result => {
