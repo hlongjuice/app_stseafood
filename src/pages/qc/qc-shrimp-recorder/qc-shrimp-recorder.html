@@ -47,8 +47,8 @@
           <ion-label>แหล่งวัตถุดิบ</ion-label>
           <ion-label>บ่อ</ion-label>
           <ion-label>รหัสวัตถุดิบ</ion-label>
-          <button disabled item-content ion-button default clear>ผู้เกี่ยวข้อง</button>
-          <button item-content ion-button default disable clear>กุ้งนิ้ม / กุ้งตาย 5 รอบ</button>
+          <button disabled item-content ion-button default clear>ผู้เกี่ยวข้อง/อื่นๆ</button>
+          <button item-content ion-button default disabled clear>กุ้งนิ้ม / กุ้งตาย 5 รอบ</button>
           <button disabled item-content default ion-button clear>แก้ไข</button>
           <button disabled item-end default ion-button clear>ลบ</button>
         </ion-item>
@@ -65,7 +65,7 @@
           <ion-label>{{recorder.pond}}</ion-label>
           <!-- Code -->
           <ion-label>{{recorder.code}}</ion-label>
-          <button item-content ion-button default color="primary" (click)="addChecker(recorder)">ผู้เกี่ยวข้อง</button>
+          <button item-content ion-button default color="primary" (click)="addChecker(recorder)">ผู้เกี่ยวข้อง/อื่นๆ</button>
           <button item-content ion-button default color="info" (click)="addExtraReceiving(recorder)">กุ้งนิ่ม/กุ้งตาย 5 รอบ</button>
           <button item-content ion-button default color="warning" (click)="editSupplierReceiving(recorder)">แก้ไข</button>
           <button item-end ion-button default color="danger" (click)="deleteSupplierReceiving(recorder)">ลบ</button>
