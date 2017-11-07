@@ -53,7 +53,7 @@ export class QcAddReceivingPage {
     }];
     this.date = this.dateService.getDate();
     this.car_release_start = this.dateService.getTime().currentTime;
-    this.car_release_end=this.dateService.getTime().currentTime;
+    this.car_release_end= this.dateService.getTime().currentTime;
     this.user = this.navParams.data.user
     console.log(this.navParams);
     if(this.navParams.data.recorder){
