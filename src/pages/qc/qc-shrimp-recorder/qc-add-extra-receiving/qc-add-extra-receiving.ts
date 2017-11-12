@@ -17,6 +17,9 @@ export class QcAddExtraReceivingPage {
 
   last_five_round_status:any;
   real_shrimp_soft:any;
+  small_shrimp_b:any;
+  avl:any;
+  waiting_list:any;
   receiving_id:number
   constructor(
     public navCtrl: NavController, 
@@ -31,6 +34,9 @@ export class QcAddExtraReceivingPage {
     this.last_five_round_status=(this.last_five_round_status==1)?true:false;
     this.real_shrimp_soft=this.navParams.data.real_shrimp_soft
     this.receiving_id=this.navParams.data.receiving_id;
+    this.avl=(this.navParams.data.avl==1)?true:false;
+    this.waiting_list=(this.navParams.data.waiting_list==1)?true:false;
+    this.small_shrimp_b=this.navParams.data.small_shrimp_b;
     console.log(this.navParams.data)
   }
 

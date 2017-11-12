@@ -91,6 +91,9 @@ export class QcShrimpRecorderPage {
       'last_five_round_status': recorder.last_five_round_status,
       'real_shrimp_soft': recorder.real_shrimp_soft,
       'receiving_id': recorder.id,
+      'small_shrimp_b':recorder.small_shrimp_b,
+      'avl':recorder.avl,
+      'waiting_list':recorder.waiting_list,
       'date': this.date
     })
     modal.present();

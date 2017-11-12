@@ -25,9 +25,26 @@
         <ion-label color="primary">กุ้งตาย 5 รอบสุดท้าย</ion-label>
         <ion-checkbox name="last_five_round_status" [(ngModel)]="last_five_round_status"></ion-checkbox>
       </ion-item>
+      <!-- AVL -->
+      <ion-item margin-bottom no-padding>
+        <ion-label color="primary">AVL</ion-label>
+        <ion-checkbox name="avl" [(ngModel)]="avl"></ion-checkbox>
+      </ion-item>
+      <!-- Waiting List -->
+      <ion-item margin-bottom no-padding>
+        <ion-label color="primary">Waiting List</ion-label>
+        <ion-checkbox name="waiting_list" [(ngModel)]="waiting_list"></ion-checkbox>
+      </ion-item>
+      <!-- Shrimp soft -->
       <ion-item margin-top no-padding>
         <ion-label color="primary">กุ้งนิ้ม</ion-label>
         <ion-input text-right type="number" name="real_shrimp_soft" [(ngModel)]="real_shrimp_soft"></ion-input>
+        <div ion-text item-end>กก.</div>
+      </ion-item>
+      <!-- Small Shrimp B -->
+      <ion-item margin-top no-padding>
+        <ion-label color="primary">น้ำหนักกุ้งจิ๋วคืน B</ion-label>
+        <ion-input text-right type="number" name="small_shrimp_b" [(ngModel)]="small_shrimp_b"></ion-input>
         <div ion-text item-end>กก.</div>
       </ion-item>
     </ion-list>
