@@ -1,6 +1,10 @@
 page-pd-exp-image-show {
-    .show-image img{
+
+    .show-image {
         width:100%;
+        img{
+            width:100%;
+        }
         // max-height: 200px;
     }
 }
