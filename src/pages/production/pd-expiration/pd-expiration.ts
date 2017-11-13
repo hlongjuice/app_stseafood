@@ -185,6 +185,7 @@ export class PdExpirationPage {
         let tost=this.toastCtrl.create({message:'บันทึกเสร็จสมบูณ์',duration:1000})
         loader.dismiss()
         tost.present();
+        this.getRecords();
       }).catch(err=>{
         let alert=this.alertCtrl.create({message:'ไม่สามารถบันทึกข้อมูลได้'})
         loader.dismiss();
