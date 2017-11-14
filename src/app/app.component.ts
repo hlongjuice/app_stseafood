@@ -36,7 +36,6 @@ export class MyApp {
     public appCtrl: App,
     public storage:Storage,
     public modalCtrl:ModalController
-    // private screenOrientation: ScreenOrientation
   ) {
     this.authState = false;
     this.eventCtrl.subscribe('logout', () => {
