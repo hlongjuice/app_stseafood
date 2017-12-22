@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { DateService } from './../../../services/date.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
@@ -24,8 +25,10 @@ export class EngHighTankPage {
   month: any;
   year: any;
   recorders: any;
-  yesterday_meter:any;
-  result_date:any;
+  yesterday_meter: any;
+  result_date: any;
+  user: any;
+  user_types: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,26 +37,32 @@ export class EngHighTankPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+      .then(result => {
+        this.user = result
+        this.user_types = this.authService.getUserTypes();
+        this.date = this.dateService.getDate();
+        this.month = this.dateService.getCurrentDateTime().MM;
+        this.year = this.dateService.getCurrentDateTime().YY;
+        this.getRecords();
+      })
   }
 
   //Get Supply
   getRecords() {
     this.showLoader()
     this.engHighTankService.getRecordByDate(this.date)
-      .then((result:any) => {
+      .then((result: any) => {
         console.log(result)
         this.recorders = result.data;
-        this.result_date=result.date;
-        this.yesterday_meter=result.yesterday_meter
+        this.result_date = result.date;
+        this.yesterday_meter = result.yesterday_meter
         this.dismissLoader()
       }).catch(err => {
         console.log(err)
@@ -65,9 +74,9 @@ export class EngHighTankPage {
   //Add Supply
   addRecord() {
     let modal = this.modalCtrl.create('EngHighTankAddPage',
-    {
-      'all_recorders':this.recorders
-    }, { enableBackdropDismiss: false })
+      {
+        'all_recorders': this.recorders
+      }, { enableBackdropDismiss: false })
     modal.present()
     modal.onDidDismiss(result => {
       if (result) {
@@ -80,7 +89,7 @@ export class EngHighTankPage {
   editRecord(recorder_input) {
     let recorder = Object.create(recorder_input);
     let modal = this.modalCtrl.create('EngHighTankEditPage', {
-      'all_recorders':this.recorders,
+      'all_recorders': this.recorders,
       'recorder': recorder
     }, { enableBackdropDismiss: false })
     modal.present();
@@ -93,7 +102,7 @@ export class EngHighTankPage {
   //Delete Supply
   deleteRecord(recorder) {
     let confirm = this.alertCtrl.create({
-      title:'ยืนยันการลบ',
+      title: 'ยืนยันการลบ',
       buttons: [
         {
           text: 'ยกเลิก',
@@ -109,9 +118,9 @@ export class EngHighTankPage {
                 this.dismissLoader();
                 this.getRecords();
                 this.showToast('ลบข้อมูลเสร็จสิ้น')
-              }).catch(err => { this.dismissLoader();this.showAlert(err);  })
+              }).catch(err => { this.dismissLoader(); this.showAlert(err); })
           },
-          cssClass:'alertConfirm'
+          cssClass: 'alertConfirm'
         }
       ]
     })

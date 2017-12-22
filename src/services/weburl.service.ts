@@ -6,8 +6,11 @@ export class WebUrlService{
     constructor(
         // private url:string
     ){
-        this.url='http://www.ggeverything.com/public'; 
-        console.log('Test');
+        // this.url='http://www.ggeverything.com/public'; 
+        // this.url='http://www.ggeverything.com';
+        // this.url='http://192.168.43.241/stseafood/public';
+        this.url='http://192.168.43.241/test/public';
+
     }
     
     getUrl(){

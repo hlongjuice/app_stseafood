@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { DateService } from './../../../services/date.service';
 import { EngWsOutsideService } from './../../../services/eng/ws-outside.service';
 
@@ -27,6 +28,8 @@ export class EngWsOutsidePage {
   daily_used: any;
   yesterday_meter:any;
   result_date:any;
+  user:any;
+  user_types:any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -35,16 +38,22 @@ export class EngWsOutsidePage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService:AuthService
   ) {
   }
 
   ngOnInit() {
-    this.daily_used = [];
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getSupply();
+    this.authService.getUserDetails()
+    .then(result=>{
+      this.user=result;
+      this.user_types=this.authService.getUserTypes();
+      this.daily_used = [];
+      this.date = this.dateService.getDate();
+      this.month = this.dateService.getCurrentDateTime().MM;
+      this.year = this.dateService.getCurrentDateTime().YY;
+      this.getSupply();
+    })
   }
 
   //Get Supply

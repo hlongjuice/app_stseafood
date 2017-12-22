@@ -1,21 +1,22 @@
-import { DateService } from './../../../services/date.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
-import { EngCondensService } from "../../../services/eng/condens.service";
+import { DateService } from '../../../services/date.service';
 import { AuthService } from '../../../services/auth.service';
+import { Eng_5x7HighTankService } from '../../../services/eng/_5x7-high-tank.service';
 
 /**
- * Generated class for the EngCondensPage page.
+ * Generated class for the Eng_5x7HighTankPage page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
+
 @IonicPage()
 @Component({
-  selector: 'page-eng-condens',
-  templateUrl: 'eng-condens.html',
+  selector: 'page-eng-5x7-high-tank',
+  templateUrl: 'eng-5x7-high-tank.html',
 })
-export class EngCondensPage {
+export class Eng_5x7HighTankPage {
 
   _loader: any;
   _alert: any;
@@ -25,15 +26,14 @@ export class EngCondensPage {
   month: any;
   year: any;
   recorders: any;
-  result_date: any;
-  daily_used: any;
   yesterday_meter: any;
-  user: any;
+  result_date: any;
   user_types: any;
+  user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public engCondensService: EngCondensService,
+    public eng_5x7HighTankService: Eng_5x7HighTankService,
     public loaderCtrl: LoadingController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
@@ -41,6 +41,7 @@ export class EngCondensPage {
     public dateService: DateService,
     public authService: AuthService
   ) {
+
   }
 
   ngOnInit() {
@@ -48,24 +49,23 @@ export class EngCondensPage {
       .then(result => {
         this.user = result
         this.user_types = this.authService.getUserTypes();
-        this.daily_used = [];
+        console.log(this.user, this.user_types);
         this.date = this.dateService.getDate();
         this.month = this.dateService.getCurrentDateTime().MM;
         this.year = this.dateService.getCurrentDateTime().YY;
         this.getRecords();
-      });
+      })
   }
 
   //Get Supply
   getRecords() {
     this.showLoader()
-    this.engCondensService.getRecordByDate(this.date)
+    this.eng_5x7HighTankService.getRecordByDate(this.date)
       .then((result: any) => {
         console.log(result)
         this.recorders = result.data;
         this.result_date = result.date;
         this.yesterday_meter = result.yesterday_meter
-        this.daily_used = result;
         this.dismissLoader()
       }).catch(err => {
         console.log(err)
@@ -76,10 +76,9 @@ export class EngCondensPage {
 
   //Add Supply
   addRecord() {
-    let modal = this.modalCtrl.create('EngCondensAddPage',
-      {
-        'all_recorders': this.recorders
-      }, { enableBackdropDismiss: false })
+    let modal = this.modalCtrl.create('Eng_5x7HighTankAddPage', {
+      'all_recorders': this.recorders
+    }, { enableBackdropDismiss: false })
     modal.present()
     modal.onDidDismiss(result => {
       if (result) {
@@ -91,7 +90,7 @@ export class EngCondensPage {
   //Edit Supply
   editRecord(recorder_input) {
     let recorder = Object.create(recorder_input);
-    let modal = this.modalCtrl.create('EngCondensEditPage', {
+    let modal = this.modalCtrl.create('Eng_5x7HighTankEditPage', {
       'all_recorders': this.recorders,
       'recorder': recorder
     }, { enableBackdropDismiss: false })
@@ -116,7 +115,7 @@ export class EngCondensPage {
           text: 'ยืนยัน',
           handler: () => {
             this.showLoader();
-            this.engCondensService.deleteRecord(recorder.id)
+            this.eng_5x7HighTankService.deleteRecord(recorder.id)
               .then(result => {
                 this.dismissLoader();
                 this.getRecords();

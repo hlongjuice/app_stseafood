@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DateService } from "../../../services/date.service";
 import { EngBoilerService } from "../../../services/eng/boiler.service";
+import { AuthService } from '../../../services/auth.service';
 
 /**
  * Generated class for the EngBoilerPage page.
@@ -28,6 +29,8 @@ export class EngBoilerPage {
   daily_used:any;
   yesterday_meter:any;
   result_date:any;
+  user_types: any;
+  user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,16 +39,22 @@ export class EngBoilerPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService    
   ) {
   }
 
   ngOnInit() {
-    this.daily_used=[];
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+    .then(result=>{
+      this.user=result
+      this.user_types=this.authService.getUserTypes();
+      this.daily_used=[];
+      this.date = this.dateService.getDate();
+      this.month = this.dateService.getCurrentDateTime().MM;
+      this.year = this.dateService.getCurrentDateTime().YY;
+      this.getRecords();
+    });
   }
 
   //Get Supply

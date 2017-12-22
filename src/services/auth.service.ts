@@ -56,6 +56,8 @@ export class AuthService {
                             "Accept": "application/json",
                             "Authorization": "Bearer " + access_token,
                         });
+                        console.log('Test Login')
+                        console.log(response);
                         /*Store Access Token to Global*/
                         this.accessToken = access_token;
 
@@ -76,6 +78,7 @@ export class AuthService {
                     },
                     (err) => {
                         console.log(err);
+                        console.log('Error Login')
                         reject();
                     }
                     )

@@ -101,7 +101,7 @@
     <ion-list inset>
       <ion-item text-center class="table-header eng-scroll-header">
         <ion-label>รอบ</ion-label>
-        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label *ngIf="user?.type_id==user_types?.admin">เวลาบันทึกจริง</ion-label>
         <ion-label>MM-4
           <p>ผลิต</p>
         </ion-label>
@@ -121,7 +121,7 @@
           <ion-item *ngIf="yesterday_meter" text-center class="table-content">
             <button disabled item-start ion-button default color="light" clear (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
-            <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
             <ion-label>{{yesterday_meter?.mm_4 || '-'}}</ion-label>
             <ion-label>{{yesterday_meter?.mm_5 || '-'}}</ion-label>
             <ion-label>{{yesterday_meter?.mm_6 || '-'}}</ion-label>
@@ -131,7 +131,7 @@
           <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
             <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{recorder.time_record}}</ion-label>
-            <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
             <ion-label>{{recorder.mm_4 || '-'}}</ion-label>
             <ion-label>{{recorder.mm_5 || '-'}}</ion-label>
             <ion-label>{{recorder.mm_6 || '-'}}</ion-label>

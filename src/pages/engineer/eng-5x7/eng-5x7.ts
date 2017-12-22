@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { Eng_5x7Service } from "../../../services/eng/_5x7.service";
@@ -24,8 +25,10 @@ export class Eng_5x7Page {
   month: any;
   year: any;
   recorders: any;
-  yesterday_meter:any;
-  result_date:any;
+  yesterday_meter: any;
+  result_date: any;
+  user_types: any;
+  user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,26 +37,34 @@ export class Eng_5x7Page {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService
   ) {
+
   }
 
   ngOnInit() {
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+      .then(result => {
+        this.user = result
+        this.user_types = this.authService.getUserTypes();
+        console.log(this.user, this.user_types);
+        this.date = this.dateService.getDate();
+        this.month = this.dateService.getCurrentDateTime().MM;
+        this.year = this.dateService.getCurrentDateTime().YY;
+        this.getRecords();
+      })
   }
 
   //Get Supply
   getRecords() {
     this.showLoader()
     this.eng_5x7Service.getRecordByDate(this.date)
-      .then((result:any) => {
+      .then((result: any) => {
         console.log(result)
         this.recorders = result.data;
-        this.result_date=result.date;
-        this.yesterday_meter=result.yesterday_meter
+        this.result_date = result.date;
+        this.yesterday_meter = result.yesterday_meter
         this.dismissLoader()
       }).catch(err => {
         console.log(err)
@@ -64,8 +75,8 @@ export class Eng_5x7Page {
 
   //Add Supply
   addRecord() {
-    let modal = this.modalCtrl.create('Eng_5x7AddPage',{
-      'all_recorders':this.recorders
+    let modal = this.modalCtrl.create('Eng_5x7AddPage', {
+      'all_recorders': this.recorders
     }, { enableBackdropDismiss: false })
     modal.present()
     modal.onDidDismiss(result => {
@@ -79,7 +90,7 @@ export class Eng_5x7Page {
   editRecord(recorder_input) {
     let recorder = Object.create(recorder_input);
     let modal = this.modalCtrl.create('Eng_5x7EditPage', {
-      'all_recorders':this.recorders,
+      'all_recorders': this.recorders,
       'recorder': recorder
     }, { enableBackdropDismiss: false })
     modal.present();
@@ -92,7 +103,7 @@ export class Eng_5x7Page {
   //Delete Supply
   deleteRecord(recorder) {
     let confirm = this.alertCtrl.create({
-      title:'ยืนยันการลบ',
+      title: 'ยืนยันการลบ',
       buttons: [
         {
           text: 'ยกเลิก',
@@ -108,9 +119,9 @@ export class Eng_5x7Page {
                 this.dismissLoader();
                 this.getRecords();
                 this.showToast('ลบข้อมูลเสร็จสิ้น')
-              }).catch(err => { this.dismissLoader();this.showAlert(err);  })
+              }).catch(err => { this.dismissLoader(); this.showAlert(err); })
           },
-          cssClass:'alertConfirm'
+          cssClass: 'alertConfirm'
         }
       ]
     })

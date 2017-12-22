@@ -51,7 +51,7 @@
           <h2></h2>
           <div class="group-header-content">
             <ion-label>รอบ</ion-label>
-            <ion-label>เวลาบันทึกจริง</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">เวลาบันทึกจริง</ion-label>
           </div>
         </div>
         <div text-center item-content class="group-header">
@@ -85,7 +85,7 @@
               <h2></h2>
               <div class="group-header-content">
                 <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
-                <ion-label>{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
+                <ion-label *ngIf="user?.type_id==user_types?.admin">{{yesterday_meter?.updated_at | date:'H:m d/M/yy'}}</ion-label>
               </div>
             </div>
             <div text-center item-content class="group-header">
@@ -130,7 +130,7 @@
               <h2></h2>
               <div class="group-header-content">
                 <ion-label>{{recorder.time_record}}</ion-label>
-                <ion-label>{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
+                <ion-label *ngIf="user?.type_id==user_types?.admin">{{recorder.updated_at | date:'H:m d/M/yy'}}</ion-label>
               </div>
             </div>
             <div text-center item-content class="group-header">

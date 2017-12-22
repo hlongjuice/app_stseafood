@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DateService } from "../../../services/date.service";
 import { EngChlorineLabService } from "../../../services/eng/chlorine-lab.service";
+import { AuthService } from '../../../services/auth.service';
 
 /**
  * Generated class for the EngChlorineLabPage page.
@@ -26,6 +27,8 @@ export class EngChlorineLabPage {
   recorders: any;
   yesterday_meter:any
   result_date:any;
+  user_types: any;
+  user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -34,15 +37,21 @@ export class EngChlorineLabPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService    
   ) {
   }
 
   ngOnInit() {
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+    .then(result => {
+      this.user = result
+      this.user_types = this.authService.getUserTypes();
+      this.date = this.dateService.getDate();
+      this.month = this.dateService.getCurrentDateTime().MM;
+      this.year = this.dateService.getCurrentDateTime().YY;
+      this.getRecords();
+    })
   }
 
   //Get Supply

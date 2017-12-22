@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { DateService } from './../../../services/date.service';
 import { EngRiverWaterService } from './../../../services/eng/river-water.service';
 import { Component } from '@angular/core';
@@ -24,36 +25,44 @@ export class EngRiverWaterPage {
   month: any;
   year: any;
   recorders: any;
-  yesterday_meter:any;
-  result_date:any;
+  yesterday_meter: any;
+  result_date: any;
+  user: any;
+  user_types: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public engRiverWaterService:EngRiverWaterService,
+    public engRiverWaterService: EngRiverWaterService,
     public loaderCtrl: LoadingController,
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+      .then(result => {
+        this.user = result
+        this.user_types = this.authService.getUserTypes();
+        this.date = this.dateService.getDate();
+        this.month = this.dateService.getCurrentDateTime().MM;
+        this.year = this.dateService.getCurrentDateTime().YY;
+        this.getRecords();
+      })
   }
 
   //Get Supply
   getRecords() {
     this.showLoader()
     this.engRiverWaterService.getRecordByDate(this.date)
-      .then((result:any) => {
+      .then((result: any) => {
         console.log(result)
         this.recorders = result.data;
-        this.result_date=result.date;
-        this.yesterday_meter=result.yesterday_meter
+        this.result_date = result.date;
+        this.yesterday_meter = result.yesterday_meter
         this.dismissLoader()
       }).catch(err => {
         console.log(err)
@@ -65,7 +74,7 @@ export class EngRiverWaterPage {
   //Add Supply
   addRecord() {
     let modal = this.modalCtrl.create('EngRiverWaterAddPage', {
-      'all_recorders':this.recorders
+      'all_recorders': this.recorders
     }, { enableBackdropDismiss: false })
     modal.present()
     modal.onDidDismiss(result => {
@@ -79,7 +88,7 @@ export class EngRiverWaterPage {
   editRecord(recorder_input) {
     let recorder = Object.create(recorder_input);
     let modal = this.modalCtrl.create('EngRiverWaterEditPage', {
-      'all_recorders':this.recorders,
+      'all_recorders': this.recorders,
       'recorder': recorder
     }, { enableBackdropDismiss: false })
     modal.present();
@@ -92,7 +101,7 @@ export class EngRiverWaterPage {
   //Delete Supply
   deleteRecord(recorder) {
     let confirm = this.alertCtrl.create({
-      title:'ยืนยันการลบ',
+      title: 'ยืนยันการลบ',
       buttons: [
         {
           text: 'ยกเลิก',
@@ -108,9 +117,9 @@ export class EngRiverWaterPage {
                 this.dismissLoader();
                 this.getRecords();
                 this.showToast('ลบข้อมูลเสร็จสิ้น')
-              }).catch(err => { this.dismissLoader();this.showAlert(err);  })
+              }).catch(err => { this.dismissLoader(); this.showAlert(err); })
           },
-          cssClass:'alertConfirm'
+          cssClass: 'alertConfirm'
         }
       ]
     })

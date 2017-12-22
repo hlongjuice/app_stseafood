@@ -48,7 +48,7 @@
     <ion-list inset>
       <ion-item text-center class="table-header eng-scroll-header">
         <ion-label>รอบ</ion-label>
-        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label *ngIf="user?.type_id==user_types?.admin">เวลาบันทึกจริง</ion-label>
         <ion-label>Level(>15)</ion-label>
         <ion-label>Stroke</ion-label>
         <ion-label>Stroke L.</ion-label>
@@ -62,7 +62,7 @@
           <ion-item *ngIf="yesterday_meter" text-center class="table-content">
             <button clear disabled item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
-            <ion-label>{{yesterday_meter?.chlorine?.updated_at}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{yesterday_meter?.chlorine?.updated_at}}</ion-label>
             <ion-label>
               <div *ngIf="yesterday_meter?.chlorine">
                 <div *ngIf="yesterday_meter?.chlorine.level>15;else warningLevel">
@@ -92,7 +92,7 @@
           <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
             <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{recorder.time_record}}</ion-label>
-            <ion-label>{{recorder?.chlorine?.updated_at}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{recorder?.chlorine?.updated_at}}</ion-label>
             <ion-label>
               <div *ngIf="recorder.chlorine">
                 <div *ngIf="recorder.chlorine.level>15;else warningLevel">

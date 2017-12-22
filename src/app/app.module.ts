@@ -1,3 +1,4 @@
+import { Eng_5x7HighTankService } from './../services/eng/_5x7-high-tank.service';
 import { PasswordService } from './../services/password.service';
 import { RepairInvoiceService } from './../services/other/repair-invoice.service';
 import { ProductionExpService } from './../services/production/expiration.service';
@@ -137,6 +138,7 @@ import{Camera} from '@ionic-native/camera';
     EngRiverWaterService,
     EngWaterMeterService,
     Eng_5x7Service,
+    Eng_5x7HighTankService,
     EngHighTankService,
     EngCondensService,
     EngChlorineService,

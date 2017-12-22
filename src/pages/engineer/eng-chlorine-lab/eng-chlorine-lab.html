@@ -48,7 +48,7 @@
     <ion-list inset>
       <ion-item text-center class="table-header eng-scroll-header">
         <ion-label>รอบ</ion-label>
-        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label *ngIf="user?.type_id==user_types?.admin">เวลาบันทึกจริง</ion-label>
         <ion-label>Chlorine Lab (0.5-2.0)</ion-label>
         <ion-label>PH P1(6.5-8.0)</ion-label>
         <ion-label>PH P2(6.5-8.0)</ion-label>
@@ -61,7 +61,7 @@
           <ion-item *ngIf="yesterday_meter" text-center class="table-content">
             <button disabled clear item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
-            <ion-label>{{yesterday_meter?.lab?.updated_at}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{yesterday_meter?.lab?.updated_at}}</ion-label>
             <!-- Lab -->
             <ion-label>
               <div *ngIf="yesterday_meter?.lab">
@@ -101,7 +101,7 @@
           <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
             <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{recorder.time_record}}</ion-label>
-            <ion-label>{{recorder?.lab?.updated_at}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{recorder?.lab?.updated_at}}</ion-label>
             <!-- Lab -->
             <ion-label>
               <div *ngIf="recorder.lab">

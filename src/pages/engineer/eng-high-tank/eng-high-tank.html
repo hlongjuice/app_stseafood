@@ -48,7 +48,7 @@
     <ion-list inset>
       <ion-item text-center class="table-header eng-scroll-header">
         <ion-label>รอบ</ion-label>
-        <ion-label>เวลาบันทึกจริง</ion-label>
+        <ion-label *ngIf="user?.type_id==user_types?.admin">เวลาบันทึกจริง</ion-label>
         <ion-label>Level(>20)</ion-label>
         <ion-label>Pump</ion-label>
         <button item-start ion-button default clear disabled>แก้ไข</button>
@@ -60,7 +60,7 @@
           <ion-item *ngIf="yesterday_meter" text-center class="table-content">
             <button clear disabled item-start ion-button default color="light" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{yesterday_meter?.zero_time_record}}</ion-label>
-            <ion-label>{{yesterday_meter?.updated_at | date:'d/M/y H:m'}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{yesterday_meter?.updated_at | date:'d/M/y H:m'}}</ion-label>
             <ion-label *ngIf="yesterday_meter?.level>20;else warningLevel">{{yesterday_meter?.level}}</ion-label>
             <ng-template #warningLevel>
               <ion-label color="danger">{{yesterday_meter?.level || '-'}}</ion-label>
@@ -72,7 +72,7 @@
           <ion-item *ngFor="let recorder of recorders" text-center class="table-content">
             <button item-start ion-button default color="warning" (click)="editRecord(recorder)">แก้ไข</button>
             <ion-label>{{recorder.time_record}}</ion-label>
-            <ion-label>{{recorder?.updated_at | date:'d/M/y H:m'}}</ion-label>
+            <ion-label *ngIf="user?.type_id==user_types?.admin">{{recorder?.updated_at | date:'d/M/y H:m'}}</ion-label>
             <ion-label *ngIf="recorder.level>20;else warningLevel">{{recorder.level}}</ion-label>
             <ng-template #warningLevel>
               <ion-label color="danger">{{recorder.level || '-'}}</ion-label>

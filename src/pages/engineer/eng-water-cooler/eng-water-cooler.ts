@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { DateService } from "../../../services/date.service";
@@ -24,10 +25,12 @@ export class EngWaterCoolerPage {
   month: any;
   year: any;
   recorders: any;
-  time_records:any[];
-  daily_used:any;
-  yesterday_meter:any;
-  result_date:any;
+  time_records: any[];
+  daily_used: any;
+  yesterday_meter: any;
+  result_date: any;
+  user: any;
+  user_types: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -36,41 +39,48 @@ export class EngWaterCoolerPage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
-    this.daily_used=[];
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+      .then(result => {
+        this.user = result;
+        this.user_types = this.authService.getUserTypes();
+        this.daily_used = [];
+        this.date = this.dateService.getDate();
+        this.month = this.dateService.getCurrentDateTime().MM;
+        this.year = this.dateService.getCurrentDateTime().YY;
+        this.getRecords();
+      })
+
   }
 
   //Get Supply
   getRecords() {
     this.showLoader()
     this.engWaterCoolerService.getRecordByDate(this.date)
-      .then((result:any) => {
+      .then((result: any) => {
         console.log(result)
         this.recorders = result.data;
-        this.result_date=result.date;
-        this.yesterday_meter=result.yesterday_meter
-        this.daily_used=result;
+        this.result_date = result.date;
+        this.yesterday_meter = result.yesterday_meter
+        this.daily_used = result;
         this.dismissLoader()
       }).catch(err => {
         console.log(err)
         this.showAlert(err)
         this.dismissLoader();
       })
-      
+
   }
 
   //Add Supply
   addRecord() {
     let modal = this.modalCtrl.create('EngWaterCoolerAddPage', {
-      'all_recorders':this.recorders
+      'all_recorders': this.recorders
     }, { enableBackdropDismiss: false })
     modal.present()
     modal.onDidDismiss(result => {
@@ -84,7 +94,7 @@ export class EngWaterCoolerPage {
   editRecord(recorder_input) {
     let recorder = Object.create(recorder_input);
     let modal = this.modalCtrl.create('EngWaterCoolerEditPage', {
-      'all_recorders':this.recorders,
+      'all_recorders': this.recorders,
       'recorder': recorder
     }, { enableBackdropDismiss: false })
     modal.present();
@@ -97,7 +107,7 @@ export class EngWaterCoolerPage {
   //Delete Supply
   deleteRecord(recorder) {
     let confirm = this.alertCtrl.create({
-      title:'ยืนยันการลบ',
+      title: 'ยืนยันการลบ',
       buttons: [
         {
           text: 'ยกเลิก',
@@ -113,9 +123,9 @@ export class EngWaterCoolerPage {
                 this.dismissLoader();
                 this.getRecords();
                 this.showToast('ลบข้อมูลเสร็จสิ้น')
-              }).catch(err => { this.dismissLoader();this.showAlert(err);  })
+              }).catch(err => { this.dismissLoader(); this.showAlert(err); })
           },
-          cssClass:'alertConfirm'
+          cssClass: 'alertConfirm'
         }
       ]
     })

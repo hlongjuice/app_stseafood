@@ -2,6 +2,7 @@ import { DateService } from './../../../services/date.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { EngDefrostTimeService } from "../../../services/eng/defrost-time.service";
+import { AuthService } from '../../../services/auth.service';
 
 /**
  * Generated class for the EngDefrostTimePage page.
@@ -25,6 +26,8 @@ export class EngDefrostTimePage {
   year: any;
   recorders: any;
   storageID:any
+  user_types: any;
+  user: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,16 +36,22 @@ export class EngDefrostTimePage {
     public alertCtrl: AlertController,
     public toastCtrl: ToastController,
     public modalCtrl: ModalController,
-    public dateService: DateService
+    public dateService: DateService,
+    public authService: AuthService    
   ) {
   }
 
   ngOnInit() {
-    this.storageID='1';
-    this.date = this.dateService.getDate();
-    this.month = this.dateService.getCurrentDateTime().MM;
-    this.year = this.dateService.getCurrentDateTime().YY;
-    this.getRecords();
+    this.authService.getUserDetails()
+    .then(result=>{
+      this.user = result
+      this.user_types = this.authService.getUserTypes();
+      this.storageID='1';
+      this.date = this.dateService.getDate();
+      this.month = this.dateService.getCurrentDateTime().MM;
+      this.year = this.dateService.getCurrentDateTime().YY;
+      this.getRecords();
+    })
   }
 
   //Get Supply
